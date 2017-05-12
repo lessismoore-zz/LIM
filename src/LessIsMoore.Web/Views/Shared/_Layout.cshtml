@@ -1,0 +1,154 @@
+﻿@{
+    string strSelectedLangauge = _tl.CurrentTextCulture;
+}
+
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor _context;
+
+
+@{
+    bool _IsAuthenticated = ((_context.HttpContext.User != null) && (_context.HttpContext.User.Identity.IsAuthenticated));
+}
+
+@*@using StackExchange.Profiling;*@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Less Is Moore | @_tl.TranslateText("Software Development")</title>
+    <base href=" / " />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <script src="~/Scripts/jquery-2.2.0.min.js"></script>
+    <script src="~/Scripts/angular.min.js"></script>
+    <script>
+        var _app = angular.module("app", []);
+    </script>
+    <script src="~/Scripts/angular.texttranslator.js"></script>
+
+    <script>
+        sessionStorage.setItem("_savedTranslations_", '@Html.Raw(_tl.FetchJSonStoredTranslations())');
+        var _tl = fetchDefaultTranslator().translateText;
+    </script>
+
+    @*@MiniProfiler.RenderIncludes()*@
+    @Html.ApplicationInsightsJavaScript(TelemetryConfiguration)
+</head>
+<body ng-app="app">
+    <style>
+        #ulNav {
+            padding: 0px;
+            margin: 0px;
+            overflow: hidden;
+            font-size: 12pt;
+            width: 100%;
+            text-align: right;
+            padding-right: 10px;
+        }
+
+            #ulNav li {
+                padding: 0px;
+                margin: 0px 10px 0px 0px;
+                display: inline;
+                text-decoration: none;
+            }
+        #frmLangauge {
+            margin:0px !important;
+            padding:0px !important;
+        }
+    </style>
+
+
+<script>
+    $(function () {
+        $('#ddlLangauge').bind('change', function () {
+            if (this.selectedIndex > 0 && confirm(_tl('Continue and update langauge?'))) {
+                this.form.submit();
+            }
+        });
+    })
+
+</script>
+    <!-- Header -->
+    @using (Html.BeginForm("SaveLangauge", "Home", FormMethod.Post, new { id = "frmLangauge" }))
+    {
+        <ul id="ulNav">
+            @{
+
+                if (_IsAuthenticated)
+                {
+
+                    string strWelcome = string.Format(
+                        "Welcome, {0} {1}!",
+                        _context.HttpContext.User.FindFirst(System.Security.Claims.ClaimTypes.GivenName).Value,
+                        _context.HttpContext.User.FindFirst(System.Security.Claims.ClaimTypes.Surname).Value
+                        );
+
+                    <li>@strWelcome</li>
+                }
+
+            }
+
+            <li><a href="/blog" translate-text>blog</a></li>
+            <li><a href="#" translate-text>partners</a></li>
+            <li>
+                
+                <select name="ddlLangauge" id="ddlLangauge" style="width:120px; display:inline-block; margin:5px 0px 0px 0px; padding:0px 0px 0px 10px; height:1.60em; font-size:12pt;">
+                    <option value="" translate-text>-- Langauge --</option>
+                    <option value="en-US" @(strSelectedLangauge == "en-us" ? selected='selected' : '') translate-text>English</option>
+                    <option value="es-ES" @(strSelectedLangauge == "es-es" ? selected='selected' : '') translate-text>Spanish</option>
+                    <option value="fr-FR" @(strSelectedLangauge == "fr-fr" ? selected='selected': '') translate-text>French</option>
+                    <option value="de-DE" @(strSelectedLangauge == "de-de" ? selected='selected' : '') translate-text>German</option>
+                    <option value="zh-CN" @(strSelectedLangauge == "zh-cn" ? selected='selected' : '') translate-text>Chinese</option>
+                </select>
+            </li>
+        </ul>
+    }
+    <section id="header">
+        <div class="inner">
+            <span class="icon major fa-cloud"></span>
+            <h1 translate-text>Software Developer. Runner. Husband. Father.</h1>
+            <p translate-text>"Motivation is what gets you started... Habit is what keeps you going." - Jim Ryun</p>
+            <ul class="actions">
+                <li><a href="#one" class="button scrolly" translate-text>About this Guy</a></li>
+            </ul>
+        </div>
+    </section>
+
+    @RenderBody()
+
+    <!-- Footer -->
+    <section id="footer">
+        <ul class="icons">
+            <li><a href="#" class="icon alt fa-twitter"><span class="label" translate-text>Twitter</span></a></li>
+            <li><a href="#" class="icon alt fa-facebook"><span class="label" translate-text>Facebook</span></a></li>
+            <li><a href="#" class="icon alt fa-instagram"><span class="label" translate-text>Instagram</span></a></li>
+            <li><a href="#" class="icon alt fa-github"><span class="label" translate-text>GitHub</span></a></li>
+            <li><a href="#" class="icon alt fa-envelope"><span class="label" translate-text>Email</span></a></li>
+        </ul>
+        <ul class="copyright">
+            <li>&copy; LessIsMoore.Net</li>
+            <li><a href="mailto:info@lessismoore.net" translate-text>Contact</a></li>
+
+            @{
+                if (_IsAuthenticated)
+                {
+                    <li><a href="Account/LogOff" translate-text>Logout</a></li>
+                }
+                else
+                {
+                    <li><a href="Account/Login" translate-text>Login</a></li>
+                }
+            }
+
+        </ul>
+    </section>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/skel.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

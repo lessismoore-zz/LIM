@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<workouts>
+  <workout>
+    <type></type>
+    <excercise></excercise>
+    <value></value>
+    <date></date>
+  </workout>
+  <workout>
+    <type>Weights</type>
+    <excercise>Squats</excercise>
+    <value>100</value>
+    <date>9/7/2016</date>
+  </workout>
+</workouts>
