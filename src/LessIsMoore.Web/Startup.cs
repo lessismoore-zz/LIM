@@ -84,12 +84,7 @@ namespace LessIsMoore.Core
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            app.UseApplicationInsightsRequestTelemetry();
-
-            app.Use(async (context, next) => {
-                //excepction handling
-                await next();
-            });
+            //app.UseApplicationInsightsRequestTelemetry();
 
             app.UseStaticFiles();
 
