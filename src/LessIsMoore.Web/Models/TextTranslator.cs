@@ -13,15 +13,71 @@ using Microsoft.AspNetCore.Hosting;
 using System.Threading.Tasks;
 using System.Net.Http;
 using Microsoft.Extensions.Options;
+using LessIsMoore.Net.Models;
 
-namespace LessIsMoore.Net.Models
+namespace LessIsMoore.Net.Translation
 {
+
+    //=======================================================================================
+    public interface ISelectedLanguage
+    {
+        string Name { get; }
+        string Locale { get; set; }
+        string Flag { get; }
+        Dictionary<string, string> Langs { get; }
+    }
+    public class SelectedLanguage: ISelectedLanguage
+    {
+        private IHostingEnvironment _env;
+
+        public SelectedLanguage(IHostingEnvironment env)
+        {
+            _env = env;
+        }
+        public SelectedLanguage(string Locale, IHostingEnvironment env = null)
+        {
+            this.Locale = Locale;
+            _env = env;
+        }
+
+        private Dictionary<string, string> _langs = new Dictionary<string, string>()  {
+                { "en-us", "English" }, { "es-es" , "Spanish"}, { "fr-fr", "French" }, { "de-de","German" }, { "zh-cn","Chinese" }
+            };
+
+        public Dictionary<string, string> Langs
+        {
+            get
+            {
+                //XDocument xDoc = XDocument.Load(_strTranslations_XMLPath);
+
+                //return xDoc.Root.Elements("translation")
+                //                            .GroupBy(x => x.Element("language").Value, StringComparer.OrdinalIgnoreCase)
+                //                            .ToDictionary(x => x.First().Element("language").Value, x => x.First().Element("converted").Value);
+                return _langs;
+            }
+        }
+
+        public string Name { get { return _langs[Locale.ToLower()]; } }
+        public string Locale { get; set; }
+        public string Flag
+        {
+            get
+            {
+                XDocument xDoc = XDocument.Load(Path.Combine(_env.ContentRootPath, @"App_Data\Flags.xml"));
+
+                return xDoc.Root.Elements("Flag")
+                    .Where(x => x.Attribute("locale").Value.ToLower() == this.Locale.ToLower())
+                    .Select(x => x.Element("data").Value).FirstOrDefault().ToString(); ;
+            }   
+        }
+    }
+    //=======================================================================================
 
     public interface ITextTranslator
     {
         Task<string> CallTranslateAPI(string strAuthToken, string strText, string strTo);
         Task<string> GetAccessToken();
-        string TranslateText(string strText);
+        string TranslateText(string strText, string strTextCulture = null);
         Dictionary<string, string> SaveTranslation(string strCurrentTextCulture, string strKey, string strValue);
         string FetchJSonStoredTranslations();
 
@@ -57,6 +113,7 @@ namespace LessIsMoore.Net.Models
         //    _textInfo = new CultureInfo(CurrentTextCulture, false).TextInfo;
         //}
 
+
         private class AdmAccessToken
         {
             public string access_token { get; set; }
@@ -87,15 +144,20 @@ namespace LessIsMoore.Net.Models
                         .Select(x => new { k = x.Key, v = x.Value }).ToArray();
 
             return Newtonsoft.Json.JsonConvert.SerializeObject(new {
-                Culture = CurrentTextCulture,
-                StoredTranslations = objs
-            });
+                    Culture = CurrentTextCulture,
+                    StoredTranslations = objs
+                }, 
+                Newtonsoft.Json.Formatting.None,
+                new Newtonsoft.Json.JsonSerializerSettings {
+                    StringEscapeHandling = Newtonsoft.Json.StringEscapeHandling.EscapeHtml
+                }
+            );
         }
 
         private Dictionary<string, string> FetchStoredTranslations(string strCurrentTextCulture, bool boolNoCache = false)
         {
             //during same request
-            if ((_dictCurrentSavedTranslations != null) && (!boolNoCache))
+            if ((_dictCurrentSavedTranslations != null) && (_dictCurrentSavedTranslations["__CurrentTextCulture__"].ToLower() == strCurrentTextCulture.ToLower()) && (!boolNoCache))
                 return _dictCurrentSavedTranslations;
 
             //btween requests
@@ -177,9 +239,9 @@ namespace LessIsMoore.Net.Models
             return strText;
         }
 
-        public string TranslateText(string strText)
+        public string TranslateText(string strText, string strTextCulture = null)
         {
-            string strCurrentTextCulture = this.CurrentTextCulture;
+            string strCurrentTextCulture = (strTextCulture != null ? strTextCulture : this.CurrentTextCulture);
             string strUpdatedText = strText.Trim();
             string strUpdatedText2 = strUpdatedText.Replace(Environment.NewLine, " ").Replace("  ", " ");
 
@@ -190,7 +252,7 @@ namespace LessIsMoore.Net.Models
 
             //bool boolAPI_Added = false;
             _dictCurrentSavedTranslations = FetchStoredTranslations(strCurrentTextCulture);
-
+            _dictCurrentSavedTranslations["__CurrentTextCulture__"] = strCurrentTextCulture;
             //================================
 
             strUpdatedText2 = StripHTMLFromText(strUpdatedText2);
@@ -225,19 +287,19 @@ namespace LessIsMoore.Net.Models
 
                 if (string.IsNullOrEmpty(strFoundTranslation))
                 {
-                    
-                    try
-                    {
-                        if (_strAuthToken == null) {
-                            _strAuthToken = GetAccessToken().Result;
-                        }
+                    //Update with latest source
+                    //try
+                    //{
+                    //    if (_strAuthToken == null) {
+                    //        _strAuthToken = GetAccessToken().Result;
+                    //    }
 
-                        strFoundTranslation = CallTranslateAPI(_strAuthToken, strWord, strCurrentTextCulture).Result;
-                    }
-                    catch (Exception)
-                    {
-                        strFoundTranslation = null;
-                    }
+                    //    strFoundTranslation = CallTranslateAPI(_strAuthToken, strWord, strCurrentTextCulture).Result;
+                    //}
+                    //catch (Exception)
+                    //{
+                    //    strFoundTranslation = null;
+                    //}
 
                     if (!string.IsNullOrEmpty(strFoundTranslation))
                         _dictCurrentSavedTranslations.Add(_textInfo.ToLower(strWord.ToLowerInvariant()), strFoundTranslation);
@@ -307,7 +369,9 @@ namespace LessIsMoore.Net.Models
             }
 
 
-        }   
+        } 
+        
+      
 
     }
 }

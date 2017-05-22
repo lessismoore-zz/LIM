@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 
 namespace LessIsMoore.Net.Models
@@ -16,7 +17,11 @@ namespace LessIsMoore.Net.Models
     {
         public Core.Models.SendGridSettings SendEmailSettings { get; set; }
         public Net.Models.TranslatorSettings TranslatorSettings { get; set; }
+        public string NotificationHubConn { get; set; }
+        public string NotificationHubName { get; set; }
+
     }
+
 
     public class NewsArticle
     {

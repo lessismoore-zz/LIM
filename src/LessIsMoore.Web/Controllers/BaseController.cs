@@ -2,6 +2,10 @@
 using LessIsMoore.Net.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Azure.NotificationHubs;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
+using LessIsMoore.Net.Translation;
 
 namespace LessIsMoore.Net.Controllers
 {
@@ -9,26 +13,38 @@ namespace LessIsMoore.Net.Controllers
     {
         IHttpContextAccessor _context;
         ITextTranslator _TextTranslator;
+        AppSettings _Settings;
 
         public BaseController()
         {
         }
-        public BaseController(IHttpContextAccessor context, ITextTranslator TextTranslator)
+        public BaseController(IHttpContextAccessor context, ITextTranslator TextTranslator, IOptions<AppSettings> settings)
         {
             _context = context;
             _TextTranslator = TextTranslator;
+            _Settings = settings.Value;
         }
 
         [HttpPost]
-        public IActionResult SaveLangauge()
+        public IActionResult SaveLangauge(string ddlLangauge)
         {
-            string strLanguage = Request.Form["ddlLangauge"];
-            _context.HttpContext.Response.Cookies.Append("language", strLanguage, new CookieOptions() { Expires = DateTime.Now.AddDays(10) });
+            _context.HttpContext.Response.Cookies.Append("language", ddlLangauge, new CookieOptions() { Expires = DateTime.Now.AddDays(10) });
 
-            System.Globalization.CultureInfo.DefaultThreadCurrentCulture = new System.Globalization.CultureInfo(strLanguage);
-            System.Globalization.CultureInfo.DefaultThreadCurrentUICulture = new System.Globalization.CultureInfo(strLanguage);
+            System.Globalization.CultureInfo.DefaultThreadCurrentCulture = new System.Globalization.CultureInfo(ddlLangauge);
+            System.Globalization.CultureInfo.DefaultThreadCurrentUICulture = new System.Globalization.CultureInfo(ddlLangauge);
 
             //return RedirectToAction("Index");
+            return Redirect(_context.HttpContext.Request.Headers["Referer"].ToString());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SendNotification(string txtNotifyUsers)
+        {
+            string strMessage = "{\"data\": {\"message\": \""+ txtNotifyUsers + "\"}}";
+            
+            NotificationHubClient hub = NotificationHubClient.CreateClientFromConnectionString(_Settings.NotificationHubConn, _Settings.NotificationHubName);
+            await hub.SendGcmNativeNotificationAsync(strMessage);
+
             return Redirect(_context.HttpContext.Request.Headers["Referer"].ToString());
         }
 

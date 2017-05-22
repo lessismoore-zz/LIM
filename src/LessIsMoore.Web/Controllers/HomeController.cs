@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Authorization;
+using LessIsMoore.Net.Translation;
 
 namespace LessIsMoore.Net.Controllers
 {
@@ -20,7 +21,7 @@ namespace LessIsMoore.Net.Controllers
         AppSettings _AppSettings;
 
         public HomeController(IMemoryCache memoryCache, IHostingEnvironment env, IHttpContextAccessor context, 
-                                ITextTranslator _TextTranslator, IOptions<AppSettings> settings) : base(context, _TextTranslator)
+                                ITextTranslator _TextTranslator, IOptions<AppSettings> settings) : base(context, _TextTranslator, settings)
         {
             _env = env;
             _tl = _TextTranslator;
@@ -32,6 +33,7 @@ namespace LessIsMoore.Net.Controllers
         public async System.Threading.Tasks.Task<IActionResult> Index()
         {
             //bool b = User.IsInRole("Admin");
+
 
             NewsArticle[] arrNewsArticles = null;
 

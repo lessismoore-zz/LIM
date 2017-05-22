@@ -1,12 +1,24 @@
-﻿@{
-    string strSelectedLangauge = _tl.CurrentTextCulture;
-}
-
-@inject Microsoft.AspNetCore.Http.IHttpContextAccessor _context;
-
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor _context;
+@inject LessIsMoore.Net.Translation.ISelectedLanguage inst_SelectedLanguage;
 
 @{
-    bool _IsAuthenticated = ((_context.HttpContext.User != null) && (_context.HttpContext.User.Identity.IsAuthenticated));
+    string strSelectedLangauge = _tl.CurrentTextCulture;
+    bool _IsAuthenticated = false;
+    string strWelcome = "";
+
+    inst_SelectedLanguage.Locale = strSelectedLangauge;
+
+    if ((_context.HttpContext.User != null) && (_context.HttpContext.User.Identity.IsAuthenticated))
+    {
+        _IsAuthenticated = true;
+
+        strWelcome = string.Format(
+            "Welcome, {0} {1}!",
+            _context.HttpContext.User.FindFirst(System.Security.Claims.ClaimTypes.GivenName).Value,
+            _context.HttpContext.User.FindFirst(System.Security.Claims.ClaimTypes.Surname).Value
+            );
+    }
+
 }
 
 @*@using StackExchange.Profiling;*@
@@ -46,15 +58,16 @@
             padding-right: 10px;
         }
 
-            #ulNav li {
-                padding: 0px;
-                margin: 0px 10px 0px 0px;
-                display: inline;
-                text-decoration: none;
-            }
-        #frmLangauge {
+        #ulNav li {
+            padding: 0px;
+            margin: 0px 10px 0px 0px;
+            display: inline;
+            text-decoration: none;
+        }
+        form {
             margin:0px !important;
             padding:0px !important;
+            display:inline;
         }
     </style>
 
@@ -62,48 +75,82 @@
 <script>
     $(function () {
         $('#ddlLangauge').bind('change', function () {
-            if (this.selectedIndex > 0 && confirm(_tl('Continue and update langauge?'))) {
+            if (this.selectedIndex > -1 && confirm(_tl('Continue and update langauge?'))) {
                 this.form.submit();
             }
+            return false;
+        });
+
+        $('#txtNotifyUsers').bind('keydown', function (e) {
+            if (!e) { var e = window.event; }
+
+            if (e.keyCode == 13) {
+                if (($.trim(this.value) != '') && confirm(_tl('Continue and Message Subscribers?'))) {
+                    this.form.submit();
+                }
+
+                return false;
+            }
+
         });
     })
 
 </script>
+
+    <img src="" />
     <!-- Header -->
-    @using (Html.BeginForm("SaveLangauge", "Home", FormMethod.Post, new { id = "frmLangauge" }))
-    {
         <ul id="ulNav">
-            @{
 
-                if (_IsAuthenticated)
-                {
+            <li style="float:left; margin-left:20px; font-weight:bold;">@strWelcome</li>
+            <li><a href="/blog" translate-text>blog</a></li>
+            <li style="margin-right:15px;"><a href="#" translate-text>partners</a></li>
 
-                    string strWelcome = string.Format(
-                        "Welcome, {0} {1}!",
-                        _context.HttpContext.User.FindFirst(System.Security.Claims.ClaimTypes.GivenName).Value,
-                        _context.HttpContext.User.FindFirst(System.Security.Claims.ClaimTypes.Surname).Value
-                        );
+            @using (Html.BeginForm("SaveLangauge", "Home", FormMethod.Post, new { id = "frmLangauge" }))
+            {
+                <li>
+                    <img style="height:25px; position:relative; top:7px; " src="@inst_SelectedLanguage.Flag" />
 
-                    <li>@strWelcome</li>
-                }
+                    <select name="ddlLangauge" id="ddlLangauge" style="width:120px; display:inline-block; margin:5px 0px 0px 0px; padding:0px 0px 0px 10px; height:1.60em; font-size:12pt;">
+                            @*<option translate-text>-- Langauge --</option>*@
+
+                        @foreach (string strKey in inst_SelectedLanguage.Langs.Keys)
+                        {
+                            if (strSelectedLangauge.ToLower() == strKey.ToLower())
+                            {
+                                <option translate-text value="@strKey" selected>
+                                    @inst_SelectedLanguage.Langs[strKey]
+                                </option>
+                            }
+                            else
+                            {
+                                <option translate-text value="@strKey">
+                                    @inst_SelectedLanguage.Langs[strKey]
+                                </option>
+                            }
+                        }
+                    </select>
+                </li>
 
             }
 
-            <li><a href="/blog" translate-text>blog</a></li>
-            <li><a href="#" translate-text>partners</a></li>
-            <li>
-                
-                <select name="ddlLangauge" id="ddlLangauge" style="width:120px; display:inline-block; margin:5px 0px 0px 0px; padding:0px 0px 0px 10px; height:1.60em; font-size:12pt;">
-                    <option value="" translate-text>-- Langauge --</option>
-                    <option value="en-US" @(strSelectedLangauge == "en-us" ? selected='selected' : '') translate-text>English</option>
-                    <option value="es-ES" @(strSelectedLangauge == "es-es" ? selected='selected' : '') translate-text>Spanish</option>
-                    <option value="fr-FR" @(strSelectedLangauge == "fr-fr" ? selected='selected': '') translate-text>French</option>
-                    <option value="de-DE" @(strSelectedLangauge == "de-de" ? selected='selected' : '') translate-text>German</option>
-                    <option value="zh-CN" @(strSelectedLangauge == "zh-cn" ? selected='selected' : '') translate-text>Chinese</option>
-                </select>
-            </li>
+
+            @{
+                if (_IsAuthenticated)
+                {
+                    @using (Html.BeginForm("SendNotification", "Home", FormMethod.Post, new { id = "frmMessage" }))
+                    {
+                        <li>
+
+                            <input type="text" placeholder='@_tl.TranslateText("Admin: Message Subscribers", "en-US")' name="txtNotifyUsers" id="txtNotifyUsers"
+                                   style="width:500px; height:1.30em; display:inline; margin:5px 0px 0px 0px; padding:0px 0px 0px 10px;" />
+                        </li>
+
+                    }
+                }
+            }
+
         </ul>
-    }
+    
     <section id="header">
         <div class="inner">
             <span class="icon major fa-cloud"></span>

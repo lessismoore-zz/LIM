@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<translations total="485" modified="11-12-2016 17:03:21">
+<translations total="508" modified="05-21-2017 17:17:29">
   <translation>
     <original>passion</original>
     <converted>passion</converted>
@@ -2420,4 +2420,75 @@
     <converted>更新</converted>
     <language>zh-CN</language>
   </translation>
+  <translation>
+    <original>login</original>
+    <converted>ouverture de session</converted>
+    <language>fr-FR</language>
+  </translation>
+  <translation>
+    <original>login</original>
+    <converted>ouverture de session</converted>
+    <language>es-ES</language>
+  </translation>
+  <translation>
+    <original>login</original>
+    <converted>ouverture de session</converted>
+    <language>zh-CN</language>
+  </translation>
+  <translation>
+    <original>cycling</original>
+    <converted>骑自行车</converted>
+    <language>es-ES</language>
+  </translation>
+  <translation>
+    <original>elliptical</original>
+    <converted>椭圆</converted>
+    <language>es-ES</language>
+  </translation>
+  <translation>
+    <original>hornet</original>
+    <converted>大黄蜂</converted>
+    <language>es-ES</language>
+  </translation>
+  <translation>
+    <original>weights</original>
+    <converted>重量</converted>
+    <language>es-ES</language>
+  </translation>
+  <translation>
+    <original>cycling</original>
+    <converted>骑自行车</converted>
+    <language>fr-FR</language>
+  </translation>
+  <translation>
+    <original>elliptical</original>
+    <converted>椭圆</converted>
+    <language>fr-FR</language>
+  </translation>
+  <translation>
+    <original>hornet</original>
+    <converted>大黄蜂</converted>
+    <language>fr-FR</language>
+  </translation>
+  <translation>
+    <original>weights</original>
+    <converted>重量</converted>
+    <language>fr-FR</language>
+  </translation>
+  <translation>
+    <original>__currenttextculture__</original>
+    <converted>fr-fr</converted>
+    <language>fr-FR</language>
+  </translation>
+  <translation>
+    <original>__currenttextculture__</original>
+    <converted>zh-cn</converted>
+    <language>zh-CN</language>
+  </translation>
+  <translation>
+    <original>__currenttextculture__</original>
+    <converted>es-es</converted>
+    <language>es-ES</language>
+  </translation>
+  <translation>
 </translations>

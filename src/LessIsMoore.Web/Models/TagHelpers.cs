@@ -18,9 +18,9 @@ namespace LessIsMoore.Core.Models
         //public int ProgressValue { get; set; }
 
 
-        Net.Models.ITextTranslator _ITextTranslator;
+        Net.Translation.ITextTranslator _ITextTranslator;
 
-        public ProgressBarTagHelper(Net.Models.ITextTranslator TextTranslator)
+        public ProgressBarTagHelper(Net.Translation.ITextTranslator TextTranslator)
         {
             _ITextTranslator = TextTranslator;
         }

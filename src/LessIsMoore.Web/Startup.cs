@@ -50,8 +50,10 @@ namespace LessIsMoore.Core
 
             services.AddMemoryCache();
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.TryAddSingleton<Net.Translation.ISelectedLanguage, Net.Translation.SelectedLanguage>();
 
-            services.TryAddSingleton<Net.Models.ITextTranslator, Net.Models.TextTranslator>();
+            services.TryAddSingleton<Net.Translation.ITextTranslator, Net.Translation.TextTranslator>();
+
             services.AddApplicationInsightsTelemetry(Configuration);
 
 
