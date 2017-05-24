@@ -11435,10 +11435,10 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "J:\\wwwroot\\LessIsMoore\\LessIsMoore.Web\\src\\LessIsMoore.Web\\LessIsMoore.Web.csproj",
+      "projectUniqueName": "C:\\Users\\Tim Moore\\Desktop\\Git\\LessIsMoore.Web\\src\\LessIsMoore.Web\\LessIsMoore.Web.csproj",
       "projectName": "LessIsMoore.Web",
-      "projectPath": "J:\\wwwroot\\LessIsMoore\\LessIsMoore.Web\\src\\LessIsMoore.Web\\LessIsMoore.Web.csproj",
-      "outputPath": "J:\\wwwroot\\LessIsMoore\\LessIsMoore.Web\\src\\LessIsMoore.Web\\obj\\",
+      "projectPath": "C:\\Users\\Tim Moore\\Desktop\\Git\\LessIsMoore.Web\\src\\LessIsMoore.Web\\LessIsMoore.Web.csproj",
+      "outputPath": "C:\\Users\\Tim Moore\\Desktop\\Git\\LessIsMoore.Web\\src\\LessIsMoore.Web\\obj\\",
       "projectStyle": "PackageReference",
       "originalTargetFrameworks": [
         "net461"

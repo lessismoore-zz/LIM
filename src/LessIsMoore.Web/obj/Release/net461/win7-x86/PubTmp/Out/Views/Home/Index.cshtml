@@ -1,0 +1,148 @@
+﻿@model IEnumerable<LessIsMoore.Net.Models.NewsArticle>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <!-- One -->
+    <section id="one" class="main style1">
+
+        <div class="container">
+            <div class="row 150%">
+                <div class="6u 12u$(medium)">
+                    <header class="major">
+                        <h2 translate-text>Passion</h2>
+                    </header>
+                    <p translate-text>
+                        Thanks for visiting! I'm thankful to have a career as a Microsoft Software Developer, a hobby involving running/track & field, and a passion for helping others
+                        using the abilities that God has blessed me with. This site will showcase those abilities and hopefully educate and/or entertain my guests. I'm far from an expert,
+                        (don't get fooled by the fancy site) but I try to to get better a day at a time. <br /><br />This site is under development, but keep visiting to see more updates.<br /> --Tim M.")
+                    </p>
+                </div>
+                <div class="6u$ 12u$(medium) important(medium)">
+                    <span class="image fit"><img src="images/pic01.jpg" alt="" /></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Two -->
+    <section id="two" class="main style2">
+        <div class="container">
+            <div class="row 150%">
+                @*<div class="6u 12u$(medium)">
+                    <ul class="major-icons">
+                        <li><span class="icon style1 major fa-code"></span></li>
+                        <li><span class="icon style2 major fa-bolt"></span></li>
+                        <li><span class="icon style3 major fa-camera-retro"></span></li>
+                        <li><span class="icon style4 major fa-cog"></span></li>
+                        <li><span class="icon style5 major fa-desktop"></span></li>
+                        <li><span class="icon style6 major fa-calendar"></span></li>
+                    </ul>
+                </div>*@
+                <script>
+                    $(function () {
+                        $('.divNewsArticle a').each(function () {
+                            $(this).replaceWith(this.innerHTML);
+                        })
+                    })
+
+                </script>
+                <style>
+                    .divNews {
+                        max-height:900px;
+                        overflow:hidden;
+                        font-size:.8em;
+                        width:100% !important;
+                        text-align:center;
+
+                    }
+                    .divNews .divNewsArticle{
+                        width:100%;
+                    }
+                    .divNews .divNewsArticle img{
+                        width:300px;
+                        height:200px;
+                    }
+                    .divNews .divNewsArticle a{
+
+                    }
+                </style>
+                <div class="6u$ 12u$(medium) divNews">
+                    <header class="major">
+                        <h2 style="font-size: 1.5em;" translate-text>Difficult Takes a Day, Impossible Takes a Week</h2>
+                    </header>
+
+                    @{
+                        //LessIsMoore.Net.Models.BLL.NewsArticle[] arrNewsArticles = { };
+
+                        //if (ViewData["arrNewsArticles"] is Model)
+                        //{
+                        //    arrNewsArticles = (LessIsMoore.Net.Models.BLL.NewsArticle[])ViewData["arrNewsArticles"];
+                        //}
+
+                        foreach (LessIsMoore.Net.Models.NewsArticle newsArticle in Model)
+                        {
+                            @:<div class="divNewsArticle">
+                                @:<div>@Html.Raw(newsArticle.Headline)</div>
+                                @:<div>@Html.Raw(newsArticle.Content)</div>
+                            @:</div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Three -->
+    <section id="three" class="main style1 special">
+        <div class="container">
+            <header class="major">
+                <h2 translate-text>My Development Skills</h2>
+            </header>
+            <p>Ante nunc accumsan et aclacus nascetur ac ante amet sapien sed.</p>
+            <div class="row 150% divSkills">
+                <div class="4u 12u$(medium)">
+                    <span class="image fit"><img src="images/visual-studio.png" alt="" /></span>
+                    <h3 translate-text>ASP.Net Web Development</h3>
+                    <p>Adipiscing a commodo ante nunc magna lorem et interdum mi ante nunc lobortis non amet vis sed volutpat et nascetur.</p>
+                    <ul class="actions">
+                        <li><a href="#" class="button" translate-text>More</a></li>
+                    </ul>
+                </div>
+                <div class="4u 12u$(medium)">
+                    <span class="image fit"><img src="images/HTML5.png" alt="" /></span>
+                    <h3 translate-text>Client Styling & Development</h3>
+                    <p>Adipiscing a commodo ante nunc magna lorem et interdum mi ante nunc lobortis non amet vis sed volutpat et nascetur.</p>
+                    <ul class="actions">
+                        <li><a href="#" class="button" translate-text>More</a></li>
+                    </ul>
+                </div>
+                <div class="4u$ 12u$(medium)">
+                    <span class="image fit"><img src="images/sql_server.png" style="height:250px;" alt="" /></span>
+                    <h3 translate-text>Database Design & Coding</h3>
+                    <p>Adipiscing a commodo ante nunc magna lorem et interdum mi ante nunc lobortis non amet vis sed volutpat et nascetur.</p>
+                    <ul class="actions">
+                        <li><a href="#" class="button" translate-text>More</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Four -->
+    <section id="four" class="main style2 special">
+        <div class="container">
+            <header class="major">
+                <h2 style="font-size: 1.5em;">
+                    <i>"Be strong and of good courage, do not fear nor be afraid of them; for the Lord your God, He is the One who goes with you. He will not leave you nor forsake you.”</i>
+                    --Deuteronomy 31:6
+                </h2>
+            </header>
+            <p>Sed lacus nascetur ac ante amet sapien.</p>
+            <ul class="actions uniform">
+                <li><a href="#" class="button special">@_tl.TranslateText("Sign Up")</a></li>
+                <li><a href="#" class="button">@_tl.TranslateText("Learn More")</a></li>
+            </ul>
+        </div>
+    </section>
