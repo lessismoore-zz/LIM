@@ -10,6 +10,7 @@ using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Threading.Tasks;
 using Microsoft.IdentityModel.Tokens;
+using System;
 
 namespace LessIsMoore.Core
 {
@@ -110,8 +111,19 @@ namespace LessIsMoore.Core
                 }
             });
 
+            //app.Use(async (context, next) =>
+            //{
 
-            app.Use(async (context, next) => {
+            //    try {
+
+            //    } catch (Exception e) {
+
+            //    }
+
+            //    await next();
+            //});
+
+                app.Use(async (context, next) => {
 
                 if (context.Request.Cookies["language"] != null)
                 {

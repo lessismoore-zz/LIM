@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using LessIsMoore.Net.Translation;
 using System.Linq;
+using Microsoft.ApplicationInsights;
 
 namespace LessIsMoore.Net.Controllers
 {
@@ -29,6 +30,10 @@ namespace LessIsMoore.Net.Controllers
         [HttpPost]
         public IActionResult SaveLangauge(string ddlLangauge)
         {
+
+            TelemetryClient telemetry = new TelemetryClient();
+            telemetry.TrackTrace("User selected a new language - server");
+
             if (!new SelectedLanguage().Langs.Keys.Any(x => x.ToLower() == ddlLangauge.ToLower())) {
                 throw new Exception("Language is not supported");
             }
@@ -50,6 +55,15 @@ namespace LessIsMoore.Net.Controllers
             string strMessage = "{\"data\": {\"message\": \""+ txtNotifyUsers + "\"}}";
             
             NotificationHubClient hub = NotificationHubClient.CreateClientFromConnectionString(_Settings.NotificationHubConn, _Settings.NotificationHubName);
+
+
+            //var googleResult =
+            //    await hub.SendGcmNativeNotificationAsync(payload, tags);
+            //var windowsResult =
+            //  await hub.SendWindowsNativeNotificationAsync(toast, tags;
+            //var appleResult =
+            //  await hub.SendAppleNativeNotificationAsync(alert, tags);
+
             await hub.SendGcmNativeNotificationAsync(strMessage);
 
             return Redirect(_context.HttpContext.Request.Headers["Referer"].ToString());

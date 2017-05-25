@@ -78,6 +78,9 @@
             if (this.selectedIndex > -1 && confirm(_tl('Continue and update langauge?'))) {
                 this.form.submit();
             }
+
+            appInsights.trackEvent('User changed default langauge - client');
+
             return false;
         });
 
@@ -110,7 +113,9 @@
                 <li>
                     <img style="height:25px; position:relative; top:7px; " src="@inst_SelectedLanguage.Flag" />
 
-                    <select name="ddlLangauge" id="ddlLangauge" style="width:120px; display:inline-block; margin:5px 0px 0px 0px; padding:0px 0px 0px 10px; height:1.60em; font-size:12pt;">
+                    <select name="ddlLangauge" id="ddlLangauge" style="width:120px; display:inline-block; 
+                            margin:5px 0px 0px 0px; padding:0px 0px 0px 10px; height:1.60em; font-size:12pt;">
+
                             @*<option translate-text>-- Langauge --</option>*@
 
                         @foreach (string strKey in inst_SelectedLanguage.Langs.Keys)
