@@ -66,7 +66,7 @@ namespace LessIsMoore.Net.Controllers
         [HttpPost]
         public JsonResult SaveWorkout(string type, string excercise, int wovalue, DateTime wodate)
         {
-
+            throw new Exception();
             string strXMLPath = System.IO.Path.Combine(_env.ContentRootPath, @"\App_Data\workouts.xml");
 
             XDocument xDoc = XDocument.Load(strXMLPath);
