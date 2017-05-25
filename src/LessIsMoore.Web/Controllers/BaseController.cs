@@ -6,6 +6,7 @@ using Microsoft.Azure.NotificationHubs;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using LessIsMoore.Net.Translation;
+using System.Linq;
 
 namespace LessIsMoore.Net.Controllers
 {
@@ -28,7 +29,13 @@ namespace LessIsMoore.Net.Controllers
         [HttpPost]
         public IActionResult SaveLangauge(string ddlLangauge)
         {
-            _context.HttpContext.Response.Cookies.Append("language", ddlLangauge, new CookieOptions() { Expires = DateTime.Now.AddDays(10) });
+            if (!new SelectedLanguage().Langs.Keys.Any(x => x.ToLower() == ddlLangauge.ToLower())) {
+                throw new Exception("Language is not supported");
+            }
+
+            _context.HttpContext.Response.Cookies.Append("language", ddlLangauge, new CookieOptions() {
+                Expires = DateTime.Now.AddDays(10)
+            });
 
             System.Globalization.CultureInfo.DefaultThreadCurrentCulture = new System.Globalization.CultureInfo(ddlLangauge);
             System.Globalization.CultureInfo.DefaultThreadCurrentUICulture = new System.Globalization.CultureInfo(ddlLangauge);

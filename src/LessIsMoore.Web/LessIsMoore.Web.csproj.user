@@ -6,5 +6,6 @@
   <PropertyGroup>
     <ActiveDebugProfile>LessIsMoore.Web</ActiveDebugProfile>
     <NameOfLastUsedPublishProfile>LessIsMoore - Web Deploy</NameOfLastUsedPublishProfile>
+    <ShowAllFiles>true</ShowAllFiles>
   </PropertyGroup>
 </Project>

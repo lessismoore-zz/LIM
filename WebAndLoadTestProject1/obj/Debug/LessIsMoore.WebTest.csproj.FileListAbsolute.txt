@@ -5,4 +5,3 @@ J:\wwwroot\LessIsMoore\LessIsMoore.Web\WebAndLoadTestProject1\bin\Debug\Microsof
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\WebAndLoadTestProject1\bin\Debug\Microsoft.VisualStudio.QualityTools.WebTestFramework.xml
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\WebAndLoadTestProject1\obj\Debug\WebAndLoadTestProject1.dll
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\WebAndLoadTestProject1\obj\Debug\WebAndLoadTestProject1.pdb
-J:\wwwroot\LessIsMoore\LessIsMoore.Web\WebAndLoadTestProject1\obj\Debug\LessIsMoore.WebTest.csprojResolveAssemblyReference.cache

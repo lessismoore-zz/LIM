@@ -29,7 +29,9 @@ namespace LessIsMoore.Net.Translation
     public class SelectedLanguage: ISelectedLanguage
     {
         private IHostingEnvironment _env;
-
+        public SelectedLanguage()
+        {
+        }
         public SelectedLanguage(IHostingEnvironment env)
         {
             _env = env;
