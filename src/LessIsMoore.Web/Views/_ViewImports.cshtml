@@ -1,5 +1,6 @@
 ﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @addTagHelper *, LessIsMoore.Web
 
-@inject Microsoft.ApplicationInsights.Extensibility.TelemetryConfiguration TelemetryConfiguration
 @inject LessIsMoore.Net.Translation.ITextTranslator _tl
+@using Microsoft.ApplicationInsights.AspNetCore
+@inject JavaScriptSnippet snippet

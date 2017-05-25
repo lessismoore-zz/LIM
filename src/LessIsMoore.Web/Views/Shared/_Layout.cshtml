@@ -44,7 +44,7 @@
     </script>
 
     @*@MiniProfiler.RenderIncludes()*@
-    @*@Html.ApplicationInsightsJavaScript(TelemetryConfiguration)*@
+    @Html.Raw(snippet.FullScript)
 </head>
 <body ng-app="app">
     <style>
@@ -129,10 +129,15 @@
                             }
                         }
                         {
-                        <option translate-text value="kl-KL">
-                            Klingon
-                        </option>
 
+                        @{
+                            if (_IsAuthenticated)
+                            {
+                                <option translate-text value="kl-KL">
+                                    Klingon
+                                </option>
+                            }
+                        }
                     </select>
                 </li>
 

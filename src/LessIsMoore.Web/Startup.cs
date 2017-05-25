@@ -72,19 +72,18 @@ namespace LessIsMoore.Core
         {
             //loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             //loggerFactory.AddDebug();
+            app.UseApplicationInsightsRequestTelemetry();
+            app.UseApplicationInsightsExceptionTelemetry();
 
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseBrowserLink();
-                //app.AddApplicationInsightsSettings(developerMode: true);
             }
             else
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-
-            //app.UseApplicationInsightsRequestTelemetry();
 
             app.UseStaticFiles();
 

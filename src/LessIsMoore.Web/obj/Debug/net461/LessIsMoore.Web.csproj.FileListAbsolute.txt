@@ -47,6 +47,7 @@ J:\wwwroot\LessIsMoore\LessIsMoore.Web\src\LessIsMoore.Web\bin\Debug\net461\Micr
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\src\LessIsMoore.Web\bin\Debug\net461\Microsoft.AspNetCore.Mvc.ViewFeatures.dll
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\src\LessIsMoore.Web\bin\Debug\net461\Microsoft.AspNetCore.Razor.dll
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\src\LessIsMoore.Web\bin\Debug\net461\Microsoft.AspNetCore.Razor.Runtime.dll
+J:\wwwroot\LessIsMoore\LessIsMoore.Web\src\LessIsMoore.Web\bin\Debug\net461\Microsoft.AspNetCore.ResponseCaching.Abstractions.dll
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\src\LessIsMoore.Web\bin\Debug\net461\Microsoft.AspNetCore.Routing.dll
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\src\LessIsMoore.Web\bin\Debug\net461\Microsoft.AspNetCore.Routing.Abstractions.dll
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\src\LessIsMoore.Web\bin\Debug\net461\Microsoft.AspNetCore.Server.IISIntegration.dll
@@ -56,6 +57,7 @@ J:\wwwroot\LessIsMoore\LessIsMoore.Web\src\LessIsMoore.Web\bin\Debug\net461\Micr
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\src\LessIsMoore.Web\bin\Debug\net461\Microsoft.Azure.NotificationHubs.dll
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\src\LessIsMoore.Web\bin\Debug\net461\Microsoft.CodeAnalysis.dll
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\src\LessIsMoore.Web\bin\Debug\net461\Microsoft.CodeAnalysis.CSharp.dll
+J:\wwwroot\LessIsMoore\LessIsMoore.Web\src\LessIsMoore.Web\bin\Debug\net461\Microsoft.DotNet.PlatformAbstractions.dll
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\src\LessIsMoore.Web\bin\Debug\net461\Microsoft.Extensions.Caching.Abstractions.dll
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\src\LessIsMoore.Web\bin\Debug\net461\Microsoft.Extensions.Caching.Memory.dll
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\src\LessIsMoore.Web\bin\Debug\net461\Microsoft.Extensions.Configuration.dll
@@ -130,6 +132,3 @@ J:\wwwroot\LessIsMoore\LessIsMoore.Web\src\LessIsMoore.Web\obj\Debug\net461\Less
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\src\LessIsMoore.Web\obj\Debug\net461\LessIsMoore.Web.AssemblyInfo.cs
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\src\LessIsMoore.Web\obj\Debug\net461\LessIsMoore.Web.exe
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\src\LessIsMoore.Web\obj\Debug\net461\LessIsMoore.Web.pdb
-J:\wwwroot\LessIsMoore\LessIsMoore.Web\src\LessIsMoore.Web\obj\Debug\net461\LessIsMoore.Web.csprojResolveAssemblyReference.cache
-J:\wwwroot\LessIsMoore\LessIsMoore.Web\src\LessIsMoore.Web\bin\Debug\net461\Microsoft.AspNetCore.ResponseCaching.Abstractions.dll
-J:\wwwroot\LessIsMoore\LessIsMoore.Web\src\LessIsMoore.Web\bin\Debug\net461\Microsoft.DotNet.PlatformAbstractions.dll
