@@ -42,6 +42,7 @@ namespace LessIsMoore.Net.Translation
             _env = env;
         }
 
+
         private Dictionary<string, string> _langs = new Dictionary<string, string>()  {
                 { "en-us", "English" }, { "es-es" , "Spanish"}, { "fr-fr", "French" }, { "de-de","German" }, { "zh-cn","Chinese" }
             };
@@ -247,7 +248,7 @@ namespace LessIsMoore.Net.Translation
             string strUpdatedText = strText.Trim();
             string strUpdatedText2 = strUpdatedText.Replace(Environment.NewLine, " ").Replace("  ", " ");
 
-            if (string.Compare(this.DefaultCulture, strCurrentTextCulture, true) > -1)
+            if (this.DefaultCulture.ToLower() == strCurrentTextCulture.ToLower())
             {
                 return strUpdatedText;
             }
@@ -290,18 +291,19 @@ namespace LessIsMoore.Net.Translation
                 if (string.IsNullOrEmpty(strFoundTranslation))
                 {
                     //Update with latest source
-                    //try
-                    //{
-                    //    if (_strAuthToken == null) {
-                    //        _strAuthToken = GetAccessToken().Result;
-                    //    }
+                    try
+                    {
+                        if (_strAuthToken == null)
+                        {
+                            _strAuthToken = GetAccessToken().Result;
+                        }
 
-                    //    strFoundTranslation = CallTranslateAPI(_strAuthToken, strWord, strCurrentTextCulture).Result;
-                    //}
-                    //catch (Exception)
-                    //{
-                    //    strFoundTranslation = null;
-                    //}
+                        strFoundTranslation = CallTranslateAPI(_strAuthToken, strWord, strCurrentTextCulture).Result;
+                    }
+                    catch (Exception)
+                    {
+                        strFoundTranslation = null;
+                    }
 
                     if (!string.IsNullOrEmpty(strFoundTranslation))
                         _dictCurrentSavedTranslations.Add(_textInfo.ToLower(strWord.ToLowerInvariant()), strFoundTranslation);
@@ -326,23 +328,24 @@ namespace LessIsMoore.Net.Translation
 
         public async Task<string> GetAccessToken()
         {
-            
-            String strRequestDetails = string.Format(_Settings.ApiURLParams, WebUtility.UrlEncode(_Settings.ClientID), WebUtility.UrlEncode(_Settings.ClientSecret));
 
-            using (var httpClient = new HttpClient())
-            {
+            //String strRequestDetails = string.Format(_Settings.ApiURLParams, WebUtility.UrlEncode(_Settings.ClientID), WebUtility.UrlEncode(_Settings.ClientSecret));
 
-                using (HttpResponseMessage responseMessage = 
-                    await httpClient.PostAsync(new Uri(_Settings.TokenURL), new StringContent(strRequestDetails, Encoding.UTF8, "application/x-www-form-urlencoded")))
-                {
-                    AdmAccessToken token = Newtonsoft.Json.JsonConvert.DeserializeObject<AdmAccessToken>(await responseMessage.Content.ReadAsStringAsync());
+            //using (var httpClient = new HttpClient())
+            //{
 
-                    //create the string for the http header
-                    return token.access_token;
-                }
+            //    using (HttpResponseMessage responseMessage = 
+            //        await httpClient.PostAsync(new Uri(_Settings.TokenURL), new StringContent(strRequestDetails, Encoding.UTF8, "application/x-www-form-urlencoded")))
+            //    {
+            //        AdmAccessToken token = Newtonsoft.Json.JsonConvert.DeserializeObject<AdmAccessToken>(await responseMessage.Content.ReadAsStringAsync());
 
-            }
+            //        //create the string for the http header
+            //        return token.access_token;
+            //    }
 
+            //}
+
+            return await new AzureAuthToken(_Settings.AzureKey).GetAccessTokenAsync();
         }
 
         public async Task<string> CallTranslateAPI(string strAuthToken, string strText, string strTo)
@@ -361,7 +364,7 @@ namespace LessIsMoore.Net.Translation
                         System.Xml.XmlDocument xTranslation = new System.Xml.XmlDocument();
                         xTranslation.LoadXml(translatedStream.ReadToEnd());
 
-                        if (xTranslation.DocumentElement.ChildNodes.Count > 0)
+                        if ((responseMessage.StatusCode == HttpStatusCode.OK) && (xTranslation.DocumentElement.ChildNodes.Count > 0))
                             return xTranslation.DocumentElement.FirstChild.InnerText;
                         else
                             return strText;

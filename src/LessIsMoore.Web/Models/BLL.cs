@@ -11,6 +11,7 @@ namespace LessIsMoore.Net.Models
         public string ApiURL { get; set; }
         public string ClientSecret { get; set; }
         public string ApiURLParams { get; set; }
+        public string AzureKey { get; set; }
     }
 
     public class AppSettings

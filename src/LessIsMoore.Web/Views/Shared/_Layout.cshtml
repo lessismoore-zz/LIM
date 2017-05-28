@@ -100,7 +100,6 @@
 
 </script>
 
-    <img src="" />
     <!-- Header -->
         <ul id="ulNav">
 
@@ -115,8 +114,6 @@
 
                     <select name="ddlLangauge" id="ddlLangauge" style="width:120px; display:inline-block; 
                             margin:5px 0px 0px 0px; padding:0px 0px 0px 10px; height:1.60em; font-size:12pt;">
-
-                            @*<option translate-text>-- Langauge --</option>*@
 
                         @foreach (string strKey in inst_SelectedLanguage.Langs.Keys)
                         {
@@ -156,7 +153,7 @@
                     {
                         <li>
 
-                            <input type="text" placeholder='@_tl.TranslateText("Admin: Message Subscribers", "en-US")' name="txtNotifyUsers" id="txtNotifyUsers"
+                            <input type="text" placeholder='@_tl.TranslateText("Admin: Message Subscribers")' name="txtNotifyUsers" id="txtNotifyUsers"
                                    style="width:500px; height:1.30em; display:inline; margin:5px 0px 0px 0px; padding:0px 0px 0px 10px;" />
                         </li>
 
