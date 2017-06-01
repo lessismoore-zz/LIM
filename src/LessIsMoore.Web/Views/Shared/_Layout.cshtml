@@ -13,7 +13,7 @@
         _IsAuthenticated = true;
 
         strWelcome = string.Format(
-            "Welcome, {0} {1}!",
+            "{0} {1}!",
             _context.HttpContext.User.FindFirst(System.Security.Claims.ClaimTypes.GivenName).Value,
             _context.HttpContext.User.FindFirst(System.Security.Claims.ClaimTypes.Surname).Value
             );
@@ -103,7 +103,7 @@
     <!-- Header -->
         <ul id="ulNav">
 
-            <li style="float:left; margin-left:20px; font-weight:bold;">@strWelcome</li>
+            <li style="float:left; margin-left:20px; font-weight:bold;"> @_tl.TranslateText("Welcome"), @strWelcome</li>
             <li><a href="/blog" translate-text>blog</a></li>
             <li style="margin-right:15px;"><a href="#" translate-text>partners</a></li>
 
