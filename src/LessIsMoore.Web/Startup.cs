@@ -101,7 +101,13 @@ namespace LessIsMoore.Core
                 //API = Configuration["AzureAd:APIKey"],
                 Events = new OpenIdConnectEvents
                 {
-                    OnRemoteFailure = OnAuthenticationFailed
+                    OnRemoteFailure = OnAuthenticationFailed,
+                    //OnAuthenticationFailed = async (context) =>
+                    //{
+                    //    await context.Response.WriteAsync("Failed authentication");
+                    //    context.Response.StatusCode = 403;
+                    //    context.HandleResponse();
+                    //},
                 },
 
                 TokenValidationParameters = new TokenValidationParameters
@@ -111,19 +117,19 @@ namespace LessIsMoore.Core
                 }
             });
 
-            //app.Use(async (context, next) =>
-            //{
+            app.Use(async (context, next) =>
+            {
+                try
+                {
+                    await next();
+                }
+                catch (Exception e)
+                {
+                    await context.Response.WriteAsync(@"You got an error, Chief!! <br\><br\>" + e.ToString());
+                }
+            });
 
-            //    try {
-
-            //    } catch (Exception e) {
-
-            //    }
-
-            //    await next();
-            //});
-
-                app.Use(async (context, next) => {
+            app.Use(async (context, next) => {
 
                 if (context.Request.Cookies["language"] != null)
                 {
