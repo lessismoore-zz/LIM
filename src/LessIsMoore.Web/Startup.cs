@@ -125,7 +125,7 @@ namespace LessIsMoore.Core
                 }
                 catch (Exception e)
                 {
-                    await context.Response.WriteAsync(@"You got an error, Chief!! <br\><br\>" + e.ToString());
+                    await context.Response.WriteAsync(@"You got an error, Chief!! </br>===================</br>" + e.ToString());
                 }
             });
 
