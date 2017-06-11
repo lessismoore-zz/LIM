@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Xml.Linq;
 
-namespace LessIsMoore.Net.Models
+namespace LessIsMoore.Web.Models
 {
     public class TranslatorSettings
     {
@@ -17,7 +17,7 @@ namespace LessIsMoore.Net.Models
     public class AppSettings
     {
         public Core.Models.SendGridSettings SendEmailSettings { get; set; }
-        public Net.Models.TranslatorSettings TranslatorSettings { get; set; }
+        public Models.TranslatorSettings TranslatorSettings { get; set; }
         public string NotificationHubConn { get; set; }
         public string NotificationHubName { get; set; }
 

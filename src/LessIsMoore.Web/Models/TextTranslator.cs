@@ -13,9 +13,9 @@ using Microsoft.AspNetCore.Hosting;
 using System.Threading.Tasks;
 using System.Net.Http;
 using Microsoft.Extensions.Options;
-using LessIsMoore.Net.Models;
+using LessIsMoore.Web.Models;
 
-namespace LessIsMoore.Net.Translation
+namespace LessIsMoore.Web.Translation
 {
 
     //=======================================================================================
@@ -78,8 +78,8 @@ namespace LessIsMoore.Net.Translation
 
     public interface ITextTranslator
     {
-        Task<string> CallTranslateAPI(string strAuthToken, string strText, string strTo);
-        Task<string> GetAccessToken();
+        Task<string> CallTranslateAPI(string strAPI, string strAuthToken, string strText, string strTo);
+        Task<string> GetAccessToken(string strKey);
         string TranslateText(string strText, string strTextCulture = null);
         Dictionary<string, string> SaveTranslation(string strCurrentTextCulture, string strKey, string strValue);
         string FetchJSonStoredTranslations();
@@ -99,6 +99,10 @@ namespace LessIsMoore.Net.Translation
         private IHostingEnvironment _env;
         private Models.TranslatorSettings _Settings;
 
+        public TextTranslator()
+        {
+        }
+
         public TextTranslator(IOptions<AppSettings> settings = null, IMemoryCache memoryCache = null, IHostingEnvironment env = null, IHttpContextAccessor context = null)
         {
             _memoryCache = memoryCache;
@@ -110,6 +114,7 @@ namespace LessIsMoore.Net.Translation
             _textInfo = new CultureInfo(CurrentTextCulture).TextInfo;
             _Settings = settings.Value.TranslatorSettings;
         }
+
         //public TextTranslator(string DefaultCulture)
         //{
         //    this.DefaultCulture = DefaultCulture;
@@ -295,10 +300,10 @@ namespace LessIsMoore.Net.Translation
                     {
                         if (_strAuthToken == null)
                         {
-                            _strAuthToken = GetAccessToken().Result;
+                            _strAuthToken = GetAccessToken(_Settings.AzureKey).Result;
                         }
 
-                        strFoundTranslation = CallTranslateAPI(_strAuthToken, strWord, strCurrentTextCulture).Result;
+                        strFoundTranslation = CallTranslateAPI(_Settings.ApiURL, _strAuthToken, strWord, strCurrentTextCulture).Result;
                     }
                     catch (Exception)
                     {
@@ -326,7 +331,7 @@ namespace LessIsMoore.Net.Translation
             return strUpdatedText;
         }
 
-        public async Task<string> GetAccessToken()
+        public async Task<string> GetAccessToken(string strKey)
         {
 
             //String strRequestDetails = string.Format(_Settings.ApiURLParams, WebUtility.UrlEncode(_Settings.ClientID), WebUtility.UrlEncode(_Settings.ClientSecret));
@@ -345,10 +350,10 @@ namespace LessIsMoore.Net.Translation
 
             //}
 
-            return await new AzureAuthToken(_Settings.AzureKey).GetAccessTokenAsync();
+            return await new AzureAuthToken(strKey).GetAccessTokenAsync();
         }
 
-        public async Task<string> CallTranslateAPI(string strAuthToken, string strText, string strTo)
+        public async Task<string> CallTranslateAPI(string strAPI, string strAuthToken, string strText, string strTo)
         {
             using (var httpClient = new HttpClient())
             {
@@ -357,7 +362,7 @@ namespace LessIsMoore.Net.Translation
                 httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", strAuthToken);
 
                 using (HttpResponseMessage responseMessage =
-                    await httpClient.GetAsync(string.Format(_Settings.ApiURL, WebUtility.UrlEncode(strText), strTo)))
+                    await httpClient.GetAsync(string.Format(strAPI, WebUtility.UrlEncode(strText), strTo)))
                 {
                     using (StreamReader translatedStream = new StreamReader(await responseMessage.Content.ReadAsStreamAsync(), Encoding.GetEncoding("utf-8")))
                     {

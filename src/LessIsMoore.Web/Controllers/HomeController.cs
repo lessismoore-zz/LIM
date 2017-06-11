@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using LessIsMoore.Net.Models;
+using LessIsMoore.Web.Models;
 using System.Xml.Linq;
 //using StackExchange.Profiling;
 using Microsoft.AspNetCore.Mvc;
@@ -9,9 +9,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Authorization;
-using LessIsMoore.Net.Translation;
+using LessIsMoore.Web.Translation;
 
-namespace LessIsMoore.Net.Controllers
+namespace LessIsMoore.Web.Controllers
 {
     public class HomeController : BaseController
     {
@@ -20,8 +20,12 @@ namespace LessIsMoore.Net.Controllers
         IMemoryCache _memoryCache;
         AppSettings _AppSettings;
 
-        public HomeController(IMemoryCache memoryCache, IHostingEnvironment env, IHttpContextAccessor context, 
-                                ITextTranslator _TextTranslator, IOptions<AppSettings> settings) : base(context, _TextTranslator, settings)
+        public HomeController()
+        {
+        }
+
+        public HomeController(IMemoryCache memoryCache = null, IHostingEnvironment env = null, IHttpContextAccessor context = null,
+                                ITextTranslator _TextTranslator = null, IOptions<AppSettings> settings = null) : base(context, _TextTranslator, settings)
         {
             _env = env;
             _tl = _TextTranslator;
@@ -34,12 +38,9 @@ namespace LessIsMoore.Net.Controllers
         {
             //bool b = User.IsInRole("Admin");
 
-
             NewsArticle[] arrNewsArticles = null;
 
-            //var profiler = MiniProfiler.Current;
-            //using (profiler.Step("Data from Database"))
-            {
+            if (_memoryCache != null) {
                 if (!_memoryCache.TryGetValue<NewsArticle[]>("arrNewsArticles", out arrNewsArticles))
                 {
                     arrNewsArticles = await new BLL().FetchNewsArcticles();
@@ -53,6 +54,8 @@ namespace LessIsMoore.Net.Controllers
             //    "Tim Moore",
             //    "Tim, We need to meet up to talk about the show from tuesday. When you have time, please reply back. Thanks!"
             //);
+
+            ViewData["title"] = "Home";
 
             return View(arrNewsArticles);
         }

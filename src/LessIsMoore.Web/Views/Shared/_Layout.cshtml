@@ -1,10 +1,12 @@
 ﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor _context;
-@inject LessIsMoore.Net.Translation.ISelectedLanguage inst_SelectedLanguage;
+@inject LessIsMoore.Web.Translation.ISelectedLanguage inst_SelectedLanguage;
 
 @{
     string strSelectedLangauge = _tl.CurrentTextCulture;
     bool _IsAuthenticated = false;
     string strWelcome = "";
+
+    string strTitle = ViewData["title"] == null ? "" : "> "+ _tl.TranslateText(ViewData["title"].ToString());
 
     inst_SelectedLanguage.Locale = strSelectedLangauge;
 
@@ -26,7 +28,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>Less Is Moore | @_tl.TranslateText("Software Development")</title>
+    <title>Less Is Moore @strTitle</title>
     <base href=" / " />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -186,8 +188,8 @@
             <li><a href="#" class="icon alt fa-envelope"><span class="label" translate-text>Email</span></a></li>
         </ul>
         <ul class="copyright">
-            <li>&copy; LessIsMoore.Net</li>
-            <li><a href="mailto:info@lessismoore.net" translate-text>Contact</a></li>
+            <li>&copy; LessIsMoore.Web</li>
+            <li><a href="mailto:info@LessIsMoore.Web" translate-text>Contact</a></li>
 
             @{
                 if (_IsAuthenticated)

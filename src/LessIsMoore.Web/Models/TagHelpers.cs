@@ -1,9 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Razor.TagHelpers;
-using System.Linq;
-using System.Xml.Linq;
+﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 
-namespace LessIsMoore.Core.Models
+namespace LessIsMoore.Web.Models
 {
 
     [HtmlTargetElement("*", Attributes = "translate-text")]
@@ -18,9 +15,9 @@ namespace LessIsMoore.Core.Models
         //public int ProgressValue { get; set; }
 
 
-        Net.Translation.ITextTranslator _ITextTranslator;
+        Translation.ITextTranslator _ITextTranslator;
 
-        public ProgressBarTagHelper(Net.Translation.ITextTranslator TextTranslator)
+        public ProgressBarTagHelper(Web.Translation.ITextTranslator TextTranslator)
         {
             _ITextTranslator = TextTranslator;
         }

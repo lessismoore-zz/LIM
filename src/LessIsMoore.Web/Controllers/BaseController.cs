@@ -1,15 +1,15 @@
 ﻿using System;
-using LessIsMoore.Net.Models;
+using LessIsMoore.Web.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.NotificationHubs;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
-using LessIsMoore.Net.Translation;
+using LessIsMoore.Web.Translation;
 using System.Linq;
 using Microsoft.ApplicationInsights;
 
-namespace LessIsMoore.Net.Controllers
+namespace LessIsMoore.Web.Controllers
 {
     public class BaseController : Controller
     {
@@ -39,7 +39,7 @@ namespace LessIsMoore.Net.Controllers
             }
 
             _context.HttpContext.Response.Cookies.Append("language", ddlLangauge, new CookieOptions() {
-                Expires = DateTime.Now.AddDays(10)
+                Expires = DateTime.Now.AddDays(1)
             });
 
             System.Globalization.CultureInfo.DefaultThreadCurrentCulture = new System.Globalization.CultureInfo(ddlLangauge);
@@ -56,7 +56,6 @@ namespace LessIsMoore.Net.Controllers
             
             NotificationHubClient hub = NotificationHubClient.CreateClientFromConnectionString(_Settings.NotificationHubConn, _Settings.NotificationHubName);
 
-
             //var googleResult =
             //    await hub.SendGcmNativeNotificationAsync(payload, tags);
             //var windowsResult =
@@ -69,39 +68,39 @@ namespace LessIsMoore.Net.Controllers
             return Redirect(_context.HttpContext.Request.Headers["Referer"].ToString());
         }
 
-        [HttpPost]
-        public async System.Threading.Tasks.Task<JsonResult> GetTranslation(string text)
-        {
-            string strFoundTranslation = null;
+        //[HttpPost]
+        //public async System.Threading.Tasks.Task<JsonResult> GetTranslation(string text)
+        //{
+        //    string strFoundTranslation = null;
 
-            if (!string.IsNullOrEmpty(text))
-            {
-                try
-                {
-                    string strToken = await _TextTranslator.GetAccessToken();
-                    strFoundTranslation = await _TextTranslator.CallTranslateAPI(strToken, text, _TextTranslator.CurrentTextCulture);
-                }
-                catch (Exception)
-                {
-                    strFoundTranslation = null;
-                }
+        //    if (!string.IsNullOrEmpty(text))
+        //    {
+        //        try
+        //        {
+        //            string strToken = await _TextTranslator.GetAccessToken();
+        //            strFoundTranslation = await _TextTranslator.CallTranslateAPI(strToken, text, _TextTranslator.CurrentTextCulture);
+        //        }
+        //        catch (Exception)
+        //        {
+        //            strFoundTranslation = null;
+        //        }
 
-                if (!string.IsNullOrEmpty(strFoundTranslation))
-                {
-                    _TextTranslator.SaveTranslation(
-                        _TextTranslator.CurrentTextCulture,
-                        new System.Globalization.CultureInfo(_TextTranslator.CurrentTextCulture).TextInfo.ToLower(text.ToLowerInvariant()),
-                        strFoundTranslation);
-                }
-                else
-                    strFoundTranslation = text;
-            }
-            else {
-                strFoundTranslation = text;
-            }
+        //        if (!string.IsNullOrEmpty(strFoundTranslation))
+        //        {
+        //            _TextTranslator.SaveTranslation(
+        //                _TextTranslator.CurrentTextCulture,
+        //                new System.Globalization.CultureInfo(_TextTranslator.CurrentTextCulture).TextInfo.ToLower(text.ToLowerInvariant()),
+        //                strFoundTranslation);
+        //        }
+        //        else
+        //            strFoundTranslation = text;
+        //    }
+        //    else {
+        //        strFoundTranslation = text;
+        //    }
 
-            return new JsonResult(new { k=text, v= strFoundTranslation });
-        }
+        //    return new JsonResult(new { k=text, v= strFoundTranslation });
+        //}
 
 
     }

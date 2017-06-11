@@ -1,4 +1,4 @@
-﻿@model IEnumerable<LessIsMoore.Net.Models.NewsArticle>
+﻿@model IEnumerable<LessIsMoore.Web.Models.NewsArticle>
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -74,14 +74,14 @@
                     </header>
 
                     @{
-                        //LessIsMoore.Net.Models.BLL.NewsArticle[] arrNewsArticles = { };
+                        //LessIsMoore.Web.Models.BLL.NewsArticle[] arrNewsArticles = { };
 
                         //if (ViewData["arrNewsArticles"] is Model)
                         //{
-                        //    arrNewsArticles = (LessIsMoore.Net.Models.BLL.NewsArticle[])ViewData["arrNewsArticles"];
+                        //    arrNewsArticles = (LessIsMoore.Web.Models.BLL.NewsArticle[])ViewData["arrNewsArticles"];
                         //}
 
-                        foreach (LessIsMoore.Net.Models.NewsArticle newsArticle in Model)
+                        foreach (LessIsMoore.Web.Models.NewsArticle newsArticle in Model)
                         {
                             @:<div class="divNewsArticle">
                                 @:<div>@Html.Raw(newsArticle.Headline)</div>

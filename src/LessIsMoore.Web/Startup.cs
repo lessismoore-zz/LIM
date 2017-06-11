@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 using Microsoft.IdentityModel.Tokens;
 using System;
 
-namespace LessIsMoore.Core
+namespace LessIsMoore.Web
 {
     public class Program
     {
@@ -51,9 +51,9 @@ namespace LessIsMoore.Core
 
             services.AddMemoryCache();
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.TryAddSingleton<Net.Translation.ISelectedLanguage, Net.Translation.SelectedLanguage>();
+            services.TryAddSingleton<Translation.ISelectedLanguage, Translation.SelectedLanguage>();
 
-            services.TryAddSingleton<Net.Translation.ITextTranslator, Net.Translation.TextTranslator>();
+            services.TryAddSingleton<Translation.ITextTranslator, Translation.TextTranslator>();
 
             services.AddApplicationInsightsTelemetry(Configuration);
 
@@ -62,7 +62,7 @@ namespace LessIsMoore.Core
             services.AddOptions();
 
             // Add our Config object so it can be injected
-            services.Configure< Net.Models.AppSettings>(Configuration.GetSection("AppSettings"));
+            services.Configure< Models.AppSettings>(Configuration.GetSection("AppSettings"));
 
             // *If* you need access to generic IConfiguration this is **required**
             services.AddSingleton<IConfiguration>(Configuration);
@@ -125,8 +125,8 @@ namespace LessIsMoore.Core
                 }
                 catch (Exception e)
                 {
-                    await context.Response.WriteAsync(@"You got an error, Chief!! "+Environment.NewLine+
-                        "==================="+ Environment.NewLine + e.ToString());
+                    await context.Response.WriteAsync(string.Format(@"You got an error, Chief!! {0}========================{1}{2}", 
+                        Environment.NewLine, Environment.NewLine, e.ToString()));
                 }   
             });
 
