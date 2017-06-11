@@ -20,17 +20,13 @@ namespace LessIsMoore.Web.Controllers
         IMemoryCache _memoryCache;
         AppSettings _AppSettings;
 
-        public HomeController()
-        {
-        }
-
         public HomeController(IMemoryCache memoryCache = null, IHostingEnvironment env = null, IHttpContextAccessor context = null,
                                 ITextTranslator _TextTranslator = null, IOptions<AppSettings> settings = null) : base(context, _TextTranslator, settings)
         {
             _env = env;
             _tl = _TextTranslator;
             _memoryCache = memoryCache;
-            _AppSettings = settings.Value;
+            _AppSettings = settings != null ? settings.Value : null;
         }
 
         // GET: Home

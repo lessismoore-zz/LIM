@@ -20,11 +20,11 @@ namespace LessIsMoore.Web.Controllers
         public BaseController()
         {
         }
-        public BaseController(IHttpContextAccessor context, ITextTranslator TextTranslator, IOptions<AppSettings> settings)
+        public BaseController(IHttpContextAccessor context = null, ITextTranslator TextTranslator = null, IOptions<AppSettings> settings = null)
         {
             _context = context;
             _TextTranslator = TextTranslator;
-            _Settings = settings.Value;
+            _Settings = settings !=null ? settings.Value: null;
         }
 
         [HttpPost]

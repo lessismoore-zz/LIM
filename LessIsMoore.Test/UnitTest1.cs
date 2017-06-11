@@ -14,7 +14,7 @@ namespace LessIsMoore.Test
         [InlineData("home")]
         public async void VerifyHomeLoads(string strPageName)
         {
-            HomeController homeController = new HomeController();
+            HomeController homeController = new HomeController(null, null, null, null, null);
             ViewResult result = await homeController.Index() as ViewResult;
 
             Assert.Equal(strPageName, result.ViewData["title"].ToString().ToLower());
