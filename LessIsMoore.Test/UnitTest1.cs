@@ -14,17 +14,23 @@ namespace LessIsMoore.Test
         [InlineData("home")]
         public async void VerifyHomeLoads(string strPageName)
         {
-            HomeController homeController = new HomeController(null, null, null, null, null);
+            HomeController homeController = new HomeController();
             ViewResult result = await homeController.Index() as ViewResult;
 
             Assert.Equal(strPageName, result.ViewData["title"].ToString().ToLower());
         }
 
         [Fact]
-        public async void VerifyNewsFeedLoads()
+        public async void VerifyVergeNewsFeed()
         {
-            NewsArticle[] arrNewsArticles = await new BLL().FetchNewsArcticles();
-            Assert.True(arrNewsArticles.Length > 0);
+            NewsFeed[] arrNewsFeeds = await new BLL().FetchVergeNewsFeed();
+            Assert.True(arrNewsFeeds.Length > 0);
+        }
+        [Fact]
+        public async void VerifyAzureNewsFeed()
+        {
+            NewsFeed[] arrNewsFeeds = await new BLL().FetchAzureNewsFeed();
+            Assert.True(arrNewsFeeds.Length > 0);
         }
 
         [Theory]

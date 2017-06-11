@@ -34,13 +34,15 @@ namespace LessIsMoore.Web.Controllers
         {
             //bool b = User.IsInRole("Admin");
 
-            NewsArticle[] arrNewsArticles = null;
+            NewsFeed[] arrNewsFeeds = null;
 
             if (_memoryCache != null) {
-                if (!_memoryCache.TryGetValue<NewsArticle[]>("arrNewsArticles", out arrNewsArticles))
+                if (!_memoryCache.TryGetValue<NewsFeed[]>("arrNewsFeeds", out arrNewsFeeds))
                 {
-                    arrNewsArticles = await new BLL().FetchNewsArcticles();
-                    _memoryCache.Set<NewsArticle[]>("arrNewsArticles", arrNewsArticles, TimeSpan.FromMinutes(60));
+                    arrNewsFeeds = await new BLL().FetchAzureNewsFeed(4);
+                    arrNewsFeeds = arrNewsFeeds.Concat(await new BLL().FetchVergeNewsFeed(2)).ToArray();
+
+                    _memoryCache.Set<NewsFeed[]>("arrNewsFeeds", arrNewsFeeds, TimeSpan.FromMinutes(20));
                 }
             }
 
@@ -53,7 +55,7 @@ namespace LessIsMoore.Web.Controllers
 
             ViewData["title"] = "Home";
 
-            return View(arrNewsArticles);
+            return View(arrNewsFeeds);
         }
 
         [Authorize]

@@ -24,33 +24,61 @@ namespace LessIsMoore.Web.Models
     }
 
 
-    public class NewsArticle
+    public class NewsFeed
     {
         public string Headline { get; set; }
         public string Content { get; set; }
+        public string Link { get; set; }
+
     }
 
     public class BLL
     {
-        public async System.Threading.Tasks.Task<NewsArticle[]> FetchNewsArcticles()
+        public async System.Threading.Tasks.Task<NewsFeed[]> FetchVergeNewsFeed(int intMaxArticlesDisplayed = 5)
         {
-            string strVergeRSSFeed = @"http://www.theverge.com/web/rss/index.xml";
-            XDocument xdocVergeXML = null;
-            int _intMaxArticlesDisplayed = 5;
+            string strNewsFeed = @"http://www.theverge.com/web/rss/index.xml";
+            XDocument xdocFeedXML = null;
 
             using (var s = new System.Net.Http.HttpClient()) {
-                xdocVergeXML = XDocument.Parse(await s.GetStringAsync(strVergeRSSFeed));
+                xdocFeedXML = XDocument.Parse(await s.GetStringAsync(strNewsFeed));
             }
 
-            if (xdocVergeXML != null)
+            if (xdocFeedXML != null)
             {
-                return xdocVergeXML.Root.Elements()
+                return xdocFeedXML.Root.Elements()
                     .Where(x => x.Name.LocalName.ToLower() == "entry")
-                    .Take(_intMaxArticlesDisplayed)
-                    .Select(x => new NewsArticle()
+                    .Take(intMaxArticlesDisplayed)
+                    .Select(x => new NewsFeed()
                     {
                         Headline = x.Elements().Where(y => y.Name.LocalName == "title").FirstOrDefault().Value,
-                        Content = x.Elements().Where(y => y.Name.LocalName == "content").FirstOrDefault().Value
+                        Content = x.Elements().Where(y => y.Name.LocalName == "content").FirstOrDefault().Value,
+                        Link = x.Elements().Where(y => y.Name.LocalName == "link").FirstOrDefault().Attribute("href").Value
+                    }).ToArray();
+            }
+
+            return null;
+        }
+
+        public async System.Threading.Tasks.Task<NewsFeed[]> FetchAzureNewsFeed(int intMaxArticlesDisplayed = 5)
+        {
+            string strNewsFeed = @"https://azure.microsoft.com/en-us/updates/feed/";
+            XDocument xdocFeedXML = null;
+
+            using (var s = new System.Net.Http.HttpClient())
+            {
+                xdocFeedXML = XDocument.Parse(await s.GetStringAsync(strNewsFeed));
+            }
+
+            if (xdocFeedXML != null)
+            {
+                return xdocFeedXML.Root.Elements("channel").Elements()
+                    .Where(x => x.Name.LocalName.ToLower() == "item")
+                    .Take(intMaxArticlesDisplayed)
+                    .Select(x => new NewsFeed()
+                    {
+                        Headline = x.Elements().Where(y => y.Name == "title").FirstOrDefault().Value,
+                        Content = x.Elements().Where(y => y.Name == "description").FirstOrDefault().Value,
+                        Link = x.Elements().Where(y => y.Name == "link").FirstOrDefault().Value
                     }).ToArray();
             }
 

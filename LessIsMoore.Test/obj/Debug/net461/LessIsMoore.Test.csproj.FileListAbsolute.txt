@@ -1,6 +1,9 @@
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\bin\Debug\net461\xunit.runner.visualstudio.testadapter.dll
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\bin\Debug\net461\xunit.runner.reporters.net452.dll
+J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\bin\Debug\net461\xunit.runner.utility.net452.dll
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\bin\Debug\net461\xunit.abstractions.dll
+J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\bin\Debug\net461\LessIsMoore.Test.dll.config
+J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\bin\Debug\net461\LessIsMoore.Test.dll
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\bin\Debug\net461\LessIsMoore.Test.pdb
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\bin\Debug\net461\Microsoft.ApplicationInsights.dll
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\bin\Debug\net461\Microsoft.AI.Agent.Intercept.dll
@@ -132,10 +135,7 @@ J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\bin\Debug\net461\LessIsM
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\bin\Debug\net461\LessIsMoore.Web.pdb
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\bin\Debug\net461\LessIsMoore.Web.exe.config
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\obj\Debug\net461\LessIsMoore.Test.csprojResolveAssemblyReference.cache
-J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\obj\Debug\net461\LessIsMoore.Test.AssemblyInfo.cs
-J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\obj\Debug\net461\LessIsMoore.Test.pdb
-J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\bin\Debug\net461\xunit.runner.utility.net452.dll
-J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\bin\Debug\net461\LessIsMoore.Test.dll.config
-J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\bin\Debug\net461\LessIsMoore.Test.dll
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\obj\Debug\net461\LessIsMoore.Test.csproj.LessIsMoore.Test.dll.config
+J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\obj\Debug\net461\LessIsMoore.Test.AssemblyInfo.cs
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\obj\Debug\net461\LessIsMoore.Test.dll
+J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\obj\Debug\net461\LessIsMoore.Test.pdb
