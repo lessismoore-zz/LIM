@@ -64,6 +64,11 @@ namespace LessIsMoore.Web.Controllers
             return View();
         }
 
+        public IActionResult Demo()
+        {
+            return View();
+        }
+
         [HttpPost]
         public JsonResult SaveWorkout(string type, string excercise, int wovalue, DateTime wodate)
         {

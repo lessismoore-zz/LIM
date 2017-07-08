@@ -1,10 +1,12 @@
 ﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor _context;
-@inject LessIsMoore.Net.Translation.ISelectedLanguage inst_SelectedLanguage;
+@inject LessIsMoore.Web.Translation.ISelectedLanguage inst_SelectedLanguage;
 
 @{
     string strSelectedLangauge = _tl.CurrentTextCulture;
     bool _IsAuthenticated = false;
     string strWelcome = "";
+
+    string strTitle = ViewData["title"] == null ? "" : "> "+ _tl.TranslateText(ViewData["title"].ToString());
 
     inst_SelectedLanguage.Locale = strSelectedLangauge;
 
@@ -13,7 +15,7 @@
         _IsAuthenticated = true;
 
         strWelcome = string.Format(
-            "Welcome, {0} {1}!",
+            "{0} {1}!",
             _context.HttpContext.User.FindFirst(System.Security.Claims.ClaimTypes.GivenName).Value,
             _context.HttpContext.User.FindFirst(System.Security.Claims.ClaimTypes.Surname).Value
             );
@@ -26,7 +28,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>Less Is Moore | @_tl.TranslateText("Software Development")</title>
+    <title>Less Is Moore @strTitle</title>
     <base href=" / " />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -44,7 +46,7 @@
     </script>
 
     @*@MiniProfiler.RenderIncludes()*@
-    @*@Html.ApplicationInsightsJavaScript(TelemetryConfiguration)*@
+    @Html.Raw(snippet.FullScript)
 </head>
 <body ng-app="app">
     <style>
@@ -78,6 +80,9 @@
             if (this.selectedIndex > -1 && confirm(_tl('Continue and update langauge?'))) {
                 this.form.submit();
             }
+
+            appInsights.trackEvent('User changed default langauge - client');
+
             return false;
         });
 
@@ -97,11 +102,10 @@
 
 </script>
 
-    <img src="" />
     <!-- Header -->
         <ul id="ulNav">
 
-            <li style="float:left; margin-left:20px; font-weight:bold;">@strWelcome</li>
+            <li style="float:left; margin-left:20px; font-weight:bold;"> @_tl.TranslateText("Welcome"), @strWelcome</li>
             <li><a href="/blog" translate-text>blog</a></li>
             <li style="margin-right:15px;"><a href="#" translate-text>partners</a></li>
 
@@ -110,8 +114,8 @@
                 <li>
                     <img style="height:25px; position:relative; top:7px; " src="@inst_SelectedLanguage.Flag" />
 
-                    <select name="ddlLangauge" id="ddlLangauge" style="width:120px; display:inline-block; margin:5px 0px 0px 0px; padding:0px 0px 0px 10px; height:1.60em; font-size:12pt;">
-                            @*<option translate-text>-- Langauge --</option>*@
+                    <select name="ddlLangauge" id="ddlLangauge" style="width:120px; display:inline-block; 
+                            margin:5px 0px 0px 0px; padding:0px 0px 0px 10px; height:1.60em; font-size:12pt;">
 
                         @foreach (string strKey in inst_SelectedLanguage.Langs.Keys)
                         {
@@ -128,6 +132,16 @@
                                 </option>
                             }
                         }
+                        {
+
+                        @{
+                            if (_IsAuthenticated)
+                            {
+                                <option translate-text value="kl-KL">
+                                    Klingon
+                                </option>
+                            }
+                        }
                     </select>
                 </li>
 
@@ -141,7 +155,7 @@
                     {
                         <li>
 
-                            <input type="text" placeholder='@_tl.TranslateText("Admin: Message Subscribers", "en-US")' name="txtNotifyUsers" id="txtNotifyUsers"
+                            <input type="text" placeholder='@_tl.TranslateText("Admin: Message Subscribers")' name="txtNotifyUsers" id="txtNotifyUsers"
                                    style="width:500px; height:1.30em; display:inline; margin:5px 0px 0px 0px; padding:0px 0px 0px 10px;" />
                         </li>
 
@@ -154,7 +168,7 @@
     <section id="header">
         <div class="inner">
             <span class="icon major fa-cloud"></span>
-            <h1 translate-text>Software Developer. Runner. Husband. Father.</h1>
+            <h1 translate-text>Development. Runner. Husband. Father.</h1>
             <p translate-text>"Motivation is what gets you started... Habit is what keeps you going." - Jim Ryun</p>
             <ul class="actions">
                 <li><a href="#one" class="button scrolly" translate-text>About this Guy</a></li>
@@ -174,8 +188,8 @@
             <li><a href="#" class="icon alt fa-envelope"><span class="label" translate-text>Email</span></a></li>
         </ul>
         <ul class="copyright">
-            <li>&copy; LessIsMoore.Net</li>
-            <li><a href="mailto:info@lessismoore.net" translate-text>Contact</a></li>
+            <li>&copy; LessIsMoore.Web</li>
+            <li><a href="mailto:info@LessIsMoore.Web" translate-text>Contact</a></li>
 
             @{
                 if (_IsAuthenticated)
