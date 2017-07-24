@@ -110,7 +110,7 @@ namespace LessIsMoore.Web.Translation
             _context = context;
             _strTranslations_XMLPath = Path.Combine(_env.ContentRootPath, @"App_Data\translations.xml");
             this.DefaultCulture = DefaultCulture;
-
+            
             _textInfo = new CultureInfo(CurrentTextCulture).TextInfo;
             _Settings = settings.Value.TranslatorSettings;
         }

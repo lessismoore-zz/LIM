@@ -2,4 +2,56 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/LessIsMoore.Test/obj/Release/net461
+packages
+"LessIsMoore.Test/obj"
+"LessIsMoore.UITest/obj"
+"LessIsMoore.Test/bin"
+"LessIsMoore.UITest]/bin"
+"src/[LessIsMoore.Web/bin"
+"src/[LessIsMoore.Web/obj"
+.gitignore
+
+#OS junk files
+[Tt]humbs.db
+*.DS_Store
+
+#Visual Studio files
+*.[Oo]bj
+*.user
+*.aps
+*.pch
+*.vspscc
+*.vssscc
+*_i.c
+*_p.c
+*.ncb
+*.suo
+*.tlb
+*.tlh
+*.bak
+*.[Cc]ache
+*.ilk
+*.log
+*.lib
+*.sbr
+*.sdf
+ipch/
+obj
+[Bb]in
+[Dd]ebug
+[Rr]elease
+Ankh.NoLoad
+
+#Tooling
+_ReSharper*/
+*.resharper
+[Tt]est[Rr]esult*
+
+#Project files
+[Bb]uild/
+
+#Subversion files
+.svn
+
+# Office Temp Files
+~$*

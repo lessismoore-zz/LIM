@@ -45,5 +45,14 @@ namespace LessIsMoore.Test
 
             Assert.Equal(strExpectedText, strTranslation);
         }
+
+        [Theory]
+        [InlineData("**Test Bug in LessIsMoore.Web**", "UnitTest: VSTS_UpdateWorkItem", null, 339)]
+       //[InlineData("New Bug", "UnitTest: VSTS_UpdateWorkItem", "Bug", -1)]
+        public void VSTS_UpdateWorkItem(string strTitle, string strError, string strWorkItemType, int intItemID)
+        {
+            int intID = new BLL().VSTS_SaveWorkItem(strTitle, strError, strWorkItemType, intItemID, "Verified on "+ System.DateTime.Now.ToString());
+            Assert.Equal(intItemID, intID);
+        }
     }
 }

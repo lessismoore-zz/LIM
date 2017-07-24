@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.12
+VisualStudioVersion = 15.0.26430.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4FC12B6F-615E-4AD5-AB88-D40207FB6CA3}"
 EndProject
@@ -16,7 +16,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LessIsMoore.Web", "src\Less
 EndProject
 Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "LessIsMoore.IaC", "LessIsMoore.IaC\LessIsMoore.IaC.deployproj", "{D90E3971-DD02-447F-953A-F1729D1085DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LessIsMoore.Test", "LessIsMoore.Test\LessIsMoore.Test.csproj", "{541DE2B9-1C98-48C7-BC89-B55FCC965349}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LessIsMoore.Test", "LessIsMoore.Test\LessIsMoore.Test.csproj", "{541DE2B9-1C98-48C7-BC89-B55FCC965349}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LessIsMoore.UITest", "LessIsMoore.UITest\LessIsMoore.UITest.csproj", "{5CC33E36-D57B-4549-8EAD-742A6FD621F7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,6 +38,10 @@ Global
 		{541DE2B9-1C98-48C7-BC89-B55FCC965349}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{541DE2B9-1C98-48C7-BC89-B55FCC965349}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{541DE2B9-1C98-48C7-BC89-B55FCC965349}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CC33E36-D57B-4549-8EAD-742A6FD621F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CC33E36-D57B-4549-8EAD-742A6FD621F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CC33E36-D57B-4549-8EAD-742A6FD621F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CC33E36-D57B-4549-8EAD-742A6FD621F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -43,5 +49,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{F62408A2-2E5B-4645-86AA-2DBB954C35B1} = {4FC12B6F-615E-4AD5-AB88-D40207FB6CA3}
 		{541DE2B9-1C98-48C7-BC89-B55FCC965349} = {00B7E407-38FE-41D6-BF3A-F342385B6FBA}
+		{5CC33E36-D57B-4549-8EAD-742A6FD621F7} = {00B7E407-38FE-41D6-BF3A-F342385B6FBA}
 	EndGlobalSection
 EndGlobal

@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Threading.Tasks;
 using Microsoft.IdentityModel.Tokens;
 using System;
+using Microsoft.AspNetCore.Session;
 
 namespace LessIsMoore.Web
 {
@@ -50,6 +51,16 @@ namespace LessIsMoore.Web
             services.AddAuthentication(opts => opts.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme);
 
             services.AddMemoryCache();
+            //services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                // Set a short timeout for easy testing.
+                //options.IdleTimeout = TimeSpan.FromSeconds(10);
+                options.CookieHttpOnly = true;
+            });
+
+
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.TryAddSingleton<Translation.ISelectedLanguage, Translation.SelectedLanguage>();
 
@@ -87,6 +98,7 @@ namespace LessIsMoore.Web
             }
 
             app.UseStaticFiles();
+            app.UseSession();
 
             // Configure the OWIN pipeline to use cookie auth.
             app.UseCookieAuthentication(new CookieAuthenticationOptions());
@@ -125,6 +137,8 @@ namespace LessIsMoore.Web
                 }
                 catch (Exception e)
                 {
+                    new Models.BLL().VSTS_SaveWorkItem(e.Message, e.ToString(), "Bug", -1);
+
                     await context.Response.WriteAsync(string.Format(@"You got an error, Chief!! {0}========================{1}{2}", 
                         Environment.NewLine, Environment.NewLine, e.ToString()));
                 }   
