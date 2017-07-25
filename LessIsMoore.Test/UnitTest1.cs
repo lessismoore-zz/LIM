@@ -6,10 +6,10 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.IE;
 using OpenQA.Selenium.Support.UI;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace LessIsMoore.Test
 {
+
     public class UnitTest1
     {
         private string _strKey = "ec71a6ada12849689b25f26e8f2b9d81";
@@ -31,7 +31,9 @@ namespace LessIsMoore.Test
             _js = (IJavaScriptExecutor)_wd;
         }
 
-        [Theory, TestCategory("Selenium")]
+        [Theory]
+        [Trait("Category", "Selenium")]
+
         [InlineData("Joe Dirt", "Dirt.Joe@Microsoft.com")]
 
         public void VerifyExam(string strName, string strEmail)
@@ -70,8 +72,10 @@ namespace LessIsMoore.Test
             }
         }
 
-        [Theory, TestCategory("Unit")]
+        [Theory]
         [InlineData("home")]
+        [Trait("Category", "Unit")]
+
         public async void VerifyHomeLoads(string strPageName)
         {
             HomeController homeController = new HomeController();
@@ -80,23 +84,29 @@ namespace LessIsMoore.Test
             Xunit.Assert.Equal(strPageName, result.ViewData["title"].ToString().ToLower());
         }
 
-        [Fact, TestCategory("Unit")]
+        [Fact]
+        [Trait("Category", "Unit")]
+
         public async void VerifyVergeNewsFeed()
         {
             NewsFeed[] arrNewsFeeds = await new BLL().FetchVergeNewsFeed();
             Xunit.Assert.True(arrNewsFeeds.Length > 0);
         }
 
-        [Fact, TestCategory("Unit")]
+        [Fact]
+        [Trait("Category", "Unit")]
+
         public async void VerifyAzureNewsFeed()
         {
             NewsFeed[] arrNewsFeeds = await new BLL().FetchAzureNewsFeed();
             Xunit.Assert.True(arrNewsFeeds.Length > 0);
         }
 
-        [Theory, TestCategory("Unit")]
+        [Theory]
         [InlineData("Less", "Moins", "fr-FR")]
         [InlineData("Less", "Menos", "es-ES")]
+        [Trait("Category", "Unit")]
+
         public async void VerifyTranslationAPILogic(string strText, string strExpectedText, string strLangangue)
         {
             Web.Translation.TextTranslator inst_TextTranslator = new Web.Translation.TextTranslator();
@@ -107,9 +117,11 @@ namespace LessIsMoore.Test
             Xunit.Assert.Equal(strExpectedText, strTranslation);
         }
 
-        [Theory, TestCategory("Unit")]
+        [Theory]
         [InlineData("**Test Bug in LessIsMoore.Web**", "UnitTest: VSTS_UpdateWorkItem", null, 339)]
-       //[InlineData("New Bug", "UnitTest: VSTS_UpdateWorkItem", "Bug", -1)]
+        [Trait("Category", "Unit")]
+
+        //[InlineData("New Bug", "UnitTest: VSTS_UpdateWorkItem", "Bug", -1)]
         public void VSTS_UpdateWorkItem(string strTitle, string strError, string strWorkItemType, int intItemID)
         {
             int intID = new BLL().VSTS_SaveWorkItem(strTitle, strError, strWorkItemType, intItemID, "Verified on "+ System.DateTime.Now.ToString());
