@@ -19,6 +19,17 @@ namespace LessIsMoore.Test
         private string _strBaseURL = "http://www.lessismoore.net";
         public UnitTest1()
         {
+            //Initialize
+        }
+
+        [Theory]
+        [Trait("Category", "Selenium")]
+
+        [InlineData("Joe Dirt", "Dirt.Joe@Microsoft.com")]
+
+        public void VerifyExam(string strName, string strEmail)
+        {
+
             //var chromeOptions = new ChromeOptions();
             //chromeOptions.AddArguments("test-type");
             //chromeOptions.AddArguments("start-maximized");
@@ -29,15 +40,7 @@ namespace LessIsMoore.Test
 
             _wd = new InternetExplorerDriver();
             _js = (IJavaScriptExecutor)_wd;
-        }
 
-        [Theory]
-        [Trait("Category", "Selenium")]
-
-        [InlineData("Joe Dirt", "Dirt.Joe@Microsoft.com")]
-
-        public void VerifyExam(string strName, string strEmail)
-        {
             using (_wd)
             {
                 _wd.Navigate().GoToUrl(_strBaseURL+ "/exam?sf=8d679ae7-e939-474c-a3ff-8501ee636b12");
