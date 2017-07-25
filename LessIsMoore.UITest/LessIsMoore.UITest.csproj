@@ -67,6 +67,9 @@
     <None Include="packages.config" />
     <None Include="UIMap.uitest" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="obj\Debug\LessIsMoore.UITest.dll" />
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

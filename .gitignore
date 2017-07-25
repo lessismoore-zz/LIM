@@ -3,12 +3,6 @@
 ################################################################################
 
 packages
-"LessIsMoore.Test/obj"
-"LessIsMoore.UITest/obj"
-"LessIsMoore.Test/bin"
-"LessIsMoore.UITest]/bin"
-"src/[LessIsMoore.Web/bin"
-"src/[LessIsMoore.Web/obj"
 .gitignore
 
 #OS junk files
@@ -55,3 +49,5 @@ _ReSharper*/
 
 # Office Temp Files
 ~$*
+
+LessIsMoore.UITest/bin
