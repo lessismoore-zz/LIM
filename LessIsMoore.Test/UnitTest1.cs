@@ -22,58 +22,57 @@ namespace LessIsMoore.Test
             //Initialize
         }
 
-        [Theory]
-        [Trait("Category", "Selenium")]
+        //[Theory]
+        //[Trait("Category", "Selenium")]
+        //[InlineData("Joe Dirt", "Dirt.Joe@Microsoft.com")]
 
-        [InlineData("Joe Dirt", "Dirt.Joe@Microsoft.com")]
+        //public void VerifyExam(string strName, string strEmail)
+        //{
 
-        public void VerifyExam(string strName, string strEmail)
-        {
+        //    //var chromeOptions = new ChromeOptions();
+        //    //chromeOptions.AddArguments("test-type");
+        //    //chromeOptions.AddArguments("start-maximized");
+        //    //chromeOptions.AddArguments("--disable-extensions");
+        //    //chromeOptions.AddArguments("no-sandbox");
 
-            //var chromeOptions = new ChromeOptions();
-            //chromeOptions.AddArguments("test-type");
-            //chromeOptions.AddArguments("start-maximized");
-            //chromeOptions.AddArguments("--disable-extensions");
-            //chromeOptions.AddArguments("no-sandbox");
+        //    //wd = new ChromeDriver(chromeOptions);
 
-            //wd = new ChromeDriver(chromeOptions);
+        //    _wd = new InternetExplorerDriver();
+        //    _js = (IJavaScriptExecutor)_wd;
 
-            _wd = new InternetExplorerDriver();
-            _js = (IJavaScriptExecutor)_wd;
+        //    using (_wd)
+        //    {
+        //        _wd.Navigate().GoToUrl(_strBaseURL+ "/exam?sf=8d679ae7-e939-474c-a3ff-8501ee636b12");
+        //        //_wd.Manage().Timeouts().PageLoad = new System.TimeSpan(0, 0, 0, 3);
 
-            using (_wd)
-            {
-                _wd.Navigate().GoToUrl(_strBaseURL+ "/exam?sf=8d679ae7-e939-474c-a3ff-8501ee636b12");
-                //_wd.Manage().Timeouts().PageLoad = new System.TimeSpan(0, 0, 0, 3);
+        //        IWait<IWebDriver> wait = new WebDriverWait(_wd, System.TimeSpan.FromSeconds(2.00));
 
-                IWait<IWebDriver> wait = new WebDriverWait(_wd, System.TimeSpan.FromSeconds(2.00));
+        //        _wd.FindElement(By.Id("txtName")).SendKeys(strName);
+        //        _wd.FindElement(By.Id("txtEmail")).SendKeys(strEmail);
 
-                _wd.FindElement(By.Id("txtName")).SendKeys(strName);
-                _wd.FindElement(By.Id("txtEmail")).SendKeys(strEmail);
+        //        string[] ctrlIDs = { "answer_101", "answer_202", "answer_303", "answer_401", "answer_504", "answer_604",
+        //        "answer_703", "answer_801", "answer_902", "answer_1003" };
 
-                string[] ctrlIDs = { "answer_101", "answer_202", "answer_303", "answer_401", "answer_504", "answer_604",
-                "answer_703", "answer_801", "answer_902", "answer_1003" };
+        //        foreach (string strID in ctrlIDs)
+        //        {
+        //            _wd.FindElement(By.Id(strID)).Click();
+        //            _js.ExecuteScript("window.scrollBy(0,300)");
+        //        }
 
-                foreach (string strID in ctrlIDs)
-                {
-                    _wd.FindElement(By.Id(strID)).Click();
-                    _js.ExecuteScript("window.scrollBy(0,300)");
-                }
+        //        _wd.FindElement(By.Id("txtSubmit")).Click();
 
-                _wd.FindElement(By.Id("txtSubmit")).Click();
+        //        wait.Until(ExpectedConditions.AlertIsPresent());
 
-                wait.Until(ExpectedConditions.AlertIsPresent());
+        //        _wd.SwitchTo().Alert().Accept();
 
-                _wd.SwitchTo().Alert().Accept();
+        //        wait.Until(ExpectedConditions.AlertIsPresent());
 
-                wait.Until(ExpectedConditions.AlertIsPresent());
+        //        _wd.SwitchTo().Alert().Accept();
 
-                _wd.SwitchTo().Alert().Accept();
+        //        Xunit.Assert.Contains("great job", _wd.FindElement(By.Id("divPassMessage")).Text.ToLower());
 
-                Xunit.Assert.Contains("great job", _wd.FindElement(By.Id("divPassMessage")).Text.ToLower());
-
-            }
-        }
+        //    }
+        //}
 
         [Theory]
         [InlineData("home")]
