@@ -12,7 +12,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Chromium.ChromeDriver" Version="2.30.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0-preview-20170601-03" />
+    <PackageReference Include="Selenium.Support" Version="3.4.0" />
+    <PackageReference Include="Selenium.WebDriver" Version="3.4.0" />
+    <PackageReference Include="Selenium.WebDriver.IEDriver" Version="3.4.0" />
     <PackageReference Include="xunit" Version="2.2.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.3.0-beta3-build3705" />
   </ItemGroup>
@@ -23,6 +27,16 @@
 
   <ItemGroup>
     <Service Include="{82a7f48d-3b50-4b1e-b82e-3ada8210c358}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="bin\Debug\net461\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
+      <HintPath>C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\PublicAssemblies\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll</HintPath>
+    </Reference>
   </ItemGroup>
   
 </Project>

@@ -52,6 +52,7 @@ J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\bin\Debug\net461\Microso
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\bin\Debug\net461\Microsoft.AspNetCore.Routing.Abstractions.dll
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\bin\Debug\net461\Microsoft.AspNetCore.Server.IISIntegration.dll
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\bin\Debug\net461\Microsoft.AspNetCore.Server.Kestrel.dll
+J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\bin\Debug\net461\Microsoft.AspNetCore.Session.dll
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\bin\Debug\net461\Microsoft.AspNetCore.StaticFiles.dll
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\bin\Debug\net461\Microsoft.AspNetCore.WebUtilities.dll
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\bin\Debug\net461\Microsoft.Azure.NotificationHubs.dll
@@ -95,6 +96,8 @@ J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\bin\Debug\net461\Microso
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\bin\Debug\net461\Microsoft.VisualStudio.Web.BrowserLink.dll
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\bin\Debug\net461\Microsoft.Win32.Primitives.dll
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\bin\Debug\net461\Newtonsoft.Json.dll
+J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\bin\Debug\net461\WebDriver.Support.dll
+J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\bin\Debug\net461\WebDriver.dll
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\bin\Debug\net461\System.AppContext.dll
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\bin\Debug\net461\System.Buffers.dll
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\bin\Debug\net461\System.Collections.Immutable.dll
@@ -132,6 +135,7 @@ J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\bin\Debug\net461\xunit.a
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\bin\Debug\net461\xunit.core.dll
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\bin\Debug\net461\xunit.execution.desktop.dll
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\bin\Debug\net461\LessIsMoore.Web.exe
+J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\bin\Debug\net461\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\bin\Debug\net461\LessIsMoore.Web.pdb
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\bin\Debug\net461\LessIsMoore.Web.exe.config
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\obj\Debug\net461\LessIsMoore.Test.csprojResolveAssemblyReference.cache
@@ -139,4 +143,3 @@ J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\obj\Debug\net461\LessIsM
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\obj\Debug\net461\LessIsMoore.Test.AssemblyInfo.cs
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\obj\Debug\net461\LessIsMoore.Test.dll
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\obj\Debug\net461\LessIsMoore.Test.pdb
-J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\bin\Debug\net461\Microsoft.AspNetCore.Session.dll

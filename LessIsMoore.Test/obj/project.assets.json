@@ -2,6 +2,9 @@
   "version": 2,
   "targets": {
     ".NETFramework,Version=v4.6.1": {
+      "Chromium.ChromeDriver/2.30.0": {
+        "type": "package"
+      },
       "Libuv/1.9.1": {
         "type": "package",
         "dependencies": {
@@ -1521,6 +1524,39 @@
           "lib/net45/Newtonsoft.Json.dll": {}
         }
       },
+      "Selenium.Support/3.4.0": {
+        "type": "package",
+        "dependencies": {
+          "Selenium.WebDriver": "3.4.0"
+        },
+        "frameworkAssemblies": [
+          "System.Drawing"
+        ],
+        "compile": {
+          "lib/net40/WebDriver.Support.dll": {}
+        },
+        "runtime": {
+          "lib/net40/WebDriver.Support.dll": {}
+        }
+      },
+      "Selenium.WebDriver/3.4.0": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "System.Drawing"
+        ],
+        "compile": {
+          "lib/net40/WebDriver.dll": {}
+        },
+        "runtime": {
+          "lib/net40/WebDriver.dll": {}
+        }
+      },
+      "Selenium.WebDriver.IEDriver/3.4.0": {
+        "type": "package",
+        "build": {
+          "build/Selenium.WebDriver.IEDriver.targets": {}
+        }
+      },
       "System.AppContext/4.3.0": {
         "type": "package",
         "frameworkAssemblies": [
@@ -2462,6 +2498,18 @@
     }
   },
   "libraries": {
+    "Chromium.ChromeDriver/2.30.0": {
+      "sha512": "WCXO6AEcvFAbaX1WvLOowlqQmjKC01jSjNR5vK8K75Re4h9k8YU/wGPmAT8YESMi/ZoeyNm2fMBCuGH1R2mtOQ==",
+      "type": "package",
+      "path": "chromium.chromedriver/2.30.0",
+      "files": [
+        "chromium.chromedriver.2.30.0.nupkg.sha512",
+        "chromium.chromedriver.nuspec",
+        "content/chromedriver.exe",
+        "tools/install.ps1",
+        "tools/uninstall.ps1"
+      ]
+    },
     "Libuv/1.9.1": {
       "sha512": "uqX2Frwf9PW8MaY7PRNY6HM5BpW1D8oj1EdqzrmbEFD5nH63Yat3aEjN/tws6Tw6Fk7LwmLBvtUh32tTeTaHiA==",
       "type": "package",
@@ -3838,6 +3886,43 @@
         "lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.dll",
         "lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.xml",
         "tools/install.ps1"
+      ]
+    },
+    "Selenium.Support/3.4.0": {
+      "sha512": "K+kyZV0iDn2h4hc1es1R4v+M6rULbkisUIAUU4unCNSf4LLAIsOVGMvcHo+9Zdrx83B5LFhAf31HAYv21L3riQ==",
+      "type": "package",
+      "path": "selenium.support/3.4.0",
+      "files": [
+        "lib/net35/WebDriver.Support.dll",
+        "lib/net35/WebDriver.Support.xml",
+        "lib/net40/WebDriver.Support.dll",
+        "lib/net40/WebDriver.Support.xml",
+        "selenium.support.3.4.0.nupkg.sha512",
+        "selenium.support.nuspec"
+      ]
+    },
+    "Selenium.WebDriver/3.4.0": {
+      "sha512": "a/IjADMplG3rIfClryma/VjdEURhHA3yrZ7jlBJmVIJqxGD9GKNHfPeuhEX9dpXX1iLGh1dCMy7oJiA7O2Mw7A==",
+      "type": "package",
+      "path": "selenium.webdriver/3.4.0",
+      "files": [
+        "lib/net35/WebDriver.dll",
+        "lib/net35/WebDriver.xml",
+        "lib/net40/WebDriver.dll",
+        "lib/net40/WebDriver.xml",
+        "selenium.webdriver.3.4.0.nupkg.sha512",
+        "selenium.webdriver.nuspec"
+      ]
+    },
+    "Selenium.WebDriver.IEDriver/3.4.0": {
+      "sha512": "kTpiE0OAmNrIWv4qRjwRrLjZXKYg8lWYuWDSBiNB2DOO0dZlZPApwStkIrLZFRtUJ0ctue2i1xyYZpmSJnsYHQ==",
+      "type": "package",
+      "path": "selenium.webdriver.iedriver/3.4.0",
+      "files": [
+        "build/Selenium.WebDriver.IEDriver.targets",
+        "driver/IEDriverServer.exe",
+        "selenium.webdriver.iedriver.3.4.0.nupkg.sha512",
+        "selenium.webdriver.iedriver.nuspec"
       ]
     },
     "System.AppContext/4.3.0": {
@@ -7275,8 +7360,12 @@
   },
   "projectFileDependencyGroups": {
     ".NETFramework,Version=v4.6.1": [
+      "Chromium.ChromeDriver >= 2.30.0",
       "LessIsMoore.Web >= 1.0.0",
       "Microsoft.NET.Test.Sdk >= 15.3.0-preview-20170601-03",
+      "Selenium.Support >= 3.4.0",
+      "Selenium.WebDriver >= 3.4.0",
+      "Selenium.WebDriver.IEDriver >= 3.4.0",
       "xunit >= 2.2.0",
       "xunit.runner.visualstudio >= 2.3.0-beta3-build3705"
     ]
@@ -7308,13 +7397,29 @@
     "frameworks": {
       "net461": {
         "dependencies": {
+          "Selenium.WebDriver.IEDriver": {
+            "target": "Package",
+            "version": "3.4.0"
+          },
           "xunit.runner.visualstudio": {
             "target": "Package",
             "version": "2.3.0-beta3-build3705"
           },
+          "Selenium.WebDriver": {
+            "target": "Package",
+            "version": "3.4.0"
+          },
+          "Chromium.ChromeDriver": {
+            "target": "Package",
+            "version": "[2.30.0, )"
+          },
           "xunit": {
             "target": "Package",
             "version": "2.2.0"
+          },
+          "Selenium.Support": {
+            "target": "Package",
+            "version": "3.4.0"
           },
           "Microsoft.NET.Test.Sdk": {
             "target": "Package",

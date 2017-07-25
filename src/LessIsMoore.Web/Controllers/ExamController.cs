@@ -43,10 +43,7 @@ namespace LessIsMoore.Web.Controllers
                 azureExam.ShuffleQuestionChoices = false;
             }
 
-            if (azureExam.ShuffleQuestions)
-                Qs = Qs.OrderBy(x => rdm.Next(10, 100));
-
-            azureExam.ExamQuestions = (Qs.Select((x, intQID)=> new ExamQuestion()
+            azureExam.ExamQuestions = (Qs.OrderBy(x => (azureExam.ShuffleQuestions ? rdm.Next(10, 100) : 0)).Select((x, intQID)=> new ExamQuestion()
             {
                 ID = (intQID + 1),
                 Text = x.Element("text").Value,
@@ -58,8 +55,8 @@ namespace LessIsMoore.Web.Controllers
                     int num = y.Attributes().Any(z => z.Name.LocalName == "correct") ? 1 : 0;
                     examChoice.IsCorrect = num != 0;
                     return examChoice;
-                })).ToList<ExamChoice>()
-            })).ToList<ExamQuestion>();
+                })).ToList()
+            })).ToList();
 
             _context.HttpContext.Session.SetString("AzureExam", JsonConvert.SerializeObject(azureExam));
 
