@@ -74,11 +74,11 @@
 <script>
     $(function () {
         $('#ddlLangauge').bind('change', function () {
-            if (this.selectedIndex > -1 && confirm(_tl('Continue and update langauge?'))) {
+            //if (this.selectedIndex > -1 && confirm(_tl('Continue and update langauge?'))) {
                 this.form.submit();
-            }
+            //}
 
-            appInsights.trackEvent('User changed default langauge - client');
+            //appInsights.trackEvent('User changed default langauge - client');
 
             return false;
         });
@@ -131,7 +131,6 @@
                         }
                         {
 
-                        @{
                             if (_IsAuthenticated)
                             {
                                 <option translate-text value="kl-KL">
@@ -143,7 +142,6 @@
                 </li>
 
             }
-
 
             @{
                 if (_IsAuthenticated)
@@ -178,14 +176,14 @@
     <!-- Footer -->
     <section id="footer">
         <ul class="icons">
-            <li><a href="#" class="icon alt fa-twitter"><span class="label" translate-text>Twitter</span></a></li>
-            <li><a href="#" class="icon alt fa-facebook"><span class="label" translate-text>Facebook</span></a></li>
+            <li><a href="https://www.twitter.com/timdmo" target="_blank" class="icon alt fa-twitter"><span class="label" translate-text>Twitter</span></a></li>
+            @*<li><a href="#" class="icon alt fa-facebook"><span class="label" translate-text>Facebook</span></a></li>
             <li><a href="#" class="icon alt fa-instagram"><span class="label" translate-text>Instagram</span></a></li>
-            <li><a href="#" class="icon alt fa-github"><span class="label" translate-text>GitHub</span></a></li>
+            <li><a href="#" class="icon alt fa-github"><span class="label" translate-text>GitHub</span></a></li>*@
             <li><a href="#" class="icon alt fa-envelope"><span class="label" translate-text>Email</span></a></li>
         </ul>
         <ul class="copyright">
-            <li>&copy; LessIsMoore.Web</li>
+            <li>&copy; LessIsMoore.Net</li>
             <li><a href="mailto:info@LessIsMoore.Web" translate-text>Contact</a></li>
 
             @{

@@ -1557,6 +1557,12 @@
           "build/Selenium.WebDriver.IEDriver.targets": {}
         }
       },
+      "Selenium.WebDriver.PhantomJS/1.0.0": {
+        "type": "package",
+        "build": {
+          "build/Selenium.WebDriver.PhantomJS.targets": {}
+        }
+      },
       "System.AppContext/4.3.0": {
         "type": "package",
         "frameworkAssemblies": [
@@ -3923,6 +3929,17 @@
         "driver/IEDriverServer.exe",
         "selenium.webdriver.iedriver.3.4.0.nupkg.sha512",
         "selenium.webdriver.iedriver.nuspec"
+      ]
+    },
+    "Selenium.WebDriver.PhantomJS/1.0.0": {
+      "sha512": "4q34xP03XPLCyaUoC4LpLUhgobfmlA9ZcB+v6MDHtZUvTxtObUhusepdPp/8FoesntugdwQH22h+lxzno0ujXg==",
+      "type": "package",
+      "path": "selenium.webdriver.phantomjs/1.0.0",
+      "files": [
+        "build/Selenium.WebDriver.PhantomJS.targets",
+        "driver/phantomjs.exe",
+        "selenium.webdriver.phantomjs.1.0.0.nupkg.sha512",
+        "selenium.webdriver.phantomjs.nuspec"
       ]
     },
     "System.AppContext/4.3.0": {
@@ -7366,6 +7383,7 @@
       "Selenium.Support >= 3.4.0",
       "Selenium.WebDriver >= 3.4.0",
       "Selenium.WebDriver.IEDriver >= 3.4.0",
+      "Selenium.WebDriver.PhantomJS >= 1.0.0",
       "xunit >= 2.2.0",
       "xunit.runner.visualstudio >= 2.3.0-beta3-build3705"
     ]
@@ -7401,6 +7419,10 @@
             "target": "Package",
             "version": "3.4.0"
           },
+          "Selenium.WebDriver.PhantomJS": {
+            "target": "Package",
+            "version": "1.0.0"
+          },
           "xunit.runner.visualstudio": {
             "target": "Package",
             "version": "2.3.0-beta3-build3705"
@@ -7411,7 +7433,7 @@
           },
           "Chromium.ChromeDriver": {
             "target": "Package",
-            "version": "[2.30.0, )"
+            "version": "2.30.0"
           },
           "xunit": {
             "target": "Package",

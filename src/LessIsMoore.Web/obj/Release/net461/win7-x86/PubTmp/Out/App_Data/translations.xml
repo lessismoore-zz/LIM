@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<translations total="590" modified="05-27-2017 23:31:48">
+<translations total="606" modified="07-23-2017 14:13:36">
   <translation>
     <original>passion</original>
     <converted>passion</converted>
@@ -2899,5 +2899,85 @@
     <original>deuteronomy</original>
     <converted>deutéronome</converted>
     <language>fr-FR</language>
+  </translation>
+  <translation>
+    <original>tech</original>
+    <converted>tecnología</converted>
+    <language>es-ES</language>
+  </translation>
+  <translation>
+    <original>news</original>
+    <converted>noticias</converted>
+    <language>es-ES</language>
+  </translation>
+  <translation>
+    <original>home</original>
+    <converted>página de inicio</converted>
+    <language>es-ES</language>
+  </translation>
+  <translation>
+    <original>klingon</original>
+    <converted>klingon</converted>
+    <language>es-ES</language>
+  </translation>
+  <translation>
+    <original>tech</original>
+    <converted>tech</converted>
+    <language>de-DE</language>
+  </translation>
+  <translation>
+    <original>news</original>
+    <converted>news</converted>
+    <language>de-DE</language>
+  </translation>
+  <translation>
+    <original>home</original>
+    <converted>haus</converted>
+    <language>de-DE</language>
+  </translation>
+  <translation>
+    <original>klingon</original>
+    <converted>klingonisch</converted>
+    <language>de-DE</language>
+  </translation>
+  <translation>
+    <original>tech</original>
+    <converted>tech</converted>
+    <language>fr-FR</language>
+  </translation>
+  <translation>
+    <original>news</original>
+    <converted>nouvelles</converted>
+    <language>fr-FR</language>
+  </translation>
+  <translation>
+    <original>home</original>
+    <converted>accueil</converted>
+    <language>fr-FR</language>
+  </translation>
+  <translation>
+    <original>klingon</original>
+    <converted>klingon</converted>
+    <language>fr-FR</language>
+  </translation>
+  <translation>
+    <original>tech</original>
+    <converted>科技</converted>
+    <language>zh-CN</language>
+  </translation>
+  <translation>
+    <original>news</original>
+    <converted>新闻</converted>
+    <language>zh-CN</language>
+  </translation>
+  <translation>
+    <original>home</original>
+    <converted>首页</converted>
+    <language>zh-CN</language>
+  </translation>
+  <translation>
+    <original>klingon</original>
+    <converted>克林贡语</converted>
+    <language>zh-CN</language>
   </translation>
 </translations>
