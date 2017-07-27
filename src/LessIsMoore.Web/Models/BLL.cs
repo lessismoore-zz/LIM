@@ -40,6 +40,8 @@ namespace LessIsMoore.Web.Models
         public string Headline { get; set; }
         public string Content { get; set; }
         public string Link { get; set; }
+        public string Source { get; set; }
+
 
     }
 
@@ -63,7 +65,8 @@ namespace LessIsMoore.Web.Models
                     {
                         Headline = x.Elements().Where(y => y.Name.LocalName == "title").FirstOrDefault().Value,
                         Content = x.Elements().Where(y => y.Name.LocalName == "content").FirstOrDefault().Value,
-                        Link = x.Elements().Where(y => y.Name.LocalName == "link").FirstOrDefault().Attribute("href").Value
+                        Link = x.Elements().Where(y => y.Name.LocalName == "link").FirstOrDefault().Attribute("href").Value,
+                        Source = "TheVerge.com"
                     }).ToArray();
             }
 
@@ -89,7 +92,8 @@ namespace LessIsMoore.Web.Models
                     {
                         Headline = x.Elements().Where(y => y.Name == "title").FirstOrDefault().Value,
                         Content = x.Elements().Where(y => y.Name == "description").FirstOrDefault().Value,
-                        Link = x.Elements().Where(y => y.Name == "link").FirstOrDefault().Value
+                        Link = x.Elements().Where(y => y.Name == "link").FirstOrDefault().Value,
+                        Source = "Azure.Microsoft.com"
                     }).ToArray();
             }
 

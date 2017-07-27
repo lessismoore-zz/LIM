@@ -44,6 +44,8 @@
     </script>
     
     @Html.Raw(snippet.FullScript)
+
+    @RenderSection("Header")
 </head>
 <body ng-app="app">
     <style>
