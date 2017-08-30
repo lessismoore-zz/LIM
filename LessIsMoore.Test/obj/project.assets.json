@@ -7603,13 +7603,5 @@
         }
       }
     }
-  },
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "The folder 'C:\\Users\\Tim Moore\\.nuget\\packages\\system.threading.tasks.parallel\\PPT' contains an invalid version."
-    }
-  ]
+  }
 }

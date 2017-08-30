@@ -83,8 +83,8 @@ namespace LessIsMoore.Web.Controllers
         {
             Exam azureExam = JsonConvert.DeserializeObject<Exam>(_context.HttpContext.Session.GetString("AzureExam"));
             azureExam.HasStarted = true;
-            azureExam.Email = txtEmail;
-            azureExam.Name = txtName;
+            azureExam.Email = System.Net.WebUtility.HtmlEncode(txtEmail);
+            azureExam.Name = System.Net.WebUtility.HtmlEncode(txtName);
 
             foreach (ExamQuestion examQuestion in azureExam.ExamQuestions)
             {
