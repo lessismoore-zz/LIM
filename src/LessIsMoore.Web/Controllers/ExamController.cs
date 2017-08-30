@@ -28,12 +28,27 @@ namespace LessIsMoore.Web.Controllers
             _context = context;
         }
 
+        //[Route("[controller]/Exam/{QID=1}")]
         public IActionResult Index()
         {
+            int QID = 2;
+
             _context.HttpContext.Session.Remove("AzureExam");
-            XDocument xdocument = XDocument.Load(Path.Combine(this._env.ContentRootPath, "app_data\\AzureQuiz.xml"));
-            Random rdm = new Random();
+            XDocument xdocument = null;
             Exam azureExam = new Exam();
+
+            azureExam.QuizID = QID;
+
+            if (azureExam.QuizID == 1) {
+                xdocument = XDocument.Load(Path.Combine(this._env.ContentRootPath, "app_data\\AzureQuiz.xml"));
+                azureExam.Name = "Exam: Fast Start – Azure for Modern Web and Mobile Application Development";
+            }
+            else if (azureExam.QuizID == 2) {
+                xdocument = XDocument.Load(Path.Combine(this._env.ContentRootPath, "app_data\\DevopsQuiz.xml"));
+                azureExam.Name = "Exam: Fast Start – Azure for Dev Ops";
+            }
+
+            Random rdm = new Random();
 
             var Qs = xdocument.Root.Elements("question");
 

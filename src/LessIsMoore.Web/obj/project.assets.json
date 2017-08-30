@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "targets": {
     ".NETFramework,Version=v4.6.1": {
       "Libuv/1.9.1": {
@@ -1855,6 +1855,10 @@
           "lib/net46/System.Net.Http.dll": {}
         },
         "runtimeTargets": {
+          "runtimes/unix/lib/netstandard1.6/System.Net.Http.dll": {
+            "assetType": "runtime",
+            "rid": "unix"
+          },
           "runtimes/win/lib/net46/System.Net.Http.dll": {
             "assetType": "runtime",
             "rid": "win"
@@ -2084,6 +2088,14 @@
           "lib/net461/System.Security.Cryptography.Algorithms.dll": {}
         },
         "runtimeTargets": {
+          "runtimes/osx/lib/netstandard1.6/System.Security.Cryptography.Algorithms.dll": {
+            "assetType": "runtime",
+            "rid": "osx"
+          },
+          "runtimes/unix/lib/netstandard1.6/System.Security.Cryptography.Algorithms.dll": {
+            "assetType": "runtime",
+            "rid": "unix"
+          },
           "runtimes/win/lib/net461/System.Security.Cryptography.Algorithms.dll": {
             "assetType": "runtime",
             "rid": "win"
@@ -2143,6 +2155,10 @@
           "lib/net461/System.Security.Cryptography.X509Certificates.dll": {}
         },
         "runtimeTargets": {
+          "runtimes/unix/lib/netstandard1.6/System.Security.Cryptography.X509Certificates.dll": {
+            "assetType": "runtime",
+            "rid": "unix"
+          },
           "runtimes/win/lib/net461/System.Security.Cryptography.X509Certificates.dll": {
             "assetType": "runtime",
             "rid": "win"
@@ -11499,15 +11515,27 @@
   },
   "project": {
     "version": "1.0.0",
+    "restoreSettings": {
+      "hideWarningsAndErrors": true
+    },
     "restore": {
       "projectUniqueName": "J:\\wwwroot\\LessIsMoore\\LessIsMoore.Web\\src\\LessIsMoore.Web\\LessIsMoore.Web.csproj",
       "projectName": "LessIsMoore.Web",
       "projectPath": "J:\\wwwroot\\LessIsMoore\\LessIsMoore.Web\\src\\LessIsMoore.Web\\LessIsMoore.Web.csproj",
+      "packagesPath": "C:\\Users\\Tim Moore\\.nuget\\packages\\",
       "outputPath": "J:\\wwwroot\\LessIsMoore\\LessIsMoore.Web\\src\\LessIsMoore.Web\\obj\\",
       "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\Tim Moore\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
       "originalTargetFrameworks": [
         "net461"
       ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
       "frameworks": {
         "net461": {
           "projectReferences": {}

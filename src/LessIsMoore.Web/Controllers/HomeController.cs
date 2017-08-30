@@ -39,7 +39,7 @@ namespace LessIsMoore.Web.Controllers
             if (_memoryCache != null) {
                 if (!_memoryCache.TryGetValue<NewsFeed[]>("arrNewsFeeds", out arrNewsFeeds))
                 {
-                    arrNewsFeeds = await new BLL().FetchAzureNewsFeed(4);
+                    arrNewsFeeds = await new BLL().FetchAzureNewsFeed(2);
                     arrNewsFeeds = arrNewsFeeds.Concat(await new BLL().FetchVergeNewsFeed(2)).ToArray();
 
                     _memoryCache.Set<NewsFeed[]>("arrNewsFeeds", arrNewsFeeds, TimeSpan.FromMinutes(20));

@@ -1,0 +1,195 @@
+<questions>
+	<question>
+		<text>
+		You are planning and designing a new Microsoft Azure web app.{##}You need to ensure that the developers can quickly make a staging version of the web app live. In the event of an unforseen 
+		problem, they need to be able to quickly{##}revert the web app back to the previous version with minimal downtime.{##}What should you include in the planning phase?
+		</text>
+    <answers>
+		  <answer>
+		  Deplpoyment from source control
+		  </answer>
+		  <answer correct="1">
+		  Deployment slots
+		  </answer>
+		  <answer>
+		  Publishing profiles
+		  </answer>
+		  <answer>
+		  Linked resources
+		  </answer>
+    </answers>
+	</question>
+	<question>
+		<text>
+		You are designing an application to carry out facial recognition on photographs uploaded by users. The photographs are placed in a queue and picked up for processing by a custom service.{##}The application 
+		may take several hours to complete its processing. The application then notifies users by email that the job is complete.{##}Which Azure Service or feature should you use for processing of the photographs.
+		</text>
+    <answers>
+		  <answer>
+		  Azure web role
+		  </answer>
+		  <answer>
+		  Azure Service Bus queue
+		  </answer>
+		  <answer>
+		  Azure queue
+		  </answer>
+		  <answer correct="1">
+		  Azure worker role
+		  </answer>
+    </answers>
+	</question>
+	<question>
+		<text>
+		Provides simple, powerful SQL like language for querying telemetry data collected from server-side and client-side information.
+		</text>
+    <answers>
+		  <answer correct="1">
+		  Application Insights
+		  </answer>
+		  <answer>
+		  System Center Operations Manager
+		  </answer>
+		  <answer>
+		  Azure Log Analytics
+		  </answer>
+		  <answer>
+		  Swagger API
+		  </answer>      
+    </answers>
+	</question>
+  <question>
+    <text>
+      Which of the following is a principle within the Agile Manifesto?
+    </text>
+    <answers>
+      <answer correct="1">
+        Our highest priority is to satisfy the customer through early and continuous delivery of valuable software.
+      </answer>
+      <answer>
+        DevOps not only requires collaboration between teams, but it will organically foster further collaboration between them.
+      </answer>
+      <answer>
+        The union of people, process, and products to enable continuous delivery of value to our end users.
+      </answer>
+      <answer>
+        Software development is business critical – delays have a ‘real’ cost to the business.   Arriving too late means you miss the opportunities.
+      </answer>
+    </answers>
+  </question>
+  <question>
+    <text>
+      Deploy, manage, and monitor all the resources as a group is possible using:
+    </text>
+    <answers>
+      <answer correct="1">
+        Azure Resource Manager
+      </answer>
+      <answer>
+        Visual Studio Team Services combined with DevOps
+      </answer>
+      <answer>
+        Platform as a Service
+      </answer>
+      <answer>
+        Azure Portal
+      </answer>
+    </answers>
+  </question>
+  <question>
+    <text>
+      Which file will you use to deploy a database schema from an local, existing SQL Server Database to an Azure SQL Database?
+    </text>
+    <answers>
+      <answer correct="1">
+        .dacpac
+      </answer>
+      <answer>
+        .bakpak
+      </answer>
+      <answer>
+        .tupac
+      </answer>
+      <answer>
+        .azbak
+      </answer>
+    </answers>
+  </question>
+  <question>
+    <text>
+      Which Azure SQL Database feature asynchronously replicates committed transactions from a database to another database.
+    </text>
+    <answers>
+      <answer correct="1">
+        Active Geo-Replication
+      </answer>
+      <answer>
+        PowerShell
+      </answer>
+      <answer>
+        Geo-Restore
+      </answer>
+      <answer>
+        Elastic Pool
+      </answer>
+    </answers>
+  </question>
+  <question>
+    <text>
+      Which is a factor that may prevent you from adopting a PaaS model and choosing IaaS?
+    </text>
+    <answers>
+      <answer correct="1">
+        Need to install third-party software
+      </answer>
+      <answer>
+        PowerShell
+      </answer>
+      <answer>
+        Geo-Restore
+      </answer>
+      <answer>
+        Elastic Pool
+      </answer>
+    </answers>
+  </question>
+  <question>
+    <text>
+      This feature display work items as cards, rather than a list.
+    </text>
+    <answers>
+      <answer correct="1">
+        Kanban Board
+      </answer>
+      <answer>
+        Epic
+      </answer>
+      <answer>
+        Stories
+      </answer>
+      <answer>
+        Swimlanes
+      </answer>
+    </answers>
+  </question>
+  <question>
+    <text>
+      Why should you estimate velocity and perform forecasting for work?
+    </text> 
+    <answers>
+      <answer correct="1">
+        Determines how much work to perform sprint-over-sprint
+      </answer>
+      <answer>
+        Track and organize data by using queries 
+      </answer>
+      <answer>
+        Set WIP limits to monitor flow
+      </answer>
+      <answer>
+        Effective means of communication between product managers and developers
+      </answer>
+    </answers>
+  </question>
+
+</questions>

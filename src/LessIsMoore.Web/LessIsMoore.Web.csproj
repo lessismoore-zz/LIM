@@ -10,6 +10,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Properties\PublishProfiles\LessIsMoore-dev - Web Deploy.pubxml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="wwwroot\**\*;Views\**\*;App_Data\**\*">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </None>

@@ -134,3 +134,4 @@ J:\wwwroot\LessIsMoore\LessIsMoore.Web\src\LessIsMoore.Web\obj\Release\net461\Le
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\src\LessIsMoore.Web\obj\Release\net461\LessIsMoore.Web.exe
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\src\LessIsMoore.Web\obj\Release\net461\LessIsMoore.Web.pdb
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\src\LessIsMoore.Web\bin\Release\net461\Microsoft.AspNetCore.Session.dll
+J:\wwwroot\LessIsMoore\LessIsMoore.Web\src\LessIsMoore.Web\obj\Release\net461\LessIsMoore.Web.csproj.CoreCompileInputs.cache
