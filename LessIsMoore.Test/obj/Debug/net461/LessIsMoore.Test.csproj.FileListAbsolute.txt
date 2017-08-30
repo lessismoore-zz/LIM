@@ -143,3 +143,4 @@ J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\obj\Debug\net461\LessIsM
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\obj\Debug\net461\LessIsMoore.Test.AssemblyInfo.cs
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\obj\Debug\net461\LessIsMoore.Test.dll
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\obj\Debug\net461\LessIsMoore.Test.pdb
+J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\obj\Debug\net461\LessIsMoore.Test.csproj.CoreCompileInputs.cache
