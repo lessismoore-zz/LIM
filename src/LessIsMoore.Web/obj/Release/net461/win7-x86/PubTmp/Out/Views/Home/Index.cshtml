@@ -4,64 +4,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@section Header{ 
-
-<style>
-    .divNews {
-        overflow: hidden;
-        font-size: .8em;
-        width: 100% !important;
-        text-align: center;
-    }
-
-        .divNews #divNewsFeeds {
-            width: 100%;
-            background: lightgray;
-            color: black;
-            border-radius: 1em;
-            border: solid grey 2px;
-            margin-bottom: 15px;
-            opacity: .95;
-            padding:10px;
-        }
-
-        .divNews #divNewsFeeds .divNewsFeed {
-            width: 100%;
-            position:relative;
-            padding-top:5px;
-        }
-
-        .divNews .divNewsFeed img {
-            width: 300px;
-            height: 180px;
-        }
-
-        .divNews .divNewsFeed > div:first-child {
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .divNews .divNewsFeed .aReadMore {
-            font-style: italic !important;
-            font-size: .8em !important;
-        }
-
-        .divNews .divNewsFeed .divDivider {
-            width: 90%;
-            height: 1px;
-            background: grey;
-            position: relative;
-            left: 5%;
-            margin: 10px 0px 10px 0px;
-        }
-
-        .divNews .divNewsFeed:last-child .divDivider  {
-            display:none;
-        }
-</style>
-
-}
-
     <!-- One -->
     <section id="one" class="main style1">
 
@@ -100,13 +42,51 @@
                 </div>*@
                 <script>
                     $(function () {
-                        $('.divNewsFeed a').not(".aReadMore").each(function () {
+                        $('.divNewsFeed a').each(function () {
                             $(this).replaceWith(this.innerHTML);
                         })
                     })
 
                 </script>
+                <style>
+                    .divNews {
+                        overflow:hidden;
+                        font-size:.8em;
+                        width:100% !important;
+                        text-align:center;
+                    }
+                        .divNews .divNewsFeed {
+                            min-height: 120px;
+                            overflow:hidden;
+                            width: 48%;
+                            background: lightgray;
+                            color: black;
+                            border-radius: 1.5em;
+                            border: solid grey 2px;
+                            margin-bottom: 15px;
+                            margin-right: 1%;
+                            cursor: pointer;
+                            float: left;
+                            padding: 5px;
+                            opacity: .95;
+                        }
 
+                    .divNews .divNewsFeed:hover {
+                        opacity: 1;
+                    }
+
+                    .divNews .divNewsFeed img{
+                        width:300px;
+                        height:180px;
+                    }
+                    .divNews .divNewsFeed a{
+
+                    }
+                    .divNews .divNewsFeed > div:first-child {
+                        font-weight:bold;
+                        margin-bottom:5px;
+                    }
+                </style>
                 <div class="6u$ 12u$(medium) divNews">
 
                     <div style="margin-bottom:10px;">
@@ -120,20 +100,15 @@
                         <h3 style="font-size: 1.5em;" translate-text>Tech News</h3>
                     </header>
 
-                    <div id="divNewsFeeds">
-                        @{
-                            foreach (LessIsMoore.Web.Models.NewsFeed NewsFeed in Model)
-                            {
-                                <div class="divNewsFeed">
-                                    <div>@NewsFeed.Headline</div>
-                                    <div>@Html.Raw(NewsFeed.Content)</div>
-                                    <a class="aReadMore" href="@NewsFeed.Link" target="_blank">Source: @NewsFeed.Source</a>
-                                    <div class="divDivider"></div>
-                                </div>
-                            }
+                    @{
+                        foreach (LessIsMoore.Web.Models.NewsFeed NewsFeed in Model)
+                        {
+                            <div class="divNewsFeed" onclick="javascript:window.open('@NewsFeed.Link');">
+                                <div>@NewsFeed.Headline</div>
+                                <div>@Html.Raw(NewsFeed.Content)</div>
+                            </div>
                         }
-                    </div>
-
+                    }
                 </div>
             </div>
         </div>

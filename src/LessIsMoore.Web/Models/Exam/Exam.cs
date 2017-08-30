@@ -48,8 +48,5 @@ namespace LessIsMoore.Web.Models
             get { return _ShuffleQuestionChoices; }
             set { _ShuffleQuestionChoices = value; }
         }
-
-        public int QuizID{ get; set; }
-
     }
 }

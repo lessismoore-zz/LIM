@@ -39,12 +39,19 @@ namespace LessIsMoore.Web.Controllers
             if (_memoryCache != null) {
                 if (!_memoryCache.TryGetValue<NewsFeed[]>("arrNewsFeeds", out arrNewsFeeds))
                 {
-                    arrNewsFeeds = await new BLL().FetchAzureNewsFeed(2);
+                    arrNewsFeeds = await new BLL().FetchAzureNewsFeed(4);
                     arrNewsFeeds = arrNewsFeeds.Concat(await new BLL().FetchVergeNewsFeed(2)).ToArray();
 
                     _memoryCache.Set<NewsFeed[]>("arrNewsFeeds", arrNewsFeeds, TimeSpan.FromMinutes(20));
                 }
             }
+
+            //await new Core.Models.SendGrid(_AppSettings.SendEmailSettings).SendEmailAsync(
+            //    "2055403007@tmomail.net",
+            //    "Meeting from this past Tuesday",
+            //    "Tim Moore",
+            //    "Tim, We need to meet up to talk about the show from tuesday. When you have time, please reply back. Thanks!"
+            //);
 
             ViewData["title"] = "Home";
 

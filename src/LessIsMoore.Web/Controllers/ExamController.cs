@@ -28,27 +28,12 @@ namespace LessIsMoore.Web.Controllers
             _context = context;
         }
 
-        //[Route("[controller]/Exam/{QID=1}")]
         public IActionResult Index()
         {
-            int QID = 2;
-
             _context.HttpContext.Session.Remove("AzureExam");
-            XDocument xdocument = null;
-            Exam azureExam = new Exam();
-
-            azureExam.QuizID = QID;
-
-            if (azureExam.QuizID == 1) {
-                xdocument = XDocument.Load(Path.Combine(this._env.ContentRootPath, "app_data\\AzureQuiz.xml"));
-                azureExam.Name = "Exam: Fast Start – Azure for Modern Web and Mobile Application Development";
-            }
-            else if (azureExam.QuizID == 2) {
-                xdocument = XDocument.Load(Path.Combine(this._env.ContentRootPath, "app_data\\DevopsQuiz.xml"));
-                azureExam.Name = "Exam: Fast Start – Azure for Dev Ops";
-            }
-
+            XDocument xdocument = XDocument.Load(Path.Combine(this._env.ContentRootPath, "app_data\\AzureQuiz.xml"));
             Random rdm = new Random();
+            Exam azureExam = new Exam();
 
             var Qs = xdocument.Root.Elements("question");
 
@@ -83,8 +68,8 @@ namespace LessIsMoore.Web.Controllers
         {
             Exam azureExam = JsonConvert.DeserializeObject<Exam>(_context.HttpContext.Session.GetString("AzureExam"));
             azureExam.HasStarted = true;
-            azureExam.Email = System.Net.WebUtility.HtmlEncode(txtEmail);
-            azureExam.Name = System.Net.WebUtility.HtmlEncode(txtName);
+            azureExam.Email = txtEmail;
+            azureExam.Name = txtName;
 
             foreach (ExamQuestion examQuestion in azureExam.ExamQuestions)
             {

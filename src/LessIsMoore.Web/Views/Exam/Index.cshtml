@@ -74,7 +74,7 @@
         else if (TempData["HasPassed"] != null)
         {
             <script>
-                setTimeout(function () { alert('Congratulations @Html.Raw(TempData["Name"])!! You have passed this exam. Your certificate will arrived to your email (@TempData["Email"]) shortly.')}, 1000)
+                setTimeout(function () { alert('Congratulations @TempData["Name"]!! You have passed this exam. Your certificate will arrived to your email (@TempData["Email"]) shortly.')}, 1000)
             </script>
         }
 
@@ -96,7 +96,7 @@
 
             <div class="row" style="padding:10px; margin-top:20px; border-top:solid dimgray 1px;">
 
-                <h3 style="margin:10px;">@Model.Name</h3>
+                <h3 style="margin:10px;">Exam: Fast Start – Azure for Modern Web and Mobile Application Development</h3>
 
                 <script>
                     $(function () {
