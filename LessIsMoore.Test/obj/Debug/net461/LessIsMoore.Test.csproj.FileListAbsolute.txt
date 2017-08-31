@@ -143,4 +143,7 @@ J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\obj\Debug\net461\LessIsM
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\obj\Debug\net461\LessIsMoore.Test.AssemblyInfo.cs
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\obj\Debug\net461\LessIsMoore.Test.dll
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\obj\Debug\net461\LessIsMoore.Test.pdb
+J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\bin\Debug\net461\Microsoft.TestPlatform.CommunicationUtilities.resources.dll
+J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\bin\Debug\net461\Microsoft.TestPlatform.CrossPlatEngine.resources.dll
+J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\bin\Debug\net461\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
 J:\wwwroot\LessIsMoore\LessIsMoore.Web\LessIsMoore.Test\obj\Debug\net461\LessIsMoore.Test.csproj.CoreCompileInputs.cache
