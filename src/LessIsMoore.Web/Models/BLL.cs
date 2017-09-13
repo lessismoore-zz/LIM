@@ -1,6 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.AspNetCore.Hosting;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -47,6 +49,98 @@ namespace LessIsMoore.Web.Models
 
     public class BLL
     {
+        public BLL()
+        {
+
+        }
+        public BLL(string strContentRootPath)
+        {
+            _strContentRootPath = strContentRootPath;
+        }
+        private string _strContentRootPath;
+
+        public Exam ExamFactory(int examID)
+        {
+
+            Exam azureExam = new Exam();
+            string strXMLPath = null;
+
+            azureExam.ID = examID;
+
+            if (azureExam.ID == 1)
+            {
+                strXMLPath = "app_data\\AzureQuiz.xml";
+                azureExam.Name = "Exam: Fast Start – Azure for Modern Web and Mobile Application Development";
+            }
+            else if (azureExam.ID == 2)
+            {
+                strXMLPath = "app_data\\DevopsQuiz.xml";
+                azureExam.Name = "Exam: Fast Start – Azure for Dev Ops";
+            }
+            else
+            {
+                return null;
+            }
+
+            XDocument xdocument = XDocument.Load(Path.Combine(_strContentRootPath, strXMLPath));
+            azureExam.ExamQuestions = PopulateExamQuestionsFromXML(xdocument.Root.Elements("question"));
+
+            return azureExam;
+        }
+        public IEnumerable<ExamQuestion> PopulateExamQuestionsFromXML(IEnumerable<XElement> Qs, bool ShuffleQuestions = true, bool ShuffleQuestionChoices = true)
+        {
+            Random rdm = new Random();
+
+            return (Qs.OrderBy(x => (ShuffleQuestions ? rdm.Next(10, 100) : 0)).Select((x, intQID) => new ExamQuestion()
+            {
+                ID = (intQID + 1),
+                Text = x.Element("text").Value,
+                ExamChoices = (x.Element("answers").Elements("answer").OrderBy(y => (ShuffleQuestionChoices ? rdm.Next(10, 100) : 0)).Select((y, intCID) =>
+                {
+                    ExamChoice examChoice = new ExamChoice();
+                    examChoice.ID = ((intCID + 1) + ((intQID + 1) * 100));
+                    examChoice.Text = y.Value;
+                    int num = y.Attributes().Any(z => z.Name.LocalName == "correct") ? 1 : 0;
+                    examChoice.IsCorrect = num != 0;
+                    return examChoice;
+                })).ToList()
+            })).ToList();
+
+        }
+        public static int GradeExam(Exam azureExam, IEnumerable<ExamResponse> examResponses)
+        {
+            foreach (ExamQuestion examQuestion in azureExam.ExamQuestions)
+            {
+                foreach (ExamChoice examChoice in examQuestion.ExamChoices)
+                    examChoice.IsSelected = examResponses.FirstOrDefault(x => x.ExamChoiceID == examChoice.ID).IsSelected;
+            }
+
+            return azureExam.ExamQuestions.Select((x => x.ExamChoices.Where<ExamChoice>((y =>
+            {
+                return (y.IsSelected) ? y.IsCorrect: false;
+
+            })).Count())).Sum();
+        }
+
+        public static IEnumerable<ExamResponse> CollectExamResponses(Exam azureExam, Func<ExamChoice, bool> f)
+        {
+            List<ExamResponse> lstExamResponses = new List<ExamResponse>();
+
+            foreach (ExamQuestion examQuestion in azureExam.ExamQuestions)
+            {
+                foreach (ExamChoice examChoice in examQuestion.ExamChoices)
+                {
+                    lstExamResponses.Add(new ExamResponse()
+                    {
+                        ExamChoiceID = examChoice.ID,
+                        IsSelected = f(examChoice)
+                    });
+                }
+            }
+
+            return lstExamResponses;
+        }
+
         public async System.Threading.Tasks.Task<NewsFeed[]> FetchVergeNewsFeed(int intMaxArticlesDisplayed = 5)
         {
             string strNewsFeed = @"http://www.theverge.com/web/rss/index.xml";

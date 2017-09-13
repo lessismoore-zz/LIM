@@ -45,11 +45,26 @@
     </div>
     <div class="container body-content">
 
+        <style>
+            #divtest {
+                height:200px;
+                overflow:hidden;
+            }
+            #divtest img {
+                margin-top:-40px;
+                width:100%;
+                border:solid green 2px;
+            }
+            #divtest .carousel-caption {
+                bottom:-30px;
+            }
+        </style>
+
         <!-- ============================================================================================================== -->
         <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
             <div class="carousel-inner" role="listbox">
             </div>
-            <div class="item">
+            <div class="item" id="divtest">
                 <img src="~/images/banner4.svg" alt="Microsoft Azure" class="img-responsive" />
                 <div class="carousel-caption" role="option">
                     <p>
@@ -64,17 +79,27 @@
 
     @using (Html.BeginForm("Submit", "Exam", FormMethod.Post))
     {
-        
-        if (@Model.HasStarted && (@Model.TotalCorrectQuestions < @Model.TotalQuestions))
+        int intTotalCorrectQuestions = 0;
+        if (TempData["TotalCorrectQuestions"] != null)
         {
+            int.TryParse(TempData["TotalCorrectQuestions"].ToString(), out intTotalCorrectQuestions);
+        }
+
+        if (@Model.HasStarted && (intTotalCorrectQuestions < @Model.TotalQuestions))
+        {
+
             <script>
-                setTimeout(function () { alert('Sorry, but you have not answered all required questions correctly. @Model.TotalCorrectQuestions of the required @Model.TotalQuestions were answered correctly.')}, 1000)
+                setTimeout(function () { alert('Sorry, but you have not answered all required questions correctly. @intTotalCorrectQuestions of the required @Model.TotalQuestions were answered correctly.')}, 1000)
             </script>
         }
         else if (TempData["HasPassed"] != null)
         {
             <script>
-                setTimeout(function () { alert('Congratulations @Html.Raw(TempData["Name"])!! You have passed this exam. Your certificate will arrived to your email (@TempData["Email"]) shortly.')}, 1000)
+                setTimeout(function () {
+                    var msg = 'Congratulations @Html.Raw(TempData["Name"])!! You have passed this exam. ';
+                    msg = msg + 'Your certificate will arrived to your email (@TempData["Email"]) shortly.';
+                    confirm(msg);
+                }, 1000)
             </script>
         }
 
@@ -82,15 +107,29 @@
         {
             <div style="position:relative; margin-left:30px;">
                 <div>Your Name</div>
-                <input name="txtName" id="txtName" type="text" style="width:300px;" placeholder="Name Displayed on Certificate" value="@Model.Name" />
+                <input name="txtName" id="txtName" type="text" style="width:300px;" placeholder="Name Displayed on Certificate" value="@Model.TakerName" />
                 <div style="margin-top:5px;">Your Email</div>
-                <input name="txtEmail" id="txtEmail" type="text" style="width:300px;" value="@Model.Email" />
+                <input name="txtEmail" id="txtEmail" type="text" style="width:300px;" value="@Model.TakerEmail" />
 
                 <div style="margin-top:20px; font-style:italic;">*All questions must be answered correctly in order to pass this exam.</div>
 
                 @if (TempData["HasPassed"] != null)
                 {
-                    <div id="divPassMessage" name="divPassMessage" style="position:absolute; z-index:100; left:41%; top:20px; font-size:5.3em; color:green; ">Great Job!</div>
+                    <style>
+                        #aPassMessage {
+                            position: absolute;
+                            z-index: 50;
+                            left: 30%;
+                            top: 20px;
+                            font-size: 5.3em;
+                            color: green;
+                            text-decoration:none;
+                        }
+                        #aPassMessage:hover {
+                            color: darkblue;
+                        }
+                    </style>
+                    <a id="aPassMessage" name="aPassMessage" href="../../report/Exam" >Download Certificate</a>
                 }
             </div>
 

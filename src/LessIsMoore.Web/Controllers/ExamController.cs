@@ -28,50 +28,16 @@ namespace LessIsMoore.Web.Controllers
             _context = context;
         }
 
-        //[Route("[controller]/Exam/{QID=1}")]
-        public IActionResult Index()
+        public IActionResult Index(int ID)
         {
-            int QID = 2;
-
             _context.HttpContext.Session.Remove("AzureExam");
-            XDocument xdocument = null;
-            Exam azureExam = new Exam();
+            Exam azureExam = new BLL(this._env.ContentRootPath).ExamFactory(ID);
 
-            azureExam.QuizID = QID;
-
-            if (azureExam.QuizID == 1) {
-                xdocument = XDocument.Load(Path.Combine(this._env.ContentRootPath, "app_data\\AzureQuiz.xml"));
-                azureExam.Name = "Exam: Fast Start – Azure for Modern Web and Mobile Application Development";
-            }
-            else if (azureExam.QuizID == 2) {
-                xdocument = XDocument.Load(Path.Combine(this._env.ContentRootPath, "app_data\\DevopsQuiz.xml"));
-                azureExam.Name = "Exam: Fast Start – Azure for Dev Ops";
-            }
-
-            Random rdm = new Random();
-
-            var Qs = xdocument.Root.Elements("question");
-
-            if (_context.HttpContext.Request.Query["sf"] == "8d679ae7-e939-474c-a3ff-8501ee636b12")
-            {
-                azureExam.ShuffleQuestions = false;
-                azureExam.ShuffleQuestionChoices = false;
-            }
-
-            azureExam.ExamQuestions = (Qs.OrderBy(x => (azureExam.ShuffleQuestions ? rdm.Next(10, 100) : 0)).Select((x, intQID)=> new ExamQuestion()
-            {
-                ID = (intQID + 1),
-                Text = x.Element("text").Value,
-                ExamChoices = (x.Element("answers").Elements("answer").OrderBy(y => (azureExam.ShuffleQuestionChoices ? rdm.Next(10, 100): 0)).Select((y, intCID) =>
-                {
-                    ExamChoice examChoice = new ExamChoice();
-                    examChoice.ID = ((intCID + 1 ) + ((intQID + 1) * 100));
-                    examChoice.Text = y.Value;
-                    int num = y.Attributes().Any(z => z.Name.LocalName == "correct") ? 1 : 0;
-                    examChoice.IsCorrect = num != 0;
-                    return examChoice;
-                })).ToList()
-            })).ToList();
+            //if (_context.HttpContext.Request.Query["sf"] == "8d679ae7-e939-474c-a3ff-8501ee636b12")
+            //{
+            //    azureExam.ShuffleQuestions = false;
+            //    azureExam.ShuffleQuestionChoices = false;
+            //}
 
             _context.HttpContext.Session.SetString("AzureExam", JsonConvert.SerializeObject(azureExam));
 
@@ -82,31 +48,39 @@ namespace LessIsMoore.Web.Controllers
         public async Task<IActionResult> Submit(string txtEmail, string txtName)
         {
             Exam azureExam = JsonConvert.DeserializeObject<Exam>(_context.HttpContext.Session.GetString("AzureExam"));
+
             azureExam.HasStarted = true;
-            azureExam.Email = System.Net.WebUtility.HtmlEncode(txtEmail);
-            azureExam.Name = System.Net.WebUtility.HtmlEncode(txtName);
+            azureExam.TakerEmail = System.Net.WebUtility.HtmlEncode(txtEmail);
+            azureExam.TakerName = System.Net.WebUtility.HtmlEncode(txtName);
 
-            foreach (ExamQuestion examQuestion in azureExam.ExamQuestions)
-            {
-                foreach (ExamChoice examChoice in examQuestion.ExamChoices)
-                    examChoice.IsSelected = this.Request.Form["answer_" + examChoice.ID.ToString()] == "on";
-            }
+            IEnumerable<ExamResponse> rsps =
+                BLL.CollectExamResponses(azureExam, x => (Request.Form["answer_" + x.ID.ToString()] == "on"));
 
-            if (azureExam.TotalCorrectQuestions < azureExam.TotalQuestions)
+            int intTotalCorrectQuestions = BLL.GradeExam(azureExam, rsps);
+            TempData["TotalCorrectQuestions"] = intTotalCorrectQuestions;
+
+            if (intTotalCorrectQuestions < azureExam.TotalQuestions)
                 return View("Index", azureExam);
 
-            await new Core.Models.SendGrid(_AppSettings.SendGridSettings).SendEmailAsync(
-                "moore.tim@microsoft.com",
-                "Workshop Certification Request",
-                azureExam.Name,
-                string.Format("New Request from {0} at Email: {1}", azureExam.Name, azureExam.Email)
-            );
+            //report/exam
+            _context.HttpContext.Session.SetString("ExamReport", JsonConvert.SerializeObject(azureExam));
+            await SendCertificationEmail(azureExam);
 
             this.TempData["HasPassed"] = "YES";
-            this.TempData["Name"] = azureExam.Name;
-            this.TempData["Email"] = azureExam.Email;
+            this.TempData["Name"] = azureExam.TakerName;
+            this.TempData["Email"] = azureExam.TakerEmail;
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { ID = azureExam.ID });
+        }
+
+        private async Task SendCertificationEmail(Exam azureExam)
+        {
+            await new Core.Models.SendGrid(_AppSettings.SendGridSettings).SendEmailAsync(
+                            "moore.tim@microsoft.com",
+                            "Certification Request",
+                            azureExam.Name,
+                            string.Format("New Request from {0} at Email: {1}", azureExam.TakerName, azureExam.TakerEmail)
+                        );
         }
 
         public IActionResult Error()

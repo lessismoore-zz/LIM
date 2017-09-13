@@ -11,6 +11,6 @@ namespace LessIsMoore.Web.Models
 
         public string Text { get; set; }
 
-        public IList<ExamChoice> ExamChoices { get; set; }
+        public IEnumerable<ExamChoice> ExamChoices { get; set; }
     }
 }

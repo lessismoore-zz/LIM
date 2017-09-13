@@ -10,6 +10,7 @@ using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Authorization;
 using LessIsMoore.Web.Translation;
+using Microsoft.Reporting.WebForms;
 
 namespace LessIsMoore.Web.Controllers
 {
@@ -99,6 +100,7 @@ namespace LessIsMoore.Web.Controllers
 
             return new JsonResult(data);
         }
+
 
     }
 }

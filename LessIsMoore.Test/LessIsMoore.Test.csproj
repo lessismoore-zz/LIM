@@ -13,13 +13,13 @@
 
   <ItemGroup>
     <PackageReference Include="Chromium.ChromeDriver" Version="2.30.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0-preview-20170601-03" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.5.0-preview-20170810-02" />
     <PackageReference Include="Selenium.Support" Version="3.4.0" />
     <PackageReference Include="Selenium.WebDriver" Version="3.4.0" />
     <PackageReference Include="Selenium.WebDriver.IEDriver" Version="3.4.0" />
     <PackageReference Include="Selenium.WebDriver.PhantomJS" Version="1.0.0" />
-    <PackageReference Include="xunit" Version="2.2.0" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.3.0-beta3-build3705" />
+    <PackageReference Include="xunit" Version="2.3.0-beta5-build3769" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.3.0-beta5-build3769" />
   </ItemGroup>
 
   <ItemGroup>

@@ -7,6 +7,10 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.IE;
 using OpenQA.Selenium.PhantomJS;
 using OpenQA.Selenium.Support.UI;
+using System;
+using Microsoft.DotNet.PlatformAbstractions;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace LessIsMoore.Test
 {
@@ -18,10 +22,12 @@ namespace LessIsMoore.Test
         IWebDriver _wd;
         IJavaScriptExecutor _js;
         private string _strBaseURL = "http://www.lessismoore.net";
-        public UnitTest1()
-        {
-            //Initialize
-        }
+
+
+        //public UnitTest1()
+        //{
+        //    Initialize();
+        //}
 
         //[Theory]
         //[Trait("Category", "Selenium")]
@@ -43,7 +49,7 @@ namespace LessIsMoore.Test
         //    {
         //        _js = (IJavaScriptExecutor)_wd;
 
-        //        _wd.Navigate().GoToUrl(_strBaseURL+ "/exam?sf=8d679ae7-e939-474c-a3ff-8501ee636b12");
+        //        _wd.Navigate().GoToUrl(_strBaseURL + "/exam?sf=8d679ae7-e939-474c-a3ff-8501ee636b12");
         //        _wd.Manage().Timeouts().ImplicitWait = new System.TimeSpan(0, 0, 5);
 
         //        IWait<IWebDriver> wait = new WebDriverWait(_wd, System.TimeSpan.FromSeconds(5));
@@ -69,10 +75,54 @@ namespace LessIsMoore.Test
         //        //wait.Until(ExpectedConditions.AlertIsPresent());
 
         //        //_wd.SwitchTo().Alert().Accept();
-        //        wait.Until(ExpectedConditions.ElementExists(By.Id("divPassMessage")));
-        //        Assert.Contains("great job", _wd.FindElement(By.Id("divPassMessage")).Text.ToLower());
+        //        wait.Until(ExpectedConditions.ElementExists(By.Id("aPassMessage")));
+        //        Assert.Contains("great job", _wd.FindElement(By.Id("aPassMessage")).Text.ToLower());
         //    }
         //}
+
+        private Exam PopulateQuestionsFromXML()
+        {
+            string strXMLPath =
+                "<questions><question><text>Favorite Letter</text><answers><answer>A</answer><answer>B</answer><answer>Y</answer><answer>Z</answer></answers></question></questions>";
+
+            Exam azureExam = new Exam();
+
+            System.Xml.Linq.XDocument xdocument = System.Xml.Linq.XDocument.Parse(strXMLPath);
+
+            azureExam.ExamQuestions =
+                new BLL().PopulateExamQuestionsFromXML(xdocument.Root.Elements("question"));
+
+            return azureExam;
+        }
+
+        [Fact]
+        [Trait("Category", "UnitTest")]
+
+        public void VerifyExam_1_PopulateQuestions()
+        {
+            Exam azureExam = PopulateQuestionsFromXML();
+            Assert.True(azureExam.TotalQuestions == 1);
+        }
+
+        [Theory]
+        [InlineData("b", "b")]
+        [Trait("Category", "UnitTest")]
+
+        public void VerifyExam_2_GradeExam(string strAnswer, string strResponse)
+        {
+            Exam azureExam = PopulateQuestionsFromXML();
+
+            azureExam.ExamQuestions.First()
+                .ExamChoices.Where(x => x.Text.ToLower() == strAnswer)
+                .First().IsCorrect = true;
+
+            IEnumerable<ExamResponse> rsps =
+                BLL.CollectExamResponses(azureExam, x => (x.Text.ToLower() == strResponse));
+
+            int intTotalCorrectQuestions = BLL.GradeExam(azureExam, rsps);
+
+            Assert.True(intTotalCorrectQuestions >= azureExam.TotalQuestions);
+        }
 
         [Theory]
         [InlineData("home")]
@@ -119,15 +169,15 @@ namespace LessIsMoore.Test
             Xunit.Assert.Equal(strExpectedText, strTranslation);
         }
 
-        [Theory]
-        [InlineData("**Test Bug in LessIsMoore.Web**", "UnitTest: VSTS_UpdateWorkItem", null, 339)]
-        [Trait("Category", "UnitTest")]
+        //[Theory]
+        //[InlineData("**Test Bug in LessIsMoore.Web**", "UnitTest: VSTS_UpdateWorkItem", null, 339)]
+        //[Trait("Category", "UnitTest")]
 
-        //[InlineData("New Bug", "UnitTest: VSTS_UpdateWorkItem", "Bug", -1)]
-        public void VSTS_UpdateWorkItem(string strTitle, string strError, string strWorkItemType, int intItemID)
-        {
-            int intID = new BLL().VSTS_SaveWorkItem(strTitle, strError, strWorkItemType, intItemID, "Verified on "+ System.DateTime.Now.ToString());
-            Xunit.Assert.Equal(intItemID, intID);
-        }
+        ////[InlineData("New Bug", "UnitTest: VSTS_UpdateWorkItem", "Bug", -1)]
+        //public void VSTS_UpdateWorkItem(string strTitle, string strError, string strWorkItemType, int intItemID)
+        //{
+        //    int intID = new BLL().VSTS_SaveWorkItem(strTitle, strError, strWorkItemType, intItemID, "Verified on "+ System.DateTime.Now.ToString());
+        //    Xunit.Assert.Equal(intItemID, intID);
+        //}
     }
 }

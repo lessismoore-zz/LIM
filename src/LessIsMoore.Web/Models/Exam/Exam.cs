@@ -11,30 +11,17 @@ namespace LessIsMoore.Web.Models
         {
             get
             {
-                return this.ExamQuestions.Count;
+                return this.ExamQuestions.Count();
             }
         }
 
-        public int TotalCorrectQuestions
-        {
-            get
-            {
-                return this.ExamQuestions.Select((x => x.ExamChoices.Where<ExamChoice>((y =>
-                {
-                    if (y.IsSelected)
-                        return y.IsCorrect;
-                    return false;
-                })).Count<ExamChoice>())).Sum();
-            }
-        }
-
-        public IList<ExamQuestion> ExamQuestions { get; set; }
+        public IEnumerable<ExamQuestion> ExamQuestions { get; set; }
 
         public bool HasStarted { get; set; }
 
-        public string Email { get; set; }
+        public string TakerEmail { get; set; }
 
-        public string Name { get; set; }
+        public string TakerName { get; set; }
 
         private bool _ShuffleQuestions = true;
         public bool ShuffleQuestions {
@@ -49,7 +36,8 @@ namespace LessIsMoore.Web.Models
             set { _ShuffleQuestionChoices = value; }
         }
 
-        public int QuizID{ get; set; }
+        public int ID{ get; set; }
+        public string Name{ get; set; }
 
     }
 }
