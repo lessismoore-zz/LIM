@@ -147,7 +147,6 @@ namespace LessIsMoore.Test
 
         [Fact]
         [Trait("Category", "UnitTest")]
-
         public async void VerifyAzureNewsFeed()
         {
             NewsFeed[] arrNewsFeeds = await new BLL().FetchAzureNewsFeed();
