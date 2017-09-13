@@ -96,8 +96,7 @@ namespace LessIsMoore.Test
         }
 
         [Fact]
-        [Trait("Category", "UnitTest")]
-
+        //[Trait("Category", "UnitTest")]
         public void VerifyExam_1_PopulateQuestions()
         {
             Exam azureExam = PopulateQuestionsFromXML();
@@ -106,8 +105,7 @@ namespace LessIsMoore.Test
 
         [Theory]
         [InlineData("b", "b")]
-        [Trait("Category", "UnitTest")]
-
+        //[Trait("Category", "UnitTest")]
         public void VerifyExam_2_GradeExam(string strAnswer, string strResponse)
         {
             Exam azureExam = PopulateQuestionsFromXML();
@@ -126,8 +124,7 @@ namespace LessIsMoore.Test
 
         [Theory]
         [InlineData("home")]
-        [Trait("Category", "UnitTest")]
-
+        //[Trait("Category", "UnitTest")]
         public async void VerifyHomeLoads(string strPageName)
         {
             HomeController homeController = new HomeController();
@@ -137,8 +134,7 @@ namespace LessIsMoore.Test
         }
 
         [Fact]
-        [Trait("Category", "UnitTest")]
-
+        //[Trait("Category", "UnitTest")]
         public async void VerifyVergeNewsFeed()
         {
             NewsFeed[] arrNewsFeeds = await new BLL().FetchVergeNewsFeed();
@@ -146,7 +142,7 @@ namespace LessIsMoore.Test
         }
 
         [Fact]
-        [Trait("Category", "UnitTest")]
+        //[Trait("Category", "UnitTest")]
         public async void VerifyAzureNewsFeed()
         {
             NewsFeed[] arrNewsFeeds = await new BLL().FetchAzureNewsFeed();
@@ -156,8 +152,7 @@ namespace LessIsMoore.Test
         [Theory]
         [InlineData("Less", "Moins", "fr-FR")]
         [InlineData("Less", "Menos", "es-ES")]
-        [Trait("Category", "UnitTest")]
-
+        //[Trait("Category", "UnitTest")]
         public async void VerifyTranslationAPILogic(string strText, string strExpectedText, string strLangangue)
         {
             Web.Translation.TextTranslator inst_TextTranslator = new Web.Translation.TextTranslator();
