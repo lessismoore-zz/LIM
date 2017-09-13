@@ -2,7 +2,6 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-!LessIsMoore.Test\bin\Debug\net461\LessIsMoore.Test.dll
 packages
 .gitignore
 .vs/
@@ -53,3 +52,7 @@ _ReSharper*/
 # Office Temp Files
 ~$*
 
+!LessIsMoore.Test/bin
+!LessIsMoore.Test/bin/Debug
+LessIsMoore.Test/bin/Debug/net461/*
+!LessIsMoore.Test/bin/Debug/net461/LessIsMoore.Test.dll
