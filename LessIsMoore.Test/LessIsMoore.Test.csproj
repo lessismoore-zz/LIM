@@ -31,13 +31,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="bin\Debug\net461\LessIsMoore.Test.dll" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
       <HintPath>C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\PublicAssemblies\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll</HintPath>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="bin\Debug\net461\LessIsMoore.Test.dll" />
   </ItemGroup>
   
 </Project>
