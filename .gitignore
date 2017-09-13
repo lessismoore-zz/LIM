@@ -4,6 +4,7 @@
 
 packages
 .gitignore
+.vs/
 
 #OS junk files
 [Tt]humbs.db
@@ -31,10 +32,11 @@ packages
 *.sdf
 ipch/
 obj
-[Bb]in
-[Dd]ebug
-[Rr]elease
+[Bb]in/
+[Dd]ebug/
+[Rr]elease/
 Ankh.NoLoad
+TestResults/
 
 #Tooling
 _ReSharper*/
@@ -49,5 +51,3 @@ _ReSharper*/
 
 # Office Temp Files
 ~$*
-
-LessIsMoore.UITest/bin
