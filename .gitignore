@@ -51,3 +51,5 @@ _ReSharper*/
 
 # Office Temp Files
 ~$*
+
+!LessIsMoore.Test\bin\Debug\net461\LessIsMoore.Test.dll
