@@ -44,6 +44,7 @@ namespace LessIsMoore.Test
 
         [Theory]
         [InlineData("b", "b")]
+        [InlineData("b", "s")]
         [Trait("Category", "UnitTest")]
         public void VerifyExam_2_GradeExam(string strAnswer, string strResponse)
         {
@@ -94,8 +95,7 @@ namespace LessIsMoore.Test
         [Trait("Category", "UnitTest")]
         public async void VerifyTranslationAPILogic(string strText, string strExpectedText, string strLangangue)
         {
-            LessIsMoore.Web.Translation.TextTranslator inst_TextTranslator = 
-                new LessIsMoore.Web.Translation.TextTranslator();
+            Web.Translation.TextTranslator inst_TextTranslator = new Web.Translation.TextTranslator();
 
             string strAuthToken = await inst_TextTranslator.GetAccessToken(_strKey);
             string strTranslation = await inst_TextTranslator.CallTranslateAPI(_strAPI, strAuthToken, strText, strLangangue);
