@@ -55,4 +55,5 @@ _ReSharper*/
 !LessIsMoore.Test/bin
 !LessIsMoore.Test/bin/Debug
 LessIsMoore.Test/bin/Debug/net461/*
+LessIsMoore.Test/bin/Debug/netcoreapp1.1
 !LessIsMoore.Test/bin/Debug/net461/LessIsMoore.Test.dll
