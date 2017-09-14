@@ -44,7 +44,6 @@ namespace LessIsMoore.Test
 
         [Theory]
         [InlineData("b", "b")]
-        [InlineData("b", "s")]
         [Trait("Category", "UnitTest")]
         public void VerifyExam_2_GradeExam(string strAnswer, string strResponse)
         {
