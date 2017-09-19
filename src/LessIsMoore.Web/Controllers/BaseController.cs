@@ -30,7 +30,6 @@ namespace LessIsMoore.Web.Controllers
         [HttpPost]
         public IActionResult SaveLangauge(string ddlLangauge)
         {
-
             TelemetryClient telemetry = new TelemetryClient();
             telemetry.TrackTrace("User selected a new language - server");
 
