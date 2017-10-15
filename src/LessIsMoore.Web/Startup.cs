@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using Microsoft.AspNetCore.Session;
+using Microsoft.AspNet.Identity;
 
 namespace LessIsMoore.Web
 {
@@ -47,6 +48,19 @@ namespace LessIsMoore.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
+            //===========================================================================
+            // Add identity types
+            //services.AddIdentity<ApplicationUser, ApplicationRole>()
+            //    .AddDefaultTokenProviders();
+
+            // Identity Services
+            services.AddTransient<IUserStore<IdentityUser>, UserStore>();
+            //services.AddTransient<IRoleStore<ApplicationRole>, CustomRoleStore>();
+            //string connectionString = Configuration.GetConnectionString("DefaultConnection");
+            //services.AddTransient<SqlConnection>(e => new SqlConnection(connectionString));
+            //services.AddTransient<DapperUsersTable>();
+            //===========================================================================
+
             services.AddMvc();
             services.AddAuthentication(opts => opts.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme);
 

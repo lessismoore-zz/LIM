@@ -4,12 +4,12 @@
 
 Param(
     [string] [Parameter(Mandatory=$true)] $ResourceGroupLocation,
-    [string] $ResourceGroupName = 'LessIsMoore.Web',
+    [string] $ResourceGroupName = 'LessIsMooreToo',
     [switch] $UploadArtifacts,
     [string] $StorageAccountName,
     [string] $StorageContainerName = $ResourceGroupName.ToLowerInvariant() + '-stageartifacts',
-    [string] $TemplateFile = 'WebSite.json',
-    [string] $TemplateParametersFile = 'WebSite.parameters.json',
+    [string] $TemplateFile = 'LessIsMooreToo-Docker.json',
+    [string] $TemplateParametersFile = 'LessIsMooreToo-Docker.parameters.json',
     [string] $ArtifactStagingDirectory = '.',
     [string] $DSCSourceFolder = 'DSC',
     [switch] $ValidateOnly
