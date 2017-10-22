@@ -52,8 +52,8 @@ _ReSharper*/
 # Office Temp Files
 ~$*
 
-!LessIsMoore.Docker
-!LessIsMoore.Docker/obj
-!LessIsMoore.Docker/obj/Docker
-!LessIsMoore.Docker/obj/Docker/publish
-!LessIsMoore.Docker/obj/Docker/empty
+!LessIsMoore.Web
+!LessIsMoore.Web/obj
+!LessIsMoore.Web/obj/Docker
+!LessIsMoore.Web/obj/Docker/publish
+!LessIsMoore.Web/obj/Docker/empty
