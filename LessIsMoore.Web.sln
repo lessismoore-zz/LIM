@@ -20,6 +20,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LessIsMoore.UITest", "LessI
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LessIsMoore.Test", "LessIsMoore.Test\LessIsMoore.Test.csproj", "{A8261EE6-28A0-4863-A929-B618460797B3}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LessIsMoore.Docker", "LessIsMoore.Docker\LessIsMoore.Docker.csproj", "{A250E66B-3059-441A-A93E-09B7B341291C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,6 +44,10 @@ Global
 		{A8261EE6-28A0-4863-A929-B618460797B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8261EE6-28A0-4863-A929-B618460797B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8261EE6-28A0-4863-A929-B618460797B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A250E66B-3059-441A-A93E-09B7B341291C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A250E66B-3059-441A-A93E-09B7B341291C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A250E66B-3059-441A-A93E-09B7B341291C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A250E66B-3059-441A-A93E-09B7B341291C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
