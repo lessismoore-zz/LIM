@@ -1,5 +1,6 @@
 FROM microsoft/aspnetcore:2.0
+ARG source
 WORKDIR /app
 EXPOSE 80
-COPY . ./
+COPY ${source:-obj/Docker/publish} .
 ENTRYPOINT ["dotnet", "LessIsMoore.Web.dll"]
