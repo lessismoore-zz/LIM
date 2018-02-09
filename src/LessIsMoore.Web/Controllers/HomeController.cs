@@ -30,6 +30,11 @@ namespace LessIsMoore.Web.Controllers
             _AppSettings = settings != null ? settings.Value : null;
         }
 
+        public void DoSomething() {
+            int intNumber = 1;
+
+        }
+
         // GET: Home
         public async System.Threading.Tasks.Task<IActionResult> Index()
         {

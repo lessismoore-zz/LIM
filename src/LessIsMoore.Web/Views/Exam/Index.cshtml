@@ -75,6 +75,22 @@
         </div>
     </div>
 
+         @*Language drop down list 
+        <span>Select your language:</span>
+        <select>
+            <script>
+                //fetch language from querystring
+                //Example: www.some.site/page.html?default=French
+
+                var startOfDefaultParamater = document.location.href.indexOf("default=") + 8;
+                var defaultValue = document.location.href.substring(startOfDefaultParamater);
+
+                //create option elements
+                document.write("<OPTION value=1>" + defaultValue + "</OPTION>");
+                document.write("<OPTION value=2>English</OPTION>");
+            </script>
+        </select>*@
+
     <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"></script>
 
     @using (Html.BeginForm("Submit", "Exam", FormMethod.Post))

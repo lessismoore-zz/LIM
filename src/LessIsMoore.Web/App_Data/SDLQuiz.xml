@@ -1,0 +1,75 @@
+<questions>
+	<question>
+		<text>
+		With asymmetric encryption users need to pre-share their secret key?
+		</text>
+    <answers>
+      <answer correct="1">
+		  No
+		  </answer>
+      <answer>
+		  True
+		  </answer>
+    </answers>
+
+	</question>
+	<question>
+		<text>
+    What is the purpose of the "Number of Iterations" value?		</text>
+    <answers>
+		  <answer>
+		  Add a pause before hashing
+		  </answer>
+		  <answer correct="1">
+		  Make the hashing process algorithmically slow
+		  </answer>
+		  <answer>
+		  Adds a key to the hashing process
+		  </answer>
+		  <answer>
+		  Make the hashing process algorithmically faster
+		  </answer>
+    </answers>
+
+	</question>
+	<question>
+		<text>
+		To help guard from dictionary or rainbow table attacks you can
+		</text>
+    <answers>
+		  <answer>
+		  Use SSL/TLS
+		  </answer>
+		  <answer>
+		  Encrypt the password instead
+		  </answer>
+		  <answer correct="1">
+		  Add a random salt value to the password
+		  </answer>
+		  <answer>
+		  Use a hash with a larger key size
+		  </answer>
+    </answers>
+
+	</question>
+	<question>
+		<text>
+		Cryptography has the following security requirements?
+		</text>
+    <answers>
+		  <answer correct="1">
+		  All of these
+		  </answer>
+		  <answer>
+		  Integrity
+		  </answer>
+		  <answer>
+		  Confidentiality
+		  </answer>
+		  <answer>
+		  Authentication
+		  </answer>
+    </answers>
+    
+	</question>
+</questions>

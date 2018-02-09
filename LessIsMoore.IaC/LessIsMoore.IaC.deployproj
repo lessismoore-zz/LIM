@@ -28,9 +28,9 @@
     <None Include="Deployment.targets">
       <Visible>False</Visible>
     </None>
-    <Content Include="Deploy-AzureResourceGroup.ps1" />
-    <Content Include="WebSite.json" />
-    <Content Include="WebSite.parameters.json" />
+    <Content Include="LessIsMooreToo\Deploy-AzureResourceGroup.ps1" />
+    <Content Include="LessIsMooreToo\LessIsMooreToo-Docker.json" />
+    <Content Include="LessIsMooreToo\LessIsMooreToo-Docker.parameters.json" />
   </ItemGroup>
   <Target Name="GetReferenceAssemblyPaths" />
 </Project>
