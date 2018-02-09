@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using Microsoft.ApplicationInsights;
 
 namespace LessIsMoore.Web.Controllers
 {
@@ -28,6 +29,7 @@ namespace LessIsMoore.Web.Controllers
             _context = context;
         }
 
+        [HttpGet]
         public IActionResult Index(int ID)
         {
             _context.HttpContext.Session.Remove("AzureExam");
@@ -40,8 +42,9 @@ namespace LessIsMoore.Web.Controllers
             //}
 
             _context.HttpContext.Session.SetString("AzureExam", JsonConvert.SerializeObject(azureExam));
+            _context.HttpContext.Session.SetString("AzureExamStartTime", DateTime.Now.ToShortTimeString() );
 
-            return  View(azureExam);
+            return View(azureExam);
         }
 
         [HttpPost]
@@ -58,6 +61,21 @@ namespace LessIsMoore.Web.Controllers
 
             int intTotalCorrectQuestions = BLL.GradeExam(azureExam, rsps);
             TempData["TotalCorrectQuestions"] = intTotalCorrectQuestions;
+
+            //========================================================
+            DateTime dteAzureExamStartTime;
+            DateTime.TryParse(_context.HttpContext.Session.GetString("AzureExamStartTime"), out dteAzureExamStartTime);
+
+            TelemetryClient appInsights = new TelemetryClient();
+            Dictionary<string, string> properties = new Dictionary<string, string>();
+            var metrics = new Dictionary<string, double>();
+
+            properties["Name: LessIsMoore Exam"] = azureExam.Name;
+            metrics["Score: LessIsMoore Exam"] = intTotalCorrectQuestions;
+            metrics["Duration(min): LessIsMoore Exam"] = (DateTime.Now - dteAzureExamStartTime).TotalMinutes;
+
+            appInsights.TrackEvent("LessIsMoore Exam", properties, metrics);
+            //========================================================
 
             if (intTotalCorrectQuestions < azureExam.TotalQuestions)
                 return View("Index", azureExam);
