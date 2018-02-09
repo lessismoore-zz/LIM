@@ -27,7 +27,7 @@
 		</text>
     <answers>
 		  <answer>
-		  Deplpoyment from source control
+		  Deployment from source control
 		  </answer>
 		  <answer correct="1">
 		  Deployment slots

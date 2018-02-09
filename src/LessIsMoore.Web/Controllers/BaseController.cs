@@ -8,6 +8,7 @@ using Microsoft.Extensions.Options;
 using LessIsMoore.Web.Translation;
 using System.Linq;
 using Microsoft.ApplicationInsights;
+using System.Collections.Generic;
 
 namespace LessIsMoore.Web.Controllers
 {
@@ -30,9 +31,6 @@ namespace LessIsMoore.Web.Controllers
         [HttpPost]
         public IActionResult SaveLangauge(string ddlLangauge)
         {
-            TelemetryClient telemetry = new TelemetryClient();
-            telemetry.TrackTrace("User selected a new language - server");
-
             if (!new SelectedLanguage().Langs.Keys.Any(x => x.ToLower() == ddlLangauge.ToLower())) {
                 throw new Exception("Language is not supported");
             }
