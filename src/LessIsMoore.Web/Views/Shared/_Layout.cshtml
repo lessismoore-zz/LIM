@@ -1,12 +1,13 @@
 ﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor _context;
 @inject LessIsMoore.Web.Translation.ISelectedLanguage inst_SelectedLanguage;
+@inject Microsoft.Extensions.Options.IOptions<LessIsMoore.Web.Models.AppSettings> inst_settings;
 
 @{
     string strSelectedLangauge = _tl.CurrentTextCulture;
     bool _IsAuthenticated = false;
     string strWelcome = "";
 
-    string strTitle = ViewData["title"] == null ? "" : "> "+ _tl.TranslateText(ViewData["title"].ToString());
+    string strTitle = ViewData["title"] == null ? "" : "> " + _tl.TranslateText(ViewData["title"].ToString());
 
     inst_SelectedLanguage.Locale = strSelectedLangauge;
 
@@ -42,7 +43,7 @@
         sessionStorage.setItem("_savedTranslations_", '@Html.Raw(_tl.FetchJSonStoredTranslations())');
         var _tl = fetchDefaultTranslator().translateText;
     </script>
-    
+
     @Html.Raw(snippet.FullScript)
 
     @RenderSection("Header")
@@ -59,112 +60,107 @@
             padding-right: 10px;
         }
 
-        #ulNav li {
-            padding: 0px;
-            margin: 0px 10px 0px 0px;
-            display: inline;
-            text-decoration: none;
-        }
+            #ulNav li {
+                padding: 0px;
+                margin: 0px 10px 0px 0px;
+                display: inline;
+                text-decoration: none;
+            }
+
         form {
-            margin:0px !important;
-            padding:0px !important;
-            display:inline;
+            margin: 0px !important;
+            padding: 0px !important;
+            display: inline;
         }
     </style>
 
-<script>
-    $(function () {
-        $('#ddlLangauge').bind('change', function () {
-            //if (this.selectedIndex > -1 && confirm(_tl('Continue and update langauge?'))) {
+    <script>
+        $(function () {
+            $('#ddlLangauge').bind('change', function () {
+                //if (this.selectedIndex > -1 && confirm(_tl('Continue and update langauge?'))) {
                 this.form.submit();
-            //}
+                //}
 
-            //appInsights.trackEvent('User changed default langauge - client');
-
-            return false;
-        });
-
-        $('#txtNotifyUsers').bind('keydown', function (e) {
-            if (!e) { var e = window.event; }
-
-            if (e.keyCode == 13) {
-                if (($.trim(this.value) != '') && confirm(_tl('Continue and Message Subscribers?'))) {
-                    this.form.submit();
-                }
+                //appInsights.trackEvent('User changed default langauge - client');
 
                 return false;
-            }
+            });
 
-        });
-    })
+            $('#txtNotifyUsers').bind('keydown', function (e) {
+                if (!e) { var e = window.event; }
 
-</script>
+                if (e.keyCode == 13) {
+                    if (($.trim(this.value) != '') && confirm(_tl('Continue and Message Subscribers?'))) {
+                        this.form.submit();
+                    }
+
+                    return false;
+                }
+
+            });
+        })
+
+    </script>
 
     <!-- Header -->
-        <ul id="ulNav">
+    <ul id="ulNav">
 
-            <li style="float:left; margin-left:20px; font-weight:bold;">@strWelcome</li>
-            <li><a href="/blog" translate-text>blog</a></li>
-            <li style="margin-right:15px;"><a href="#" translate-text>partners</a></li>
+        <li style="float:left; margin-left:20px; font-weight:bold;">@strWelcome</li>
+        <li><a href="/blog" translate-text>blog</a></li>
+        <li style="margin-right:15px;"><a href="#" translate-text>partners</a></li>
 
-            @using (Html.BeginForm("SaveLangauge", "Home", FormMethod.Post, new { id = "frmLangauge" }))
-            {
-                <li>
-                    <img style="height:25px; position:relative; top:7px; " src="@inst_SelectedLanguage.Flag" />
+        @using (Html.BeginForm("SaveLangauge", "Home", FormMethod.Post, new { id = "frmLangauge" }))
+        {
+            <li>
+                <img style="height:25px; position:relative; top:7px; " src="@inst_SelectedLanguage.Flag" />
 
-                    <select name="ddlLangauge" id="ddlLangauge" style="width:120px; display:inline-block; 
+                <select name="ddlLangauge" id="ddlLangauge" style="width:120px; display:inline-block;
                             margin:5px 0px 0px 0px; padding:0px 0px 0px 10px; height:1.60em; font-size:12pt;">
 
-                        @foreach (string strKey in inst_SelectedLanguage.Langs.Keys)
+                    @foreach (string strKey in inst_SelectedLanguage.Langs.Keys)
+                    {
+                        if (strSelectedLangauge.ToLower() == strKey.ToLower())
                         {
-                            if (strSelectedLangauge.ToLower() == strKey.ToLower())
-                            {
-                                <option translate-text value="@strKey" selected>
-                                    @inst_SelectedLanguage.Langs[strKey]
-                                </option>
-                            }
-                            else
-                            {
-                                <option translate-text value="@strKey">
-                                    @inst_SelectedLanguage.Langs[strKey]
-                                </option>
-                            }
+                            <option translate-text value="@strKey" selected>
+                                @inst_SelectedLanguage.Langs[strKey]
+                            </option>
+                        }
+                        else
+                        {
+                            <option translate-text value="@strKey">
+                                @inst_SelectedLanguage.Langs[strKey]
+                            </option>
                         }
 
-                        <option translate-text value="kl-KL">
-                            Klingon
-                        </option>
-                        @*{
-
-                            if (_IsAuthenticated)
-                            {
-                                <option translate-text value="kl-KL">
-                                    Klingon
-                                </option>
-                            }
-                        }*@
-                    </select>
-                </li>
-
-            }
-
-            @{
-                if (_IsAuthenticated)
-                {
-                    @using (Html.BeginForm("SendNotification", "Home", FormMethod.Post, new { id = "frmMessage" }))
-                    {
-                        <li>
-
-                            <input type="text" placeholder='@_tl.TranslateText("Admin: Message Subscribers")' name="txtNotifyUsers" id="txtNotifyUsers"
-                                   style="width:500px; height:1.30em; display:inline; margin:5px 0px 0px 0px; padding:0px 0px 0px 10px;" />
-                        </li>
-
+                        if (inst_settings.Value.FeatureFlag_ShowLanguageKlingon)
+                        {
+                            <option translate-text value="kl-KL">
+                                Klingon
+                            </option>
+                        }
                     }
+                </select>
+            </li>
+
+        }
+
+        @{
+            if (_IsAuthenticated)
+            {
+                @using (Html.BeginForm("SendNotification", "Home", FormMethod.Post, new { id = "frmMessage" }))
+                {
+                    <li>
+
+                        <input type="text" placeholder='@_tl.TranslateText("Admin: Message Subscribers")' name="txtNotifyUsers" id="txtNotifyUsers"
+                               style="width:500px; height:1.30em; display:inline; margin:5px 0px 0px 0px; padding:0px 0px 0px 10px;" />
+                    </li>
+
                 }
             }
+        }
 
-        </ul>
-    
+    </ul>
+
     <section id="header">
         <div class="inner">
             <span class="icon major fa-cloud"></span>
@@ -183,8 +179,8 @@
         <ul class="icons">
             <li><a href="https://www.twitter.com/timdmo" target="_blank" class="icon alt fa-twitter"><span class="label" translate-text>Twitter</span></a></li>
             @*<li><a href="#" class="icon alt fa-facebook"><span class="label" translate-text>Facebook</span></a></li>
-            <li><a href="#" class="icon alt fa-instagram"><span class="label" translate-text>Instagram</span></a></li>
-            <li><a href="#" class="icon alt fa-github"><span class="label" translate-text>GitHub</span></a></li>*@
+                <li><a href="#" class="icon alt fa-instagram"><span class="label" translate-text>Instagram</span></a></li>
+                <li><a href="#" class="icon alt fa-github"><span class="label" translate-text>GitHub</span></a></li>*@
             <li><a href="#" class="icon alt fa-envelope"><span class="label" translate-text>Email</span></a></li>
         </ul>
         <ul class="copyright">

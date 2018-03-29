@@ -2,6 +2,35 @@
   "version": 3,
   "targets": {
     ".NETFramework,Version=v4.6.1": {
+      "FeatureToggle/4.0.2": {
+        "type": "package",
+        "dependencies": {
+          "FeatureToggle.Common": "4.0.2"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "System.Configuration",
+          "System.Web.Extensions"
+        ],
+        "compile": {
+          "lib/net461/FeatureToggle.dll": {}
+        },
+        "runtime": {
+          "lib/net461/FeatureToggle.dll": {}
+        }
+      },
+      "FeatureToggle.Common/4.0.2": {
+        "type": "package",
+        "dependencies": {
+          "NETStandard.Library": "1.6.1"
+        },
+        "compile": {
+          "lib/netstandard1.4/FeatureToggle.Common.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.4/FeatureToggle.Common.dll": {}
+        }
+      },
       "Libuv/1.9.1": {
         "type": "package",
         "dependencies": {
@@ -2593,6 +2622,35 @@
       }
     },
     ".NETFramework,Version=v4.6.1/win10-x64": {
+      "FeatureToggle/4.0.2": {
+        "type": "package",
+        "dependencies": {
+          "FeatureToggle.Common": "4.0.2"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "System.Configuration",
+          "System.Web.Extensions"
+        ],
+        "compile": {
+          "lib/net461/FeatureToggle.dll": {}
+        },
+        "runtime": {
+          "lib/net461/FeatureToggle.dll": {}
+        }
+      },
+      "FeatureToggle.Common/4.0.2": {
+        "type": "package",
+        "dependencies": {
+          "NETStandard.Library": "1.6.1"
+        },
+        "compile": {
+          "lib/netstandard1.4/FeatureToggle.Common.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.4/FeatureToggle.Common.dll": {}
+        }
+      },
       "Libuv/1.9.1": {
         "type": "package",
         "dependencies": {
@@ -5069,6 +5127,35 @@
       }
     },
     ".NETFramework,Version=v4.6.1/win7-x86": {
+      "FeatureToggle/4.0.2": {
+        "type": "package",
+        "dependencies": {
+          "FeatureToggle.Common": "4.0.2"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "System.Configuration",
+          "System.Web.Extensions"
+        ],
+        "compile": {
+          "lib/net461/FeatureToggle.dll": {}
+        },
+        "runtime": {
+          "lib/net461/FeatureToggle.dll": {}
+        }
+      },
+      "FeatureToggle.Common/4.0.2": {
+        "type": "package",
+        "dependencies": {
+          "NETStandard.Library": "1.6.1"
+        },
+        "compile": {
+          "lib/netstandard1.4/FeatureToggle.Common.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.4/FeatureToggle.Common.dll": {}
+        }
+      },
       "Libuv/1.9.1": {
         "type": "package",
         "dependencies": {
@@ -7546,6 +7633,29 @@
     }
   },
   "libraries": {
+    "FeatureToggle/4.0.2": {
+      "sha512": "k7T5Jsl1lR52NYZa09MerpU/kg+bfYXNOrSKRlYYmb0r98UDliZM6s992gDtIBAfXxPaBu4D4tlGzuBO0osjbQ==",
+      "type": "package",
+      "path": "featuretoggle/4.0.2",
+      "files": [
+        "featuretoggle.4.0.2.nupkg.sha512",
+        "featuretoggle.nuspec",
+        "lib/net461/FeatureToggle.dll",
+        "lib/netcoreapp1.0/FeatureToggle.dll",
+        "lib/uap10.0/FeatureToggle.dll",
+        "lib/uap10.0/FeatureToggle.pri"
+      ]
+    },
+    "FeatureToggle.Common/4.0.2": {
+      "sha512": "iKgoVuAlv3SvnKSPykUQ2sMFffBscJJ/A4rEWgnSew0C/SWIRbMDj+QXuTmLYa/cx9buQZOd3vKnOeV1/HT7mg==",
+      "type": "package",
+      "path": "featuretoggle.common/4.0.2",
+      "files": [
+        "featuretoggle.common.4.0.2.nupkg.sha512",
+        "featuretoggle.common.nuspec",
+        "lib/netstandard1.4/FeatureToggle.Common.dll"
+      ]
+    },
     "Libuv/1.9.1": {
       "sha512": "uqX2Frwf9PW8MaY7PRNY6HM5BpW1D8oj1EdqzrmbEFD5nH63Yat3aEjN/tws6Tw6Fk7LwmLBvtUh32tTeTaHiA==",
       "type": "package",
@@ -12305,6 +12415,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETFramework,Version=v4.6.1": [
+      "FeatureToggle >= 4.0.2",
       "Microsoft.ApplicationInsights.AspNetCore >= 2.0.0",
       "Microsoft.AspNet.Identity.Core >= 2.2.1",
       "Microsoft.AspNetCore.Authentication >= 1.1.2",
@@ -12380,6 +12491,10 @@
     "frameworks": {
       "net461": {
         "dependencies": {
+          "FeatureToggle": {
+            "target": "Package",
+            "version": "[4.0.2, )"
+          },
           "Microsoft.ApplicationInsights.AspNetCore": {
             "target": "Package",
             "version": "[2.0.0, )"
