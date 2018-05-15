@@ -1790,12 +1790,6 @@
           "lib/net45/Newtonsoft.Json.Bson.dll": {}
         }
       },
-      "SafeNuGet/1.0.10": {
-        "type": "package",
-        "build": {
-          "build/SafeNuGet.targets": {}
-        }
-      },
       "System.AppContext/4.3.0": {
         "type": "package",
         "frameworkAssemblies": [
@@ -4341,12 +4335,6 @@
           "lib/net45/Newtonsoft.Json.Bson.dll": {}
         }
       },
-      "SafeNuGet/1.0.10": {
-        "type": "package",
-        "build": {
-          "build/SafeNuGet.targets": {}
-        }
-      },
       "System.AppContext/4.3.0": {
         "type": "package",
         "frameworkAssemblies": [
@@ -6806,12 +6794,6 @@
           "lib/net45/Newtonsoft.Json.Bson.dll": {}
         }
       },
-      "SafeNuGet/1.0.10": {
-        "type": "package",
-        "build": {
-          "build/SafeNuGet.targets": {}
-        }
-      },
       "System.AppContext/4.3.0": {
         "type": "package",
         "frameworkAssemblies": [
@@ -9179,17 +9161,6 @@
         "lib/netstandard1.3/Newtonsoft.Json.Bson.xml",
         "newtonsoft.json.bson.1.0.1.nupkg.sha512",
         "newtonsoft.json.bson.nuspec"
-      ]
-    },
-    "SafeNuGet/1.0.10": {
-      "sha512": "skHHEcj1NViljX8N58P7GjLiXlS27OJ5TtuqJdIcmeabMJLI7Bo20jwaTq2MgrOlN5YzB9nd7577K0D/7qYe6Q==",
-      "type": "package",
-      "path": "safenuget/1.0.10",
-      "files": [
-        "build/SafeNuGet.dll",
-        "build/SafeNuGet.targets",
-        "safenuget.1.0.10.nupkg.sha512",
-        "safenuget.nuspec"
       ]
     },
     "System.AppContext/4.3.0": {
@@ -11998,7 +11969,6 @@
       "Microsoft.ReportingServices.ReportViewerControl.WebForms >= 140.1000.523",
       "Microsoft.VisualStudio.Web.BrowserLink >= 2.0.3",
       "Newtonsoft.Json >= 11.0.2",
-      "SafeNuGet >= 1.0.10",
       "System.Threading.Thread >= 4.3.0",
       "System.Xml.XmlDocument >= 4.3.0"
     ]
@@ -12173,10 +12143,6 @@
             "target": "Package",
             "version": "[11.0.2, )"
           },
-          "SafeNuGet": {
-            "target": "Package",
-            "version": "[1.0.10, )"
-          },
           "System.Threading.Thread": {
             "target": "Package",
             "version": "[4.3.0, )"
@@ -12198,6 +12164,12 @@
     }
   },
   "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "The folder 'C:\\Users\\Tim Moore\\.nuget\\packages\\system.threading.tasks.parallel\\PPT' contains an invalid version."
+    },
     {
       "code": "NU1603",
       "level": "Warning",

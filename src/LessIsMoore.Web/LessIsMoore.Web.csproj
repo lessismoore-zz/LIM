@@ -34,7 +34,6 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.0.4" />
     <PackageReference Include="Microsoft.ReportingServices.ReportViewerControl.WebForms" Version="140.1000.523" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
-    <PackageReference Include="SafeNuGet" Version="1.0.10" />
     <PackageReference Include="System.Xml.XmlDocument" Version="4.3.0" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.0.3" />
