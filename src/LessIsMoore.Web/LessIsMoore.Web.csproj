@@ -62,9 +62,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\LIM.Exam\LIM.Exam.csproj" />
-    <ProjectReference Include="..\..\LIM.SendGrid\LIM.SendGrid.csproj" />
-    <ProjectReference Include="..\..\LIM.TextTranslator\LIM.TextTranslator.csproj" />
+    <ProjectReference Include="..\..\ClassLibs\LIM.Exam\LIM.Exam.csproj" />
+    <ProjectReference Include="..\..\ClassLibs\LIM.SendGrid\LIM.SendGrid.csproj" />
+    <ProjectReference Include="..\..\ClassLibs\LIM.TextTranslator\LIM.TextTranslator.csproj" />
   </ItemGroup>
 
   <ItemGroup>

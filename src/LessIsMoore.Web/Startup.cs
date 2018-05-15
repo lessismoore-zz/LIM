@@ -83,8 +83,8 @@ namespace LessIsMoore.Web
 
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-            services.TryAddSingleton<LIM.TextTranslator.ISelectedLanguage, LIM.TextTranslator.SelectedLanguage>();
-            services.TryAddSingleton<LIM.TextTranslator.ITextTranslator, LIM.TextTranslator.TextTranslator>();
+            services.TryAddSingleton<LIM.TextTranslator.Interfaces.ISelectedLanguage, LIM.TextTranslator.Models.SelectedLanguage>();
+            services.TryAddSingleton<LIM.TextTranslator.Interfaces.ITextTranslator, LIM.TextTranslator.TextTranslator>();
 
             services.AddApplicationInsightsTelemetry(Configuration);
 
@@ -101,7 +101,7 @@ namespace LessIsMoore.Web
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, 
-            LIM.TextTranslator.ITextTranslator textTranslator, Microsoft.Extensions.Options.IOptions<Models.AppSettings> settings)
+            LIM.TextTranslator.Interfaces.ITextTranslator textTranslator, Microsoft.Extensions.Options.IOptions<Models.AppSettings> settings)
         {
             textTranslator.SetSettings = settings.Value.TranslatorSettings;
 

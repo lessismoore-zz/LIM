@@ -18,7 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LIM.Exam\LIM.Exam.csproj" />
     <ProjectReference Include="..\src\LessIsMoore.Web\LessIsMoore.Web.csproj" />
   </ItemGroup>
 

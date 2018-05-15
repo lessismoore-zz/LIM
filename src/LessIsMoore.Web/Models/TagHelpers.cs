@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
-using LIM.TextTranslator;
+using LIM.TextTranslator.Interfaces;
 
 namespace LessIsMoore.Web.Models
 {

@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Authorization;
-using LIM.TextTranslator;
+using LIM.TextTranslator.Interfaces;
 using Microsoft.Reporting.WebForms;
 
 namespace LessIsMoore.Web.Controllers

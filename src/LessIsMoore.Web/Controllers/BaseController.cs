@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.NotificationHubs;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
-using LIM.TextTranslator;
+using LIM.TextTranslator.Interfaces;
 using System.Linq;
 using Microsoft.ApplicationInsights;
 using System.Collections.Generic;
@@ -45,7 +45,7 @@ namespace LessIsMoore.Web.Controllers
         [HttpPost]
         public IActionResult SaveLangauge(string ddlLangauge)
         {
-            if (!new SelectedLanguage().Langs.Keys.Any(x => x.ToLower() == ddlLangauge.ToLower())) {
+            if (!new LIM.TextTranslator.Models.SelectedLanguage().Langs.Keys.Any(x => x.ToLower() == ddlLangauge.ToLower())) {
                 throw new Exception("Language is not supported");
             }
 

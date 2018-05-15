@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace LIM.TextTranslator
+namespace LIM.TextTranslator.Interfaces
 {
     public interface ISelectedLanguage
     {

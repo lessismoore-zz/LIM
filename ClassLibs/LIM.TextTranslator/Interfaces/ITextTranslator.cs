@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace LIM.TextTranslator
+namespace LIM.TextTranslator.Interfaces
 {
     public interface ITextTranslator
     {
@@ -12,7 +12,7 @@ namespace LIM.TextTranslator
         string FetchJSonStoredTranslations();
 
         string CurrentTextCulture { get; }
-        TranslatorSettings SetSettings { set; }
+        Models.TranslatorSettings SetSettings { set; }
 
     }
 }

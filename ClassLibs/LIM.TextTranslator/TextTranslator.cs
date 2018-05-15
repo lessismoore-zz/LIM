@@ -16,7 +16,7 @@ using System.Xml.Linq;
 namespace LIM.TextTranslator
 {
 
-    public class TextTranslator : ITextTranslator
+    public class TextTranslator : Interfaces.ITextTranslator
     {
         private string _strTranslations_XMLPath;
         private string _strAuthToken = null;
@@ -26,18 +26,18 @@ namespace LIM.TextTranslator
         private IMemoryCache _memoryCache;
         private IHttpContextAccessor _context;
         private IHostingEnvironment _env;
-        private TranslatorSettings _Settings;
+        private Models.TranslatorSettings _Settings;
 
         public TextTranslator()
         {
         }
 
-        public TranslatorSettings SetSettings
+        public Models.TranslatorSettings SetSettings
         {
             set { _Settings = value; }
         }
 
-        public TextTranslator(TranslatorSettings settings = null, IMemoryCache memoryCache = null, IHostingEnvironment env = null, IHttpContextAccessor context = null)
+        public TextTranslator(Models.TranslatorSettings settings = null, IMemoryCache memoryCache = null, IHostingEnvironment env = null, IHttpContextAccessor context = null)
         {
             _memoryCache = memoryCache;
             _env = env;

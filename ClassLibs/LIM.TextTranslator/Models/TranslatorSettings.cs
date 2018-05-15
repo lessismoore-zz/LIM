@@ -1,4 +1,4 @@
-﻿namespace LIM.TextTranslator
+﻿namespace LIM.TextTranslator.Models
 {
     public class TranslatorSettings
     {

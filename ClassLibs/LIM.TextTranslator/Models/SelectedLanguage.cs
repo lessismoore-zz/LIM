@@ -1,14 +1,11 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using System;
+﻿using LIM.TextTranslator.Interfaces;
+using Microsoft.AspNetCore.Hosting;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Hosting;
 using System.Xml.Linq;
 
-namespace LIM.TextTranslator
+namespace LIM.TextTranslator.Models
 {
     public class SelectedLanguage : ISelectedLanguage
     {

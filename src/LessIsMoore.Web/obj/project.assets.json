@@ -2552,6 +2552,7 @@
       },
       "LIM.Exam/1.0.0": {
         "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
         "compile": {
           "bin/placeholder/LIM.Exam.dll": {}
         },
@@ -2561,6 +2562,10 @@
       },
       "LIM.SendGrid/1.0.0": {
         "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "Newtonsoft.Json": "11.0.2"
+        },
         "compile": {
           "bin/placeholder/LIM.SendGrid.dll": {}
         },
@@ -2570,6 +2575,12 @@
       },
       "LIM.TextTranslator/1.0.0": {
         "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "Microsoft.AspNetCore.Hosting": "2.0.3",
+          "Microsoft.Extensions.Caching.Memory": "2.0.2",
+          "Newtonsoft.Json": "11.0.2"
+        },
         "compile": {
           "bin/placeholder/LIM.TextTranslator.dll": {}
         },
@@ -5006,6 +5017,7 @@
       },
       "LIM.Exam/1.0.0": {
         "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
         "compile": {
           "bin/placeholder/LIM.Exam.dll": {}
         },
@@ -5015,6 +5027,10 @@
       },
       "LIM.SendGrid/1.0.0": {
         "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "Newtonsoft.Json": "11.0.2"
+        },
         "compile": {
           "bin/placeholder/LIM.SendGrid.dll": {}
         },
@@ -5024,6 +5040,12 @@
       },
       "LIM.TextTranslator/1.0.0": {
         "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "Microsoft.AspNetCore.Hosting": "2.0.3",
+          "Microsoft.Extensions.Caching.Memory": "2.0.2",
+          "Newtonsoft.Json": "11.0.2"
+        },
         "compile": {
           "bin/placeholder/LIM.TextTranslator.dll": {}
         },
@@ -7460,6 +7482,7 @@
       },
       "LIM.Exam/1.0.0": {
         "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
         "compile": {
           "bin/placeholder/LIM.Exam.dll": {}
         },
@@ -7469,6 +7492,10 @@
       },
       "LIM.SendGrid/1.0.0": {
         "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "Newtonsoft.Json": "11.0.2"
+        },
         "compile": {
           "bin/placeholder/LIM.SendGrid.dll": {}
         },
@@ -7478,6 +7505,12 @@
       },
       "LIM.TextTranslator/1.0.0": {
         "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "Microsoft.AspNetCore.Hosting": "2.0.3",
+          "Microsoft.Extensions.Caching.Memory": "2.0.2",
+          "Newtonsoft.Json": "11.0.2"
+        },
         "compile": {
           "bin/placeholder/LIM.TextTranslator.dll": {}
         },
@@ -11917,18 +11950,18 @@
     },
     "LIM.Exam/1.0.0": {
       "type": "project",
-      "path": "../../LIM.Exam/LIM.Exam.csproj",
-      "msbuildProject": "../../LIM.Exam/LIM.Exam.csproj"
+      "path": "../../ClassLibs/LIM.Exam/LIM.Exam.csproj",
+      "msbuildProject": "../../ClassLibs/LIM.Exam/LIM.Exam.csproj"
     },
     "LIM.SendGrid/1.0.0": {
       "type": "project",
-      "path": "../../LIM.SendGrid/LIM.SendGrid.csproj",
-      "msbuildProject": "../../LIM.SendGrid/LIM.SendGrid.csproj"
+      "path": "../../ClassLibs/LIM.SendGrid/LIM.SendGrid.csproj",
+      "msbuildProject": "../../ClassLibs/LIM.SendGrid/LIM.SendGrid.csproj"
     },
     "LIM.TextTranslator/1.0.0": {
       "type": "project",
-      "path": "../../LIM.TextTranslator/LIM.TextTranslator.csproj",
-      "msbuildProject": "../../LIM.TextTranslator/LIM.TextTranslator.csproj"
+      "path": "../../ClassLibs/LIM.TextTranslator/LIM.TextTranslator.csproj",
+      "msbuildProject": "../../ClassLibs/LIM.TextTranslator/LIM.TextTranslator.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -12003,14 +12036,14 @@
       "frameworks": {
         "net461": {
           "projectReferences": {
-            "J:\\wwwroot\\LessIsMoore\\LessIsMoore.Web\\LIM.Exam\\LIM.Exam.csproj": {
-              "projectPath": "J:\\wwwroot\\LessIsMoore\\LessIsMoore.Web\\LIM.Exam\\LIM.Exam.csproj"
+            "J:\\wwwroot\\LessIsMoore\\LessIsMoore.Web\\ClassLibs\\LIM.SendGrid\\LIM.SendGrid.csproj": {
+              "projectPath": "J:\\wwwroot\\LessIsMoore\\LessIsMoore.Web\\ClassLibs\\LIM.SendGrid\\LIM.SendGrid.csproj"
             },
-            "J:\\wwwroot\\LessIsMoore\\LessIsMoore.Web\\LIM.TextTranslator\\LIM.TextTranslator.csproj": {
-              "projectPath": "J:\\wwwroot\\LessIsMoore\\LessIsMoore.Web\\LIM.TextTranslator\\LIM.TextTranslator.csproj"
+            "J:\\wwwroot\\LessIsMoore\\LessIsMoore.Web\\ClassLibs\\LIM.TextTranslator\\LIM.TextTranslator.csproj": {
+              "projectPath": "J:\\wwwroot\\LessIsMoore\\LessIsMoore.Web\\ClassLibs\\LIM.TextTranslator\\LIM.TextTranslator.csproj"
             },
-            "J:\\wwwroot\\LessIsMoore\\LessIsMoore.Web\\LIM.SendGrid\\LIM.SendGrid.csproj": {
-              "projectPath": "J:\\wwwroot\\LessIsMoore\\LessIsMoore.Web\\LIM.SendGrid\\LIM.SendGrid.csproj"
+            "J:\\wwwroot\\LessIsMoore\\LessIsMoore.Web\\ClassLibs\\LIM.Exam\\LIM.Exam.csproj": {
+              "projectPath": "J:\\wwwroot\\LessIsMoore\\LessIsMoore.Web\\ClassLibs\\LIM.Exam\\LIM.Exam.csproj"
             }
           }
         }
@@ -12165,12 +12198,6 @@
     }
   },
   "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "The folder 'C:\\Users\\Tim Moore\\.nuget\\packages\\system.threading.tasks.parallel\\PPT' contains an invalid version."
-    },
     {
       "code": "NU1603",
       "level": "Warning",
