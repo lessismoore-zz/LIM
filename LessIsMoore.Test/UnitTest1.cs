@@ -19,17 +19,17 @@ namespace LessIsMoore.Test
         private string _strKey = "ec71a6ada12849689b25f26e8f2b9d81";
         private string _strAPI = "https://api.microsofttranslator.com/v2/Http.svc/Translate?text={0}&to={1}";
 
-        private Exam PopulateQuestionsFromXML()
+        private LIM.Exam.Models.Exam PopulateQuestionsFromXML()
         {
             string strXMLPath =
                 "<questions><question><text>Favorite Letter</text><answers><answer>A</answer><answer>B</answer><answer>Y</answer><answer>Z</answer></answers></question></questions>";
 
-            Exam azureExam = new Exam();
+            LIM.Exam.Models.Exam azureExam = new LIM.Exam.Models.Exam();
 
             System.Xml.Linq.XDocument xdocument = System.Xml.Linq.XDocument.Parse(strXMLPath);
 
             azureExam.ExamQuestions =
-                new BLL().PopulateExamQuestionsFromXML(xdocument.Root.Elements("question"));
+                new LIM.Exam.ExamChecker().PopulateExamQuestionsFromXML(xdocument.Root.Elements("question"));
 
             return azureExam;
         }
@@ -38,7 +38,7 @@ namespace LessIsMoore.Test
         [Trait("Category", "UnitTest")]
         public void VerifyExam_1_PopulateQuestions()
         {
-            Exam azureExam = PopulateQuestionsFromXML();
+            LIM.Exam.Models.Exam azureExam = PopulateQuestionsFromXML();
             Assert.True(azureExam.TotalQuestions == 1);
         }
 
@@ -47,16 +47,16 @@ namespace LessIsMoore.Test
         [Trait("Category", "UnitTest")]
         public void VerifyExam_2_GradeExam(string strAnswer, string strResponse)
         {
-            Exam azureExam = PopulateQuestionsFromXML();
+            LIM.Exam.Models.Exam azureExam = PopulateQuestionsFromXML();
 
             azureExam.ExamQuestions.First()
                 .ExamChoices.Where(x => x.Text.ToLower() == strAnswer)
                 .First().IsCorrect = true;
 
-            IEnumerable<ExamResponse> rsps =
-                BLL.CollectExamResponses(azureExam, x => (x.Text.ToLower() == strResponse));
+            IEnumerable<LIM.Exam.Models.ExamResponse> rsps =
+                LIM.Exam.ExamChecker.CollectExamResponses(azureExam, x => (x.Text.ToLower() == strResponse));
 
-            int intTotalCorrectQuestions = BLL.GradeExam(azureExam, rsps);
+            int intTotalCorrectQuestions = LIM.Exam.ExamChecker.GradeExam(azureExam, rsps);
 
             Assert.True(intTotalCorrectQuestions >= azureExam.TotalQuestions);
         }
@@ -94,7 +94,7 @@ namespace LessIsMoore.Test
         [Trait("Category", "UnitTest")]
         public async void VerifyTranslationAPILogic(string strText, string strExpectedText, string strLangangue)
         {
-            Web.Translation.TextTranslator inst_TextTranslator = new Web.Translation.TextTranslator();
+            LIM.TextTranslator.TextTranslator inst_TextTranslator = new LIM.TextTranslator.TextTranslator();
 
             string strAuthToken = await inst_TextTranslator.GetAccessToken(_strKey);
             string strTranslation = await inst_TextTranslator.CallTranslateAPI(_strAPI, strAuthToken, strText, strLangangue);

@@ -17,20 +17,11 @@ namespace LessIsMoore.Web.Models
         public int rev { get; set; }
         public KeyValuePair<string, string> fields{ get; set; }
     }
-    public class TranslatorSettings
-    {
-        public string TokenURL { get; set; }
-        public string ClientID { get; set; }
-        public string ApiURL { get; set; }
-        public string ClientSecret { get; set; }
-        public string ApiURLParams { get; set; }
-        public string AzureKey { get; set; }
-    }
 
     public class AppSettings
     {
-        public Core.Models.SendGridSettings SendGridSettings { get; set; }
-        public Models.TranslatorSettings TranslatorSettings { get; set; }
+        public LIM.SendGrid.SendGridSettings SendGridSettings { get; set; }
+        public LIM.TextTranslator.TranslatorSettings TranslatorSettings { get; set; }
         public string NotificationHubConn { get; set; }
         public string NotificationHubName { get; set; }
         public bool FeatureFlag_ShowLanguageKlingon { get; set; }
@@ -46,11 +37,14 @@ namespace LessIsMoore.Web.Models
         public string Link { get; set; }
         public string Source { get; set; }
 
-
     }
 
     public class BLL
     {
+        private string _strCustomNewsPath = @"\App_Data\NewsFeed.xml";
+        private string _strVergeNewsPath = @"http://www.theverge.com/web/rss/index.xml";
+        private string _strAzureNewsPath = @"https://azure.microsoft.com/en-us/updates/feed/";
+
         public BLL()
         {
 
@@ -61,95 +55,32 @@ namespace LessIsMoore.Web.Models
         }
         private string _strContentRootPath;
 
-        public Exam ExamFactory(int examID)
+        public NewsFeed[] FetchCustomNewsFeed(int intMaxArticlesDisplayed = 5)
         {
+            XDocument xdocFeedXML = XDocument.Load(_strContentRootPath + _strCustomNewsPath);
 
-            Exam azureExam = new Exam();
-            string strXMLPath = null;
-
-            azureExam.ID = examID;
-
-            if (azureExam.ID == 1)
+            if (xdocFeedXML != null)
             {
-                strXMLPath = "app_data\\AzureQuiz.xml";
-                azureExam.Name = "Exam: Fast Start – Azure for Modern Web and Mobile Application Development";
-            }
-            else if (azureExam.ID == 2)
-            {
-                strXMLPath = "app_data\\DevopsQuiz.xml";
-                azureExam.Name = "Exam: Fast Start – Azure for Dev Ops";
-            }
-            else
-            {
-                return null;
-            }
-
-            XDocument xdocument = XDocument.Load(Path.Combine(_strContentRootPath, strXMLPath));
-            azureExam.ExamQuestions = PopulateExamQuestionsFromXML(xdocument.Root.Elements("question"));
-
-            return azureExam;
-        }
-        public IEnumerable<ExamQuestion> PopulateExamQuestionsFromXML(IEnumerable<XElement> Qs, bool ShuffleQuestions = true, bool ShuffleQuestionChoices = true)
-        {
-            Random rdm = new Random();
-
-            return (Qs.OrderBy(x => (ShuffleQuestions ? rdm.Next(10, 100) : 0)).Select((x, intQID) => new ExamQuestion()
-            {
-                ID = (intQID + 1),
-                Text = x.Element("text").Value,
-                ExamChoices = (x.Element("answers").Elements("answer").OrderBy(y => (ShuffleQuestionChoices ? rdm.Next(10, 100) : 0)).Select((y, intCID) =>
-                {
-                    ExamChoice examChoice = new ExamChoice();
-                    examChoice.ID = ((intCID + 1) + ((intQID + 1) * 100));
-                    examChoice.Text = y.Value;
-                    int num = y.Attributes().Any(z => z.Name.LocalName == "correct") ? 1 : 0;
-                    examChoice.IsCorrect = num != 0;
-                    return examChoice;
-                })).ToList()
-            })).ToList();
-
-        }
-        public static int GradeExam(Exam azureExam, IEnumerable<ExamResponse> examResponses)
-        {
-            foreach (ExamQuestion examQuestion in azureExam.ExamQuestions)
-            {
-                foreach (ExamChoice examChoice in examQuestion.ExamChoices)
-                    examChoice.IsSelected = examResponses.FirstOrDefault(x => x.ExamChoiceID == examChoice.ID).IsSelected;
-            }
-
-            return azureExam.ExamQuestions.Select((x => x.ExamChoices.Where<ExamChoice>((y =>
-            {
-                return (y.IsSelected) ? y.IsCorrect: false;
-
-            })).Count())).Sum();
-        }
-
-        public static IEnumerable<ExamResponse> CollectExamResponses(Exam azureExam, Func<ExamChoice, bool> f)
-        {
-            List<ExamResponse> lstExamResponses = new List<ExamResponse>();
-
-            foreach (ExamQuestion examQuestion in azureExam.ExamQuestions)
-            {
-                foreach (ExamChoice examChoice in examQuestion.ExamChoices)
-                {
-                    lstExamResponses.Add(new ExamResponse()
+                return xdocFeedXML.Root.Elements()
+                    //.Where(x => x.Name.LocalName.ToLower() == "entry")
+                    .Take(intMaxArticlesDisplayed)
+                    .Select(x => new NewsFeed()
                     {
-                        ExamChoiceID = examChoice.ID,
-                        IsSelected = f(examChoice)
-                    });
-                }
+                        Headline = x.Elements().Where(y => y.Name.LocalName == "title").FirstOrDefault().Value,
+                        Content = x.Elements().Where(y => y.Name.LocalName == "content").FirstOrDefault().Value,
+                        Link = x.Elements().Where(y => y.Name.LocalName == "link").FirstOrDefault().Attribute("href").Value,
+                        Source = "LessIsMoore.Net"
+                    }).ToArray();
             }
 
-            return lstExamResponses;
+            return null;
         }
-
         public async System.Threading.Tasks.Task<NewsFeed[]> FetchVergeNewsFeed(int intMaxArticlesDisplayed = 5)
         {
-            string strNewsFeed = @"http://www.theverge.com/web/rss/index.xml";
             XDocument xdocFeedXML = null;
 
             using (var s = new HttpClient()) {
-                xdocFeedXML = XDocument.Parse(await s.GetStringAsync(strNewsFeed));
+                xdocFeedXML = XDocument.Parse(await s.GetStringAsync(_strVergeNewsPath));
             }
 
             if (xdocFeedXML != null)
@@ -171,14 +102,12 @@ namespace LessIsMoore.Web.Models
 
         public async System.Threading.Tasks.Task<NewsFeed[]> FetchAzureNewsFeed(int intMaxArticlesDisplayed = 5)
         {
-            string strNewsFeed = @"https://azure.microsoft.com/en-us/updates/feed/";
             XDocument xdocFeedXML = null;
 
             using (var s = new System.Net.Http.HttpClient())
             {
-                xdocFeedXML = XDocument.Parse(await s.GetStringAsync(strNewsFeed));
+                xdocFeedXML = XDocument.Parse(await s.GetStringAsync(_strAzureNewsPath));
             }
-
             if (xdocFeedXML != null)
             {
                 return xdocFeedXML.Root.Elements("channel").Elements()
@@ -189,7 +118,7 @@ namespace LessIsMoore.Web.Models
                         Headline = x.Elements().Where(y => y.Name == "title").FirstOrDefault().Value,
                         Content = x.Elements().Where(y => y.Name == "description").FirstOrDefault().Value,
                         Link = x.Elements().Where(y => y.Name == "link").FirstOrDefault().Value,
-                        Source = "Azure.Microsoft.com"
+                        Source = x.Elements().Where(y => y.Name == "link").FirstOrDefault().Value
                     }).ToArray();
             }
 

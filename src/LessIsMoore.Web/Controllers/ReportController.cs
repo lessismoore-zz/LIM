@@ -30,7 +30,7 @@ namespace LessIsMoore.Web.Controllers
         [Route("[Controller]/Exam")]
         public FileContentResult Index()
         {
-            Exam azureExam = JsonConvert.DeserializeObject<Exam>(_context.HttpContext.Session.GetString("ExamReport"));
+            LIM.Exam.Models.Exam azureExam = JsonConvert.DeserializeObject<LIM.Exam.Models.Exam>(_context.HttpContext.Session.GetString("ExamReport"));
 
             if (azureExam == null)
             {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace LessIsMoore.Web.Models
+namespace LIM.Exam.Models
 {
     public class ExamResponse
     {

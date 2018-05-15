@@ -1,13 +1,13 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
 using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace LessIsMoore.Core.Models
+namespace LIM.SendGrid
 {
-
     public class SendGrid
     {
         private SendGridSettings _settings;
@@ -54,62 +54,4 @@ namespace LessIsMoore.Core.Models
 
     }
 
-    public class SendGridMessage
-    {
-        public const string TYPE_TEXT = "text";
-        public const string TYPE_HTML = "text/html";
-
-        public List<SendGridPersonalization> personalizations { get; set; }
-        public SendGridEmail from { get; set; }
-        public List<SendGridContent> content { get; set; }
-
-        public SendGridMessage() { }
-
-        public SendGridMessage(SendGridEmail to, string subject, SendGridEmail from, string message, string type = TYPE_TEXT)
-        {
-            personalizations = new List<SendGridPersonalization> { new SendGridPersonalization { to = new List<SendGridEmail> { to }, subject = subject } };
-            this.from = from;
-            content = new List<SendGridContent> { new SendGridContent(type, message) };
-        }
-    }
-
-    public class SendGridPersonalization
-    {
-        public List<SendGridEmail> to { get; set; }
-        public string subject { get; set; }
-    }
-    public class SendGridSettings
-    {
-        public string FromEmail { get; set; }
-        public string ApiKey { get; set; }
-        public string ApiURL { get; set; }
-    }
-
-    public class SendGridEmail
-    {
-        public string email { get; set; }
-        public string name { get; set; }
-
-        public SendGridEmail() { }
-
-        public SendGridEmail(string email, string name = null)
-        {
-            this.email = email;
-            this.name = name;
-        }
-    }
-
-    public class SendGridContent
-    {
-        public string type { get; set; }
-        public string value { get; set; }
-
-        public SendGridContent() { }
-
-        public SendGridContent(string type, string content)
-        {
-            this.type = type;
-            value = content;
-        }
-    }
 }

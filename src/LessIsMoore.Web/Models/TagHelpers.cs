@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using LIM.TextTranslator;
 
 namespace LessIsMoore.Web.Models
 {
@@ -15,9 +16,9 @@ namespace LessIsMoore.Web.Models
         //public int ProgressValue { get; set; }
 
 
-        Translation.ITextTranslator _ITextTranslator;
+        ITextTranslator _ITextTranslator;
 
-        public ProgressBarTagHelper(Web.Translation.ITextTranslator TextTranslator)
+        public ProgressBarTagHelper(ITextTranslator TextTranslator)
         {
             _ITextTranslator = TextTranslator;
         }

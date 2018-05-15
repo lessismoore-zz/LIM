@@ -29,11 +29,41 @@ namespace LessIsMoore.Web.Controllers
             _context = context;
         }
 
+        private LIM.Exam.Models.Exam PopulateExamQuestions(int intExamID)
+        {
+
+            LIM.Exam.Models.Exam azureExam = new LIM.Exam.Models.Exam();
+            string strXMLPath = null;
+
+            azureExam.ID = intExamID;
+
+            if (azureExam.ID == 1)
+            {
+                strXMLPath = "..\\..\\..\\app_data\\AzureQuiz.xml";
+                azureExam.Name = "Exam: Fast Start – Azure for Modern Web and Mobile Application Development";
+            }
+            else if (azureExam.ID == 2)
+            {
+                strXMLPath = "..\\..\\..\\app_data\\DevopsQuiz.xml";
+                azureExam.Name = "Exam: Fast Start – Azure for Dev Ops";
+            }
+            else
+            {
+                return azureExam;
+            }
+
+            XDocument xdocument = XDocument.Load(Path.Combine(_env.ContentRootPath, strXMLPath));
+            azureExam.ExamQuestions = new LIM.Exam.ExamChecker().PopulateExamQuestionsFromXML(xdocument.Root.Elements("question"));
+
+            return azureExam;
+        }
+
         [HttpGet]
         public IActionResult Index(int ID)
         {
             _context.HttpContext.Session.Remove("AzureExam");
-            Exam azureExam = new BLL(this._env.ContentRootPath).ExamFactory(ID);
+
+            LIM.Exam.Models.Exam azureExam = PopulateExamQuestions(ID);
 
             //if (_context.HttpContext.Request.Query["sf"] == "8d679ae7-e939-474c-a3ff-8501ee636b12")
             //{
@@ -50,16 +80,25 @@ namespace LessIsMoore.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Submit(string txtEmail, string txtName)
         {
-            Exam azureExam = JsonConvert.DeserializeObject<Exam>(_context.HttpContext.Session.GetString("AzureExam"));
+            //var remoteIpAddress = HttpContext.Connection.RemoteIpAddress;
+
+            txtName = txtName.Trim();
+            txtEmail = txtEmail.Trim();
+
+            if ((_context.HttpContext.Session.GetString("AzureExam") == null) || string.IsNullOrEmpty(txtName) || string.IsNullOrEmpty(txtEmail)) {
+                return View("Index");
+            }
+
+            LIM.Exam.Models.Exam azureExam = JsonConvert.DeserializeObject<LIM.Exam.Models.Exam>(_context.HttpContext.Session.GetString("AzureExam"));
 
             azureExam.HasStarted = true;
             azureExam.TakerEmail = System.Net.WebUtility.HtmlEncode(txtEmail);
             azureExam.TakerName = System.Net.WebUtility.HtmlEncode(txtName);
 
-            IEnumerable<ExamResponse> rsps =
-                BLL.CollectExamResponses(azureExam, x => (Request.Form["answer_" + x.ID.ToString()] == "on"));
+            IEnumerable<LIM.Exam.Models.ExamResponse> rsps =
+                LIM.Exam.ExamChecker.CollectExamResponses(azureExam, x => (Request.Form["answer_" + x.ID.ToString()] == "on"));
 
-            int intTotalCorrectQuestions = BLL.GradeExam(azureExam, rsps);
+            int intTotalCorrectQuestions = LIM.Exam.ExamChecker.GradeExam(azureExam, rsps);
             TempData["TotalCorrectQuestions"] = intTotalCorrectQuestions;
 
             //========================================================
@@ -77,7 +116,7 @@ namespace LessIsMoore.Web.Controllers
             appInsights.TrackEvent("LessIsMoore Exam", properties, metrics);
             //========================================================
 
-            if (intTotalCorrectQuestions < azureExam.TotalQuestions)
+            if ((azureExam.TotalQuestions > 0) && (intTotalCorrectQuestions < azureExam.TotalQuestions))
                 return View("Index", azureExam);
 
             //report/exam
@@ -91,9 +130,9 @@ namespace LessIsMoore.Web.Controllers
             return RedirectToAction("Index", new { ID = azureExam.ID });
         }
 
-        private async Task SendCertificationEmail(Exam azureExam)
+        private async Task SendCertificationEmail(LIM.Exam.Models.Exam azureExam)
         {
-            await new Core.Models.SendGrid(_AppSettings.SendGridSettings).SendEmailAsync(
+            await new LIM.SendGrid.SendGrid(_AppSettings.SendGridSettings).SendEmailAsync(
                             "moore.tim@microsoft.com",
                             "Certification Request",
                             azureExam.Name,

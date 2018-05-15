@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2002
+VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4FC12B6F-615E-4AD5-AB88-D40207FB6CA3}"
 EndProject
@@ -19,6 +19,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LessIsMoore.UITest", "LessIsMoore.UITest\LessIsMoore.UITest.csproj", "{5CC33E36-D57B-4549-8EAD-742A6FD621F7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LessIsMoore.Test", "LessIsMoore.Test\LessIsMoore.Test.csproj", "{A8261EE6-28A0-4863-A929-B618460797B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LIM.TextTranslator", "LIM.TextTranslator\LIM.TextTranslator.csproj", "{EB99B234-7E55-4C5C-BBB9-48CF0AB967B7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LIM.SendGrid", "LIM.SendGrid\LIM.SendGrid.csproj", "{0C1BC4C4-618A-4075-8C7C-00ECF6F05236}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LIM.Exam", "LIM.Exam\LIM.Exam.csproj", "{2600C4B0-8CCE-4C49-8B97-1D66D1A8F20F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,6 +48,18 @@ Global
 		{A8261EE6-28A0-4863-A929-B618460797B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8261EE6-28A0-4863-A929-B618460797B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8261EE6-28A0-4863-A929-B618460797B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB99B234-7E55-4C5C-BBB9-48CF0AB967B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB99B234-7E55-4C5C-BBB9-48CF0AB967B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB99B234-7E55-4C5C-BBB9-48CF0AB967B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB99B234-7E55-4C5C-BBB9-48CF0AB967B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C1BC4C4-618A-4075-8C7C-00ECF6F05236}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C1BC4C4-618A-4075-8C7C-00ECF6F05236}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C1BC4C4-618A-4075-8C7C-00ECF6F05236}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C1BC4C4-618A-4075-8C7C-00ECF6F05236}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2600C4B0-8CCE-4C49-8B97-1D66D1A8F20F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2600C4B0-8CCE-4C49-8B97-1D66D1A8F20F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2600C4B0-8CCE-4C49-8B97-1D66D1A8F20F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2600C4B0-8CCE-4C49-8B97-1D66D1A8F20F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

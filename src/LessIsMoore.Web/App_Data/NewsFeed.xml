@@ -1,0 +1,12 @@
+<NewsFeed>
+  <News>
+    <title>
+      Content Security Policy (CSP) for ASP.NET MVC
+    </title>
+    <content>
+      <h1>What is CSP?</h1>
+      <p>For a true in-depth look into CSP, I highly recommend reading <a href="https://developer.mozilla.org/en-US/docs/Web/Security/CSP">Mozilla</a>‘s documentation on the subject. It really is the best resource on the web. I will assume that you’ve read the documentation and will be going through a few examples below.</p>
+    </content>
+    <link href="https://rehansaeed.com/content-security-policy-for-asp-net-mvc/"></link>
+  </News>
+</NewsFeed>

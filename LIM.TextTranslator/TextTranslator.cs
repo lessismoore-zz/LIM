@@ -1,93 +1,22 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Caching.Memory;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Xml.Linq;
-using Microsoft.Extensions.Caching.Memory;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Hosting;
 using System.Threading.Tasks;
-using System.Net.Http;
-using Microsoft.Extensions.Options;
-using LessIsMoore.Web.Models;
+using System.Xml.Linq;
 
-namespace LessIsMoore.Web.Translation
+namespace LIM.TextTranslator
 {
 
-    //=======================================================================================
-    public interface ISelectedLanguage
-    {
-        string Name { get; }
-        string Locale { get; set; }
-        string Flag { get; }
-        Dictionary<string, string> Langs { get; }
-    }
-    public class SelectedLanguage: ISelectedLanguage
-    {
-        private IHostingEnvironment _env;
-        public SelectedLanguage()
-        {
-        }
-        public SelectedLanguage(IHostingEnvironment env)
-        {
-            _env = env;
-        }
-        public SelectedLanguage(string Locale, IHostingEnvironment env = null)
-        {
-            this.Locale = Locale;
-            _env = env;
-        }
-
-
-        private Dictionary<string, string> _langs = new Dictionary<string, string>()  {
-                { "en-us", "English" }, { "es-es" , "Spanish"}, { "fr-fr", "French" }, { "de-de","German" }, { "zh-cn","Chinese" }
-            };
-
-        public Dictionary<string, string> Langs
-        {
-            get
-            {
-                //XDocument xDoc = XDocument.Load(_strTranslations_XMLPath);
-
-                //return xDoc.Root.Elements("translation")
-                //                            .GroupBy(x => x.Element("language").Value, StringComparer.OrdinalIgnoreCase)
-                //                            .ToDictionary(x => x.First().Element("language").Value, x => x.First().Element("converted").Value);
-                return _langs;
-            }
-        }
-
-        public string Name { get { return _langs[Locale.ToLower()]; } }
-        public string Locale { get; set; }
-        public string Flag
-        {
-            get
-            {
-                XDocument xDoc = XDocument.Load(Path.Combine(_env.ContentRootPath, @"App_Data\Flags.xml"));
-
-                return xDoc.Root.Elements("Flag")
-                    .Where(x => x.Attribute("locale").Value.ToLower() == this.Locale.ToLower())
-                    .Select(x => x.Element("data").Value).FirstOrDefault().ToString(); ;
-            }   
-        }
-    }
-    //=======================================================================================
-
-    public interface ITextTranslator
-    {
-        Task<string> CallTranslateAPI(string strAPI, string strAuthToken, string strText, string strTo);
-        Task<string> GetAccessToken(string strKey);
-        string TranslateText(string strText, string strTextCulture = null);
-        Dictionary<string, string> SaveTranslation(string strCurrentTextCulture, string strKey, string strValue);
-        string FetchJSonStoredTranslations();
-
-        string CurrentTextCulture { get; }
-    }
-
-    public class TextTranslator: ITextTranslator
+    public class TextTranslator : ITextTranslator
     {
         private string _strTranslations_XMLPath;
         private string _strAuthToken = null;
@@ -97,22 +26,27 @@ namespace LessIsMoore.Web.Translation
         private IMemoryCache _memoryCache;
         private IHttpContextAccessor _context;
         private IHostingEnvironment _env;
-        private Models.TranslatorSettings _Settings;
+        private TranslatorSettings _Settings;
 
         public TextTranslator()
         {
         }
 
-        public TextTranslator(IOptions<AppSettings> settings = null, IMemoryCache memoryCache = null, IHostingEnvironment env = null, IHttpContextAccessor context = null)
+        public TranslatorSettings SetSettings
+        {
+            set { _Settings = value; }
+        }
+
+        public TextTranslator(TranslatorSettings settings = null, IMemoryCache memoryCache = null, IHostingEnvironment env = null, IHttpContextAccessor context = null)
         {
             _memoryCache = memoryCache;
             _env = env;
             _context = context;
             _strTranslations_XMLPath = Path.Combine(_env.ContentRootPath, @"App_Data\translations.xml");
             this.DefaultCulture = DefaultCulture;
-            
+
             _textInfo = new CultureInfo(CurrentTextCulture).TextInfo;
-            _Settings = settings.Value.TranslatorSettings;
+            this.SetSettings = settings;
         }
 
         //public TextTranslator(string DefaultCulture)
@@ -121,25 +55,18 @@ namespace LessIsMoore.Web.Translation
         //    _textInfo = new CultureInfo(CurrentTextCulture, false).TextInfo;
         //}
 
-
-        private class AdmAccessToken
-        {
-            public string access_token { get; set; }
-            public string token_type { get; set; }
-            public string expires_in { get; set; }
-            public string scope { get; set; }
-        }
-
         private string _DefaultCulture = "en-US";
 
-        public string DefaultCulture {
-            get { return _DefaultCulture;  }
+        public string DefaultCulture
+        {
+            get { return _DefaultCulture; }
             set { _DefaultCulture = value; }
         }
 
         public string CurrentTextCulture
         {
-            get {
+            get
+            {
                 return CultureInfo.CurrentCulture.Name;
             }
         }
@@ -151,12 +78,14 @@ namespace LessIsMoore.Web.Translation
             var objs = FetchStoredTranslations(strCurrentTextCulture)
                         .Select(x => new { k = x.Key, v = x.Value }).ToArray();
 
-            return Newtonsoft.Json.JsonConvert.SerializeObject(new {
-                    Culture = CurrentTextCulture,
-                    StoredTranslations = objs
-                }, 
+            return Newtonsoft.Json.JsonConvert.SerializeObject(new
+            {
+                Culture = CurrentTextCulture,
+                StoredTranslations = objs
+            },
                 Newtonsoft.Json.Formatting.None,
-                new Newtonsoft.Json.JsonSerializerSettings {
+                new Newtonsoft.Json.JsonSerializerSettings
+                {
                     StringEscapeHandling = Newtonsoft.Json.StringEscapeHandling.EscapeHtml
                 }
             );
@@ -172,7 +101,7 @@ namespace LessIsMoore.Web.Translation
 
             _memoryCache.TryGetValue<Dictionary<string, string>>("_savedTranslations_" + strCurrentTextCulture, out _dictCurrentSavedTranslations);
 
-            if ((_dictCurrentSavedTranslations != null)  && (!boolNoCache))
+            if ((_dictCurrentSavedTranslations != null) && (!boolNoCache))
                 return _dictCurrentSavedTranslations;
 
             else
@@ -183,9 +112,9 @@ namespace LessIsMoore.Web.Translation
                     return new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
                 else
                     return xDoc.Root.Elements("translation")
-                                            .Where(x=> x.Element("language").Value.ToLower() == strCurrentTextCulture.ToLower())
+                                            .Where(x => x.Element("language").Value.ToLower() == strCurrentTextCulture.ToLower())
                                             .GroupBy(x => x.Element("original").Value, StringComparer.OrdinalIgnoreCase)
-                                            .OrderBy(x=>x.Key)
+                                            .OrderBy(x => x.Key)
                                             .ToDictionary(x => x.First().Element("original").Value, x => x.First().Element("converted").Value);
             }
         }
@@ -199,7 +128,7 @@ namespace LessIsMoore.Web.Translation
             XDocument xDoc2 = XDocument.Load(_strTranslations_XMLPath);
 
             string[] arrStoredTranslations = FetchStoredTranslations(strCurrentTextCulture, true)
-                                                .Select(x=> x.Key.ToLowerInvariant()).ToArray();
+                                                .Select(x => x.Key.ToLowerInvariant()).ToArray();
 
             var test =
                 dictTranslations.Where(x => !arrStoredTranslations.Contains(x.Key.ToLowerInvariant()))
@@ -209,7 +138,8 @@ namespace LessIsMoore.Web.Translation
                     new XElement("language", strCurrentTextCulture)
                 )).ToArray();
 
-            if (test.Count() > 0) {
+            if (test.Count() > 0)
+            {
 
                 Int32 intTotal = 0;
 
@@ -221,7 +151,8 @@ namespace LessIsMoore.Web.Translation
 
                 xDoc2.Root.Add(test);
 
-                using (var fileStream = System.IO.File.Create(_strTranslations_XMLPath)) {
+                using (var fileStream = System.IO.File.Create(_strTranslations_XMLPath))
+                {
                     xDoc2.Save(fileStream);
                 }
 
@@ -265,7 +196,7 @@ namespace LessIsMoore.Web.Translation
 
             strUpdatedText2 = StripHTMLFromText(strUpdatedText2);
 
-            string[] arrSplitWords = strUpdatedText2.Split(new char[]{ Convert.ToChar(" "), Convert.ToChar("/"), Convert.ToChar("-") });
+            string[] arrSplitWords = strUpdatedText2.Split(new char[] { Convert.ToChar(" "), Convert.ToChar("/"), Convert.ToChar("-") });
             arrSplitWords = arrSplitWords.Distinct().ToArray();
 
             foreach (string word in arrSplitWords)
@@ -288,7 +219,7 @@ namespace LessIsMoore.Web.Translation
 
                 strFoundTranslation = _dictCurrentSavedTranslations
                                         .Where(x => x.Key.ToLowerInvariant() == strWord.ToLowerInvariant())
-                                        .Select(x=>x.Value)
+                                        .Select(x => x.Value)
                                         .FirstOrDefault();
                 //w.Stop();
 
@@ -319,13 +250,13 @@ namespace LessIsMoore.Web.Translation
                 //strFoundTranslation = _textInfo.ToTitleCase(strFoundTranslation.ToLowerInvariant());
 
                 if (char.IsUpper(strWord[0]))
-                    strFoundTranslation =  char.ToUpperInvariant(strFoundTranslation[0]) + strFoundTranslation.Substring(1, (strFoundTranslation.Length - 1)).ToLowerInvariant();
+                    strFoundTranslation = char.ToUpperInvariant(strFoundTranslation[0]) + strFoundTranslation.Substring(1, (strFoundTranslation.Length - 1)).ToLowerInvariant();
 
                 strUpdatedText = new Regex(String.Format(@"\b{0}\b", strWord), RegexOptions.CultureInvariant).Replace(strUpdatedText, strFoundTranslation);
             }
             //================================
 
-            _memoryCache.Set<Dictionary<string, string>>("_savedTranslations_" + strCurrentTextCulture, 
+            _memoryCache.Set<Dictionary<string, string>>("_savedTranslations_" + strCurrentTextCulture,
                                                             SaveTranslations(strCurrentTextCulture, _dictCurrentSavedTranslations));
 
             return strUpdatedText;
@@ -333,23 +264,6 @@ namespace LessIsMoore.Web.Translation
 
         public async Task<string> GetAccessToken(string strKey)
         {
-
-            //String strRequestDetails = string.Format(_Settings.ApiURLParams, WebUtility.UrlEncode(_Settings.ClientID), WebUtility.UrlEncode(_Settings.ClientSecret));
-
-            //using (var httpClient = new HttpClient())
-            //{
-
-            //    using (HttpResponseMessage responseMessage = 
-            //        await httpClient.PostAsync(new Uri(_Settings.TokenURL), new StringContent(strRequestDetails, Encoding.UTF8, "application/x-www-form-urlencoded")))
-            //    {
-            //        AdmAccessToken token = Newtonsoft.Json.JsonConvert.DeserializeObject<AdmAccessToken>(await responseMessage.Content.ReadAsStringAsync());
-
-            //        //create the string for the http header
-            //        return token.access_token;
-            //    }
-
-            //}
-
             return await new AzureAuthToken(strKey).GetAccessTokenAsync();
         }
 
@@ -379,9 +293,9 @@ namespace LessIsMoore.Web.Translation
             }
 
 
-        } 
-        
-      
+        }
+
+
 
     }
 }

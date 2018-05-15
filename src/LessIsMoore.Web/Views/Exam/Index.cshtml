@@ -1,10 +1,9 @@
-﻿@model LessIsMoore.Web.Models.Exam 
+﻿@model LIM.Exam.Models.Exam 
 
 @{
     ViewData["Title"] = "Home Page";
     Layout = null;
 }
-
 
 <!DOCTYPE html>
 <html>
@@ -186,14 +185,14 @@
                 @{
                     int intIndex = 1;
 
-                    foreach (LessIsMoore.Web.Models.ExamQuestion examQuestion in @Model.ExamQuestions)
+                    foreach (LIM.Exam.Models.ExamQuestion examQuestion in @Model.ExamQuestions)
                     {
                         <div style="width:90%; padding:10px 20px;">
                             <h4 style="font-weight:normal;" name="choice_@examQuestion.ID">
                                 <b>@intIndex.ToString())</b>  @Html.Raw(examQuestion.Text.Replace("{##}", "</br></br>"))
                             </h4>
 
-                            @foreach (LessIsMoore.Web.Models.ExamChoice examChoice in examQuestion.ExamChoices)
+                            @foreach (LIM.Exam.Models.ExamChoice examChoice in examQuestion.ExamChoices)
                         {
                                 <div style="margin:5px 10px;">
                                     <input type="radio"

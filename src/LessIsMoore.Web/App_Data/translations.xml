@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<translations total="606" modified="07-23-2017 14:13:36">
+<translations total="610" modified="05-14-2018 22:48:39">
   <translation>
     <original>passion</original>
     <converted>passion</converted>
@@ -2978,6 +2978,26 @@
   <translation>
     <original>klingon</original>
     <converted>克林贡语</converted>
+    <language>zh-CN</language>
+  </translation>
+  <translation>
+    <original>azure</original>
+    <converted>azure</converted>
+    <language>es-ES</language>
+  </translation>
+  <translation>
+    <original>exam</original>
+    <converted>examen</converted>
+    <language>es-ES</language>
+  </translation>
+  <translation>
+    <original>azure</original>
+    <converted>蔚蓝</converted>
+    <language>zh-CN</language>
+  </translation>
+  <translation>
+    <original>exam</original>
+    <converted>考试</converted>
     <language>zh-CN</language>
   </translation>
 </translations>

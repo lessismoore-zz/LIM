@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Authorization;
-using LessIsMoore.Web.Translation;
+using LIM.TextTranslator;
 using Microsoft.Reporting.WebForms;
 
 namespace LessIsMoore.Web.Controllers
@@ -45,8 +45,11 @@ namespace LessIsMoore.Web.Controllers
             if (_memoryCache != null) {
                 if (!_memoryCache.TryGetValue<NewsFeed[]>("arrNewsFeeds", out arrNewsFeeds))
                 {
-                    arrNewsFeeds = await new BLL().FetchAzureNewsFeed(2);
-                    arrNewsFeeds = arrNewsFeeds.Concat(await new BLL().FetchVergeNewsFeed(2)).ToArray();
+                    BLL inst_BLL = new BLL(_env.ContentRootPath);
+
+                    arrNewsFeeds = inst_BLL.FetchCustomNewsFeed(2);
+                    arrNewsFeeds = arrNewsFeeds.Concat(await inst_BLL.FetchAzureNewsFeed(2)).ToArray();
+                    //arrNewsFeeds = arrNewsFeeds.Concat(await inst_BLL.FetchVergeNewsFeed(2)).ToArray();
 
                     _memoryCache.Set<NewsFeed[]>("arrNewsFeeds", arrNewsFeeds, TimeSpan.FromMinutes(20));
                 }
