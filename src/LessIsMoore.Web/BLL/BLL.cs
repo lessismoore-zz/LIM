@@ -8,37 +8,10 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Xml.Linq;
+using LessIsMoore.Web.Models;
 
-namespace LessIsMoore.Web.Models
+namespace LessIsMoore.Web
 {
-    public class VSTSWorkItem
-    {
-        public int id { get; set; }
-        public int rev { get; set; }
-        public KeyValuePair<string, string> fields{ get; set; }
-    }
-
-    public class AppSettings
-    {
-        public LIM.SendGrid.Models.SendGridSettings SendGridSettings { get; set; }
-        public LIM.TextTranslator.Models.TranslatorSettings TranslatorSettings { get; set; }
-        public string NotificationHubConn { get; set; }
-        public string NotificationHubName { get; set; }
-        public bool FeatureFlag_ShowLanguageKlingon { get; set; }
-
-        public string VSTSToken { get; set; }
-    }
-
-
-    public class NewsFeed
-    {
-        public string Headline { get; set; }
-        public string Content { get; set; }
-        public string Link { get; set; }
-        public string Source { get; set; }
-
-    }
-
     public class BLL
     {
         private string _strCustomNewsPath = @"\App_Data\NewsFeed.xml";

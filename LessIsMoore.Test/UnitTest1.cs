@@ -76,7 +76,7 @@ namespace LessIsMoore.Test
         [Trait("Category", "UnitTest")]
         public async void VerifyVergeNewsFeed()
         {
-            NewsFeed[] arrNewsFeeds = await new BLL().FetchVergeNewsFeed();
+            NewsFeed[] arrNewsFeeds = await new LessIsMoore.Web.BLL().FetchVergeNewsFeed();
             Assert.True(arrNewsFeeds.Length > 0);
         }
 
@@ -84,7 +84,7 @@ namespace LessIsMoore.Test
         [Trait("Category", "UnitTest")]
         public async void VerifyAzureNewsFeed()
         {
-            NewsFeed[] arrNewsFeeds = await new BLL().FetchAzureNewsFeed();
+            NewsFeed[] arrNewsFeeds = await new LessIsMoore.Web.BLL().FetchAzureNewsFeed();
             Xunit.Assert.True(arrNewsFeeds.Length > 0);
         }
 

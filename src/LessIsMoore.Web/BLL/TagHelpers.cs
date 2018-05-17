@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using LIM.TextTranslator.Interfaces;
 
-namespace LessIsMoore.Web.Models
+namespace LessIsMoore.Web
 {
 
     [HtmlTargetElement("*", Attributes = "translate-text")]
@@ -28,18 +28,6 @@ namespace LessIsMoore.Web.Models
             string strContent = output.GetChildContentAsync().Result.GetContent();
 
             output.Content.AppendHtml(_ITextTranslator.TranslateText(strContent));
-
-            //string classValue;
-            //if (output.Attributes.ContainsName("class"))
-            //{
-            //    classValue = string.Format("{0} {1}", output.Attributes["class"].Value, "progress");
-            //}
-            //else
-            //{
-            //    classValue = "progress";
-            //}
-
-            //output.Attributes.SetAttribute("class", classValue);
         }
     }
 

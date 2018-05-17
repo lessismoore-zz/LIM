@@ -39,29 +39,101 @@ namespace LessIsMoore.Web.Controllers
 
             //_context.HttpContext.Session.Remove("ExamReport");
 
-            XDocument xdocument = XDocument.Load(Path.Combine(this._env.ContentRootPath, "app_data\\Reports.xml"));
-            XElement xElement = xdocument.Root.Elements().Where(x => x.Attribute("id").Value == azureExam.ID.ToString()).FirstOrDefault();
+            Models.Report inst_report = FetchReportByID(azureExam.ID);
 
-            if (xElement == null) {
+            if (inst_report == null) {
                 throw new Exception("Report not Found");
             }
 
-            string strReportPath = xElement.Attribute("path").Value;
-            string strReportTitle = xElement.Attribute("title").Value;
+            inst_report.Path = Path.Combine(this._env.ContentRootPath, inst_report.Path);
 
-            LocalReport rpt = new LocalReport()
+            using (LocalReport rpt = new LocalReport()
             {
-                ReportPath = Path.Combine(this._env.ContentRootPath, strReportPath),
-                DisplayName = strReportTitle
-            };
+                ReportPath = inst_report.Path,
+                DisplayName = inst_report.Title
+            })
+            {
+                rpt.SetParameters(new ReportParameter() { Name = "Name", Values = { azureExam.TakerName } });
 
-            rpt.SetParameters(new ReportParameter() { Name = "Name", Values = { azureExam.TakerName } });
+                string strFileName = (azureExam.TakerName + " " + rpt.DisplayName).Replace(" ", ".").Replace("/", ".") + ".pdf";
 
-            string strFileName = (azureExam.TakerName + " " +rpt.DisplayName).Replace(" ", ".").Replace("/", ".") + ".pdf";
+                byte[] b = rpt.Render("pdf");
 
-            byte[] b = rpt.Render("pdf");
+                return File(b, "application / pdf", strFileName);
+            }
 
-            return File(b, "application / pdf", strFileName);
+        }
+
+        [HttpPost]
+        [Route("[Controller]/Certificate")]
+        public FileContentResult GenerateCertificate(string txtDelimitedStringNames, int ddlRptID)
+        {
+            txtDelimitedStringNames = System.Net.WebUtility.HtmlEncode(txtDelimitedStringNames);
+
+            //====================================
+            string[] arrNames = txtDelimitedStringNames
+                                    .Split(Convert.ToChar(";"))
+                                    .Select(x=>x.Trim())
+                                    .Where(x=>x.Length > 3)
+                                    .ToArray();
+
+            if (arrNames?.Length < 1) {
+                throw new Exception("No names submitted");
+            }
+
+            Models.Report inst_report = FetchReportByID(ddlRptID);
+
+            if (inst_report == null)
+            {
+                throw new Exception("Report not Found");
+            }
+
+            inst_report.Path = Path.Combine(this._env.ContentRootPath, inst_report.Path);
+
+            //====================================
+
+            byte[] compressedBytes = null;
+
+            using (LocalReport rpt = new LocalReport()
+            {
+                ReportPath = inst_report.Path,
+                DisplayName = inst_report.Title
+            })
+            using (MemoryStream zipStream = new MemoryStream())
+            {
+                using (System.IO.Compression.ZipArchive zip = new System.IO.Compression.ZipArchive(zipStream, System.IO.Compression.ZipArchiveMode.Create, true))
+                {
+                    foreach (string strName in arrNames)
+                    {
+                        rpt.SetParameters(new ReportParameter() { Name = "Name", Values = { strName } });
+
+                        string strFileName = (strName + " " + rpt.DisplayName).Replace(" ", ".").Replace("/", ".") + ".pdf";
+
+                        System.IO.Compression.ZipArchiveEntry entry = zip.CreateEntry(strFileName.ToLower());
+
+                        using (Stream entryStream = entry.Open())
+                        using (MemoryStream rptStream = new MemoryStream(rpt.Render("pdf")))
+                        {
+                            rptStream.CopyTo(entryStream);
+                        }
+                    }
+                }
+
+                compressedBytes = zipStream.ToArray();
+            }
+
+            return File(compressedBytes, "application/zip", "Certificates.zip");
+        }
+
+        private Models.Report FetchReportByID(int intRptID)
+        {
+            XDocument xdocument = XDocument.Load(Path.Combine(this._env.ContentRootPath, "app_data\\Reports.xml"));
+
+            return xdocument.Root.Elements()
+                                .Where(x => x.Attribute("id").Value == intRptID.ToString())
+                                .Select(x => new Models.Report() { ID = intRptID, Path = x.Attribute("path").Value, Title = x.Attribute("title").Value })
+                                .FirstOrDefault();
+
         }
 
     }

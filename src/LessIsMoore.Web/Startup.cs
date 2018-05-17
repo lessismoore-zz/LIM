@@ -146,7 +146,7 @@ namespace LessIsMoore.Web
                 }
                 catch (Exception e)
                 {
-                    new Models.BLL().VSTS_SaveWorkItem(e.Message, e.ToString(), "Bug", -1);
+                    new BLL().VSTS_SaveWorkItem(e.Message, e.ToString(), "Bug", -1);
 
                     await context.Response.WriteAsync(string.Format(@"You got an error, Chief!! {0}========================{1}{2}", 
                         Environment.NewLine, Environment.NewLine, e.ToString()));
