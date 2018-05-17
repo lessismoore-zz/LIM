@@ -46,17 +46,19 @@
 
         <style>
             #divtest {
-                height:200px;
-                overflow:hidden;
+                height: 200px;
+                overflow: hidden;
             }
-            #divtest img {
-                margin-top:-40px;
-                width:100%;
-                border:solid green 2px;
-            }
-            #divtest .carousel-caption {
-                bottom:-30px;
-            }
+
+                #divtest img {
+                    margin-top: -40px;
+                    width: 100%;
+                    border: solid green 2px;
+                }
+
+                #divtest .carousel-caption {
+                    bottom: -30px;
+                }
         </style>
 
         <!-- ============================================================================================================== -->
@@ -74,7 +76,7 @@
         </div>
     </div>
 
-         @*Language drop down list 
+    @*Language drop down list
         <span>Select your language:</span>
         <select>
             <script>
@@ -90,7 +92,7 @@
             </script>
         </select>*@
 
-    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"></script>
+    <script src="assets/js/jquery.min.js"></script>
 
     @using (Html.BeginForm("Submit", "Exam", FormMethod.Post))
     {
@@ -138,13 +140,14 @@
                             top: 20px;
                             font-size: 5.3em;
                             color: green;
-                            text-decoration:none;
+                            text-decoration: none;
                         }
-                        #aPassMessage:hover {
-                            color: darkblue;
-                        }
+
+                            #aPassMessage:hover {
+                                color: darkblue;
+                            }
                     </style>
-                    <a id="aPassMessage" name="aPassMessage" href="../../report/Exam" >Download Certificate</a>
+                    <a id="aPassMessage" name="aPassMessage" href="../../report/Exam">Download Certificate</a>
                 }
             </div>
 
@@ -193,7 +196,7 @@
                             </h4>
 
                             @foreach (LIM.Exam.Models.ExamChoice examChoice in examQuestion.ExamChoices)
-                        {
+                            {
                                 <div style="margin:5px 10px;">
                                     <input type="radio"
                                            class="rdoAnswer"
@@ -224,16 +227,16 @@
 
             </div>
 
-                        }
+        }
 
-                    }
+    }
 
-        <!-- ============================================================================================================== -->
+    <!-- ============================================================================================================== -->
 
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year.ToString() - AzureExam</p>
-        </footer>
+    <hr />
+    <footer>
+        <p>&copy; @DateTime.Now.Year.ToString() - AzureExam</p>
+    </footer>
     </div>
 
     <environment names="Development">

@@ -129,9 +129,12 @@ namespace LessIsMoore.Web
             {
                 try
                 {
+                    System.Text.StringBuilder sbCSP = new System.Text.StringBuilder();
+                    sbCSP.Append("img-src 'self' data: ; ");
+                    sbCSP.Append("script-src 'self' 'unsafe-inline'; ");
+                    sbCSP.Append("report-uri /cspreport; ");
 
-                    string strCSP = "img-src 'self'; report-uri /cspreport";
-                    context.Response.Headers.Add("Content-Security-Policy", strCSP);
+                    context.Response.Headers.Add("Content-Security-Policy", sbCSP.ToString());
 
                     if (context.Request.Cookies["language"] != null)
                     {
