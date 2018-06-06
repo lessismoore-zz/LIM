@@ -145,7 +145,6 @@ namespace LessIsMoore.Web
                     }
 
                     await next();
-
                 }
                 catch (Exception e)
                 {
