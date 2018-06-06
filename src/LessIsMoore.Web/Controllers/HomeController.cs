@@ -50,6 +50,7 @@ namespace LessIsMoore.Web.Controllers
                     arrNewsFeeds = inst_BLL.FetchCustomNewsFeed(2);
                     arrNewsFeeds = arrNewsFeeds.Concat(await inst_BLL.FetchAzureNewsFeed(2)).ToArray();
                     //arrNewsFeeds = arrNewsFeeds.Concat(await inst_BLL.FetchVergeNewsFeed(2)).ToArray();
+                    //New comment
 
                     _memoryCache.Set<NewsFeed[]>("arrNewsFeeds", arrNewsFeeds, TimeSpan.FromMinutes(20));
                 }
