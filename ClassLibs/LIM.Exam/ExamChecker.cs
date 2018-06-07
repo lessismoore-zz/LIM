@@ -1,10 +1,8 @@
-﻿using System;
+﻿using LIM.Exam.Models;
+using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Xml.Linq;
-using LIM.Exam.Models;
 
 namespace LIM.Exam
 {
@@ -36,14 +34,11 @@ namespace LIM.Exam
             foreach (ExamQuestion examQuestion in azureExam.ExamQuestions)
             {
                 foreach (ExamChoice examChoice in examQuestion.ExamChoices)
-                    examChoice.IsSelected = examResponses.FirstOrDefault(x => x.ExamChoiceID == examChoice.ID).IsSelected;
+                    if (examResponses.Any(x => x.ExamChoiceID == examChoice.ID))
+                        examChoice.IsSelected = true; //examResponses.FirstOrDefault(x => x.ExamChoiceID == examChoice.ID).IsSelected;
             }
 
-            return azureExam.ExamQuestions.Select((x => x.ExamChoices.Where<ExamChoice>((y =>
-            {
-                return (y.IsSelected) ? y.IsCorrect : false;
-
-            })).Count())).Sum();
+            return azureExam.ExamQuestions.Select(x => x.ExamChoices.Where(y => y.IsSelected && y.IsCorrect).Count()).Sum();
         }
 
         public static IEnumerable<ExamResponse> CollectExamResponses(Models.Exam azureExam, Func<ExamChoice, bool> f)
@@ -62,7 +57,7 @@ namespace LIM.Exam
                 }
             }
 
-            return lstExamResponses;
+            return lstExamResponses.Where(x=>x.IsSelected);
         }
 
     }

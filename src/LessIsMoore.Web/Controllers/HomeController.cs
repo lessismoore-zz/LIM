@@ -1,16 +1,14 @@
-﻿using System;
-using System.Linq;
-using LessIsMoore.Web.Models;
-using System.Xml.Linq;
-//using StackExchange.Profiling;
-using Microsoft.AspNetCore.Mvc;
+﻿using LessIsMoore.Web.Models;
+using LIM.TextTranslator.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+//using StackExchange.Profiling;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
-using Microsoft.AspNetCore.Authorization;
-using LIM.TextTranslator.Interfaces;
-using Microsoft.Reporting.WebForms;
+using System;
+using System.Linq;
 
 namespace LessIsMoore.Web.Controllers
 {
@@ -30,11 +28,6 @@ namespace LessIsMoore.Web.Controllers
             _AppSettings = settings != null ? settings.Value : null;
         }
 
-        public void DoSomething() {
-            int intNumber = 1;
-
-        }
-
         // GET: Home
         public async System.Threading.Tasks.Task<IActionResult> Index()
         {
@@ -45,10 +38,10 @@ namespace LessIsMoore.Web.Controllers
             if (_memoryCache != null) {
                 if (!_memoryCache.TryGetValue<NewsFeed[]>("arrNewsFeeds", out arrNewsFeeds))
                 {
-                    BLL inst_BLL = new BLL(_env.ContentRootPath);
+                    BLL.NewsFeed inst_NewsFeed = new BLL.NewsFeed(_env);
 
-                    arrNewsFeeds = inst_BLL.FetchCustomNewsFeed(2);
-                    arrNewsFeeds = arrNewsFeeds.Concat(await inst_BLL.FetchAzureNewsFeed(2)).ToArray();
+                    arrNewsFeeds = inst_NewsFeed.FetchCustomNewsFeed(2);
+                    arrNewsFeeds = arrNewsFeeds.Concat(await inst_NewsFeed.FetchAzureNewsFeed(2)).ToArray();
                     //arrNewsFeeds = arrNewsFeeds.Concat(await inst_BLL.FetchVergeNewsFeed(2)).ToArray();
                     //New comment
 
@@ -72,43 +65,43 @@ namespace LessIsMoore.Web.Controllers
             return View();
         }
 
-        [HttpPost]
-        public JsonResult SaveWorkout(string type, string excercise, int wovalue, DateTime wodate)
-        {
-            string strXMLPath = System.IO.Path.Combine(_env.ContentRootPath, @"\App_Data\workouts.xml");
+        //[HttpPost]
+        //public JsonResult SaveWorkout(string type, string excercise, int wovalue, DateTime wodate)
+        //{
+        //    string strXMLPath = System.IO.Path.Combine(_env.ContentRootPath, @"\App_Data\workouts.xml");
 
-            XDocument xDoc = XDocument.Load(strXMLPath);
-            xDoc.Root.Add(new XElement("workout",
-                    new XElement("type", type),
-                    new XElement("excercise", excercise),
-                    new XElement("value", wovalue),
-                    new XElement("date", wodate.ToString())
-                ));
+        //    XDocument xDoc = XDocument.Load(strXMLPath);
+        //    xDoc.Root.Add(new XElement("workout",
+        //            new XElement("type", type),
+        //            new XElement("excercise", excercise),
+        //            new XElement("value", wovalue),
+        //            new XElement("date", wodate.ToString())
+        //        ));
 
-            using (var fileStream = System.IO.File.Create(strXMLPath)) {
-                xDoc.Save(fileStream);
-            }
+        //    using (var fileStream = System.IO.File.Create(strXMLPath)) {
+        //        xDoc.Save(fileStream);
+        //    }
 
-            return new JsonResult(xDoc);
-        }
+        //    return new JsonResult(xDoc);
+        //}
 
-        [HttpGet]
-        public JsonResult GetWorkouts()
-        {
-            string strXMLPath = System.IO.Path.Combine(_env.ContentRootPath, @"App_Data\workouts.xml");
+        //[HttpGet]
+        //public JsonResult GetWorkouts()
+        //{
+        //    string strXMLPath = System.IO.Path.Combine(_env.ContentRootPath, @"App_Data\workouts.xml");
 
-            XDocument xDoc = XDocument.Load(strXMLPath);
+        //    XDocument xDoc = XDocument.Load(strXMLPath);
 
-            var data = 
-                xDoc.Root.Elements("workout").Select(x => new {
-                    type = _tl.TranslateText(x.Element("type").Value),
-                    excercise = _tl.TranslateText(x.Element("excercise").Value),
-                    value = Convert.ToInt32(x.Element("value").Value),
-                    date = Convert.ToDateTime(x.Element("date").Value)
-                }).ToArray();
+        //    var data = 
+        //        xDoc.Root.Elements("workout").Select(x => new {
+        //            type = _tl.TranslateText(x.Element("type").Value),
+        //            excercise = _tl.TranslateText(x.Element("excercise").Value),
+        //            value = Convert.ToInt32(x.Element("value").Value),
+        //            date = Convert.ToDateTime(x.Element("date").Value)
+        //        }).ToArray();
 
-            return new JsonResult(data);
-        }
+        //    return new JsonResult(data);
+        //}
 
 
     }

@@ -1,16 +1,12 @@
 using LessIsMoore.Web.Controllers;
 using LessIsMoore.Web.Models;
 using Microsoft.AspNetCore.Mvc;
-using Xunit;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.IE;
 using OpenQA.Selenium.PhantomJS;
 using OpenQA.Selenium.Support.UI;
-using System;
-using Microsoft.DotNet.PlatformAbstractions;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
+using Xunit;
 
 namespace LessIsMoore.Test
 {
@@ -72,19 +68,19 @@ namespace LessIsMoore.Test
             Assert.Equal(strPageName, result.ViewData["title"].ToString().ToLower());
         }
 
-        [Fact]
-        [Trait("Category", "UnitTest")]
-        public async void VerifyVergeNewsFeed()
-        {
-            NewsFeed[] arrNewsFeeds = await new LessIsMoore.Web.BLL().FetchVergeNewsFeed();
-            Assert.True(arrNewsFeeds.Length > 0);
-        }
+        //[Fact]
+        //[Trait("Category", "UnitTest")]
+        //public async void VerifyVergeNewsFeed()
+        //{
+        //    NewsFeed[] arrNewsFeeds = await new LessIsMoore.Web.BLL.NewsFeed().FetchVergeNewsFeed();
+        //    Assert.True(arrNewsFeeds.Length > 0);
+        //}
 
         [Fact]
         [Trait("Category", "UnitTest")]
         public async void VerifyAzureNewsFeed()
         {
-            NewsFeed[] arrNewsFeeds = await new LessIsMoore.Web.BLL().FetchAzureNewsFeed();
+            NewsFeed[] arrNewsFeeds = await new LessIsMoore.Web.BLL.NewsFeed().FetchAzureNewsFeed();
             Xunit.Assert.True(arrNewsFeeds.Length > 0);
         }
 
@@ -117,48 +113,52 @@ namespace LessIsMoore.Test
         //==========================================================
         //private string _strBaseURL = "http://www.lessismoore.net";
 
-        //[Theory]
-        //[InlineData("Joe Dirt", "Dirt.Joe@Microsoft.com")]
-        //[Trait("Category", "Selenium")]
-        //public void VerifyExam(string strName, string strEmail)
-        //{
-        //    //wd = new ChromeDriver(chromeOptions);
-        //    //_wd = new InternetExplorerDriver();
+        [Theory]
+        [InlineData("Joe Dirt", "Dirt.Joe@Microsoft.com")]
+        [Trait("Category", "Selenium")]
+        public void VerifyExamUI(string strName, string strEmail)
+        {
+            //wd = new ChromeDriver(chromeOptions);
+            //_wd = new InternetExplorerDriver();
 
-        //    using (IWebDriver _wd = new PhantomJSDriver())
-        //    {
-        //        IJavaScriptExecutor _js = (IJavaScriptExecutor)_wd;
+            using (IWebDriver _wd = new PhantomJSDriver())
+            {
+                IJavaScriptExecutor _js = (IJavaScriptExecutor)_wd;
 
-        //        _wd.Navigate().GoToUrl(_strBaseURL + "/exam?sf=8d679ae7-e939-474c-a3ff-8501ee636b12");
-        //        _wd.Manage().Timeouts().ImplicitWait = new System.TimeSpan(0, 0, 5);
+                _wd.Navigate().GoToUrl(@"http://www.lessismoore.net/exam?id=1&sf=8d679ae7-e939-474c-a3ff-8501ee636b12");
+                _wd.Manage().Timeouts().ImplicitWait = new System.TimeSpan(0, 0, 10);
 
-        //        IWait<IWebDriver> wait = new WebDriverWait(_wd, System.TimeSpan.FromSeconds(5));
+                IWait<IWebDriver> wait = new WebDriverWait(_wd, System.TimeSpan.FromSeconds(5));
 
-        //        _wd.FindElement(By.Id("txtName")).SendKeys(strName);
-        //        _wd.FindElement(By.Id("txtEmail")).SendKeys(strEmail);
+                _wd.FindElement(By.Id("txtName")).SendKeys(strName);
+                _wd.FindElement(By.Id("txtEmail")).SendKeys(strEmail);
 
-        //        int[] ctrlIDs = { 101, 202, 303, 401, 504, 604, 703, 801, 902, 1003 };
+                int[] ctrlIDs = { 101, 202, 303, 401, 504, 604, 703, 801, 902, 1003 };
 
-        //        foreach (int intID in ctrlIDs)
-        //        {
-        //            _wd.FindElement(By.Id("answer_" + intID.ToString())).Click();
-        //            _js.ExecuteScript("window.scrollBy(0,300)");
-        //        }
+                foreach (int intID in ctrlIDs)
+                {
+                    _wd.FindElement(By.Id("answer_" + intID.ToString())).Click();
+                    _js.ExecuteScript("window.scrollBy(0,300)");
+                }
 
-        //        _js.ExecuteScript("window.confirm = function(msg){return true;};");
-        //        _wd.FindElement(By.Id("txtSubmit")).Click();
+                _js.ExecuteScript("window.confirm = function(msg){return true;};");
+                _wd.FindElement(By.Id("txtSubmit")).Click();
 
-        //        //wait.Until(ExpectedConditions.AlertIsPresent());
+                //wait.Until(ExpectedConditions.AlertIsPresent());
 
-        //        //_wd.SwitchTo().Alert().Accept();
+                //_wd.SwitchTo().Alert().Accept();
 
-        //        //wait.Until(ExpectedConditions.AlertIsPresent());
+                //wait.Until(ExpectedConditions.AlertIsPresent());
 
-        //        //_wd.SwitchTo().Alert().Accept();
-        //        wait.Until(ExpectedConditions.ElementExists(By.Id("aPassMessage")));
-        //        Assert.Contains("great job", _wd.FindElement(By.Id("aPassMessage")).Text.ToLower());
-        //    }
-        //}
+                //_wd.SwitchTo().Alert().Accept();
+                wait.Until(ExpectedConditions.ElementExists(By.Id("hdnScore")));
+
+                int intScore;
+                int.TryParse(_wd.FindElement(By.Id("hdnScore")).GetAttribute("value"), out intScore);
+
+                Assert.True(intScore >= ctrlIDs.Length);
+            }
+        }
 
     }
 }

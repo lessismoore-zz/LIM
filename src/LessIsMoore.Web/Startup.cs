@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -8,8 +7,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Protocols.OpenIdConnect;
-using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Threading.Tasks;
 
@@ -129,9 +126,11 @@ namespace LessIsMoore.Web
             {
                 try
                 {
+                    //Add content security policies
                     System.Text.StringBuilder sbCSP = new System.Text.StringBuilder();
                     sbCSP.Append("img-src 'self' data: ; ");
-                    sbCSP.Append("script-src 'self' 'unsafe-inline'; ");
+                    //sbCSP.Append("script-src 'self' 'unsafe-inline'; ");
+                    //sbCSP.Append("script-src 'self' 'unsafe-eval'; ");
                     sbCSP.Append("report-uri /cspreport; ");
 
                     context.Response.Headers.Add("Content-Security-Policy", sbCSP.ToString());
@@ -148,7 +147,11 @@ namespace LessIsMoore.Web
                 }
                 catch (Exception e)
                 {
-                    new BLL().VSTS_SaveWorkItem(e.Message, e.ToString(), "Bug", -1);
+                    new BLL.VSTS(settings.Value.VSTSToken).SaveWorkItem(
+                        new Models.VSTSWorkItem() {
+                            Comments = "", Title = e.Message, Steps = e.ToString(), Type = "Bug", id= -1
+                        }
+                    );
 
                     await context.Response.WriteAsync(string.Format(@"You got an error, Chief!! {0}========================{1}{2}", 
                         Environment.NewLine, Environment.NewLine, e.ToString()));

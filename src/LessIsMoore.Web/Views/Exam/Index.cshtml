@@ -24,6 +24,7 @@
     </environment>
 </head>
 <body>
+
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -92,7 +93,7 @@
             </script>
         </select>*@
 
-    <script src="assets/js/jquery.min.js"></script>
+    <script src="~/assets/js/jquery.min.js"></script>
 
     @using (Html.BeginForm("Submit", "Exam", FormMethod.Post))
     {
@@ -101,6 +102,9 @@
         {
             int.TryParse(TempData["TotalCorrectQuestions"].ToString(), out intTotalCorrectQuestions);
         }
+
+        <input type="hidden" id="hdnScore" name="hdnScore" value="@intTotalCorrectQuestions" />
+
 
         if (@Model.HasStarted && (intTotalCorrectQuestions < @Model.TotalQuestions))
         {
@@ -245,7 +249,7 @@
         <script src="~/Scripts/site.js" asp-append-version="true"></script>
     </environment>
     <environment names="Staging,Production">
-        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
+        <script src="~/lib/jquery/dist/jquery.min.js"
                 asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
                 asp-fallback-test="window.jQuery">
         </script>

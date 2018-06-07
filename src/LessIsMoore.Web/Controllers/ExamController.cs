@@ -29,22 +29,26 @@ namespace LessIsMoore.Web.Controllers
             _context = context;
         }
 
-        private LIM.Exam.Models.Exam PopulateExamQuestions(int intExamID)
+        private LIM.Exam.Models.Exam PopulateExamQuestions(int intExamID, Action<LIM.Exam.Models.Exam> cb)
         {
 
             LIM.Exam.Models.Exam azureExam = new LIM.Exam.Models.Exam();
+
+            cb(azureExam);
+
             string strXMLPath = null;
 
             azureExam.ID = intExamID;
 
             if (azureExam.ID == 1)
             {
-                strXMLPath = "..\\..\\..\\app_data\\AzureQuiz.xml";
+                strXMLPath = "\\app_data\\AzureQuiz.xml";
                 azureExam.Name = "Exam: Fast Start – Azure for Modern Web and Mobile Application Development";
             }
             else if (azureExam.ID == 2)
             {
-                strXMLPath = "..\\..\\..\\app_data\\DevopsQuiz.xml";
+                //..\\..\\..
+                strXMLPath = "\\app_data\\DevopsQuiz.xml";
                 azureExam.Name = "Exam: Fast Start – Azure for Dev Ops";
             }
             else
@@ -52,8 +56,10 @@ namespace LessIsMoore.Web.Controllers
                 return azureExam;
             }
 
-            XDocument xdocument = XDocument.Load(Path.Combine(_env.ContentRootPath, strXMLPath));
-            azureExam.ExamQuestions = new LIM.Exam.ExamChecker().PopulateExamQuestionsFromXML(xdocument.Root.Elements("question"));
+            XDocument xdocument = XDocument.Load(_env.ContentRootPath +strXMLPath);
+
+            azureExam.ExamQuestions = 
+                new LIM.Exam.ExamChecker().PopulateExamQuestionsFromXML(xdocument.Root.Elements("question"), azureExam.ShuffleQuestions, azureExam.ShuffleQuestionChoices);
 
             return azureExam;
         }
@@ -63,13 +69,12 @@ namespace LessIsMoore.Web.Controllers
         {
             _context.HttpContext.Session.Remove("AzureExam");
 
-            LIM.Exam.Models.Exam azureExam = PopulateExamQuestions(ID);
+            bool NoShuffleQuestions = !(_context.HttpContext.Request.Query["sf"] == "8d679ae7-e939-474c-a3ff-8501ee636b12");
 
-            //if (_context.HttpContext.Request.Query["sf"] == "8d679ae7-e939-474c-a3ff-8501ee636b12")
-            //{
-            //    azureExam.ShuffleQuestions = false;
-            //    azureExam.ShuffleQuestionChoices = false;
-            //}
+            LIM.Exam.Models.Exam azureExam = PopulateExamQuestions(ID, (x=> {
+                x.ShuffleQuestions = NoShuffleQuestions;
+                x.ShuffleQuestionChoices = NoShuffleQuestions;
+            }));
 
             _context.HttpContext.Session.SetString("AzureExam", JsonConvert.SerializeObject(azureExam));
             _context.HttpContext.Session.SetString("AzureExamStartTime", DateTime.Now.ToShortTimeString() );

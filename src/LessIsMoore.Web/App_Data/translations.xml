@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<translations total="610" modified="05-14-2018 22:48:39">
+<translations total="612" modified="06-06-2018 19:31:07">
   <translation>
     <original>passion</original>
     <converted>passion</converted>
@@ -2999,5 +2999,15 @@
     <original>exam</original>
     <converted>考试</converted>
     <language>zh-CN</language>
+  </translation>
+  <translation>
+    <original>azure</original>
+    <converted>azure</converted>
+    <language>fr-FR</language>
+  </translation>
+  <translation>
+    <original>exam</original>
+    <converted>exam</converted>
+    <language>fr-FR</language>
   </translation>
 </translations>

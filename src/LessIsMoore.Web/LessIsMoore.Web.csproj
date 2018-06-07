@@ -36,7 +36,6 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.0.2" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.0.4" />
-    <PackageReference Include="Microsoft.ReportingServices.ReportViewerControl.WebForms" Version="140.1000.523" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.2" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="System.Xml.XmlDocument" Version="4.3.0" />
@@ -69,6 +68,7 @@
     <ProjectReference Include="..\..\ClassLibs\LIM.Exam\LIM.Exam.csproj" />
     <ProjectReference Include="..\..\ClassLibs\LIM.SendGrid\LIM.SendGrid.csproj" />
     <ProjectReference Include="..\..\ClassLibs\LIM.TextTranslator\LIM.TextTranslator.csproj" />
+    <ProjectReference Include="..\..\LIM.Certificates\LIM.Certificates.csproj" />
   </ItemGroup>
 
   <ItemGroup>
