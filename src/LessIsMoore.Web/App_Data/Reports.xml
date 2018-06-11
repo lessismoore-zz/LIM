@@ -3,4 +3,5 @@
   <Report id="1" title="Azure" path="reports/Fast_Start_Azure_Web.rdl" />
   <Report id="2" title="SDL" path="reports/SDL.rdl" />
   <Report id="3" title="MVC" path="reports/Workshop - MVC.rdl" />
+  <Report id="4" title="DevOps" path="reports/DevOpsFundamentals.rdl" />
 </Reports>
