@@ -147,9 +147,10 @@ namespace LessIsMoore.Web
                 }
                 catch (Exception e)
                 {
-                    new BLL.VSTS(settings.Value.VSTSToken).SaveWorkItem(
+                    new BLL.VSTS(settings.Value.VSTSToken, "https://lessismoore.visualstudio.com/").SaveWorkItem(
                         new Models.VSTSWorkItem() {
-                            Comments = "", Title = e.Message, Steps = e.ToString(), Type = "Bug", id= -1
+                            Comments = "", Title = e.Message, Steps = e.ToString(), Type = "Bug",
+                            id = -1, ProjectName = "LessIsMoore.Web", Priority = 1
                         }
                     );
 

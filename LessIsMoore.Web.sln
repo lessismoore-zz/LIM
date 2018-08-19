@@ -28,6 +28,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LIM.Exam", "ClassLibs\LIM.E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LIM.Certificates", "LIM.Certificates\LIM.Certificates.csproj", "{1F247209-0AD6-4344-A0AC-5381EEE517BC}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LIM.Exam.Web", "src\LIM.Exam.Web\LIM.Exam.Web.csproj", "{68E8F526-A166-4777-9C52-1614F70B9250}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -62,6 +64,10 @@ Global
 		{1F247209-0AD6-4344-A0AC-5381EEE517BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F247209-0AD6-4344-A0AC-5381EEE517BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F247209-0AD6-4344-A0AC-5381EEE517BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68E8F526-A166-4777-9C52-1614F70B9250}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68E8F526-A166-4777-9C52-1614F70B9250}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68E8F526-A166-4777-9C52-1614F70B9250}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68E8F526-A166-4777-9C52-1614F70B9250}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -73,6 +79,7 @@ Global
 		{D2CE9A3D-B47D-4B8C-99AC-9B18EF9E5FB1} = {08514E69-FF4C-4153-8E0E-C2D85E6718B4}
 		{2EABF29E-4D29-4793-8E19-3D02D9C33531} = {08514E69-FF4C-4153-8E0E-C2D85E6718B4}
 		{1F247209-0AD6-4344-A0AC-5381EEE517BC} = {08514E69-FF4C-4153-8E0E-C2D85E6718B4}
+		{68E8F526-A166-4777-9C52-1614F70B9250} = {4FC12B6F-615E-4AD5-AB88-D40207FB6CA3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9B25D86B-932A-485B-B9B1-7B81A6C603BD}

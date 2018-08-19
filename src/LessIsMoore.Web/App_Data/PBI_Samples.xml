@@ -1,0 +1,103 @@
+<workitems>
+  <workitem type="epic" title="Customize" state="new" tags="">
+    <workitem type="feature" title="Customize Cards" state="new" tags="">
+      <workitem type="user story" title="Add tags to your cards" state="new" tags="Needs review" />
+      <workitem type="user story" title="Add style rules to highlight cards with color" state="new" tags="Needs review" />
+      <workitem type="user story" title="Customize cards" state="active" tags="Follow up" />
+      <workitem type="user story" title="Add fiels and update them from your board" state="new" tags="" />
+    </workitem>
+    <workitem type="feature" title="Configure board" state="new" tags="">
+      <workitem type="user story" title="Add new columns to board" state="new" tags="Needs review">
+          <html lang="en-US">
+            <head>
+              <style>
+                html, body
+                {
+                height: 100%;
+                box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+                }
+                html {
+                overflow: hidden;
+                }
+                body
+                {
+                font-family: Segoe UI, Helvetica Neue, Helvetica, Arial, Verdana;
+                color: #222222;
+                background-color: #ffffff;
+                font-size: 14px;
+                word-break: break-word;
+                margin:0;
+                padding: 5px;
+                box-sizing: border-box;
+                overflow: auto;
+                }
+
+                body.invalid
+                {
+                background-color: #ffc;
+                }
+
+                P
+                {
+                line-height: 1.5em;
+                margin: 0;
+                }
+
+                body.watermark {
+                color: #999999;
+                font-style: italic;
+                }
+
+                img
+                {
+                max-width: 100%;
+                }
+
+                a, a:visited {
+                color: #007acc;
+                }
+
+
+              </style>
+            </head>
+            <body contenteditable="true" role="textbox" aria-multiline="true" aria-label="Description">
+              For more information on how you can add new columns to your board, check out: <a href="https://msdn.microsoft.com/en-us/Library/vs/alm/Work/kanban/add-columns">https://msdn.microsoft.com/en-us/Library/vs/alm/Work/kanban/add-columns</a><br>
+                <p>
+                  <img style="width:491px;" src="https://i-msdn.sec.s-msft.com/Library/vs/alm/Work/kanban/_img/ALM_AC_KanbanIntro.png">
+                </p>
+            </body>
+          </html>
+      </workitem>
+      <workitem type="user story" title="Expedite work" state="new" tags="" />
+      <workitem type="bug" title="Show bugs on backlogs and boards" state="new" tags="" />
+    </workitem>
+  </workitem>
+  <workitem type="epic" title="Setup" state="active" tags="">
+    <workitem type="feature" title="Setup VSTS" state="active" tags="For your information">
+      <workitem type="user story" title="Getting started" state="new" tags="For your information" />
+      <workitem type="user story" title="Add team members" state="new" tags="" />
+      <workitem type="user story" title="Set team members" state="new" tags="" />
+      <workitem type="user story" title="Create VSTS account" state="new" tags="" />
+      <workitem type="user story" title="Create example project" state="new" tags="" />
+    </workitem>
+  </workitem>
+  <workitem type="epic" title="Add Items" state="active" tags="">
+    <workitem type="feature" title="Add and edit work items" state="active" tags="">
+      <workitem type="user story" title="Organize your backlog" state="new" tags="News review" />
+      <workitem type="user story" title="Create new card" state="resolved" tags="Follow up" />
+      <workitem type="bug" title="Create bugs" state="active" tags="" />
+    </workitem>
+  </workitem>
+  <workitem type="epic" title="Areas and Iterations" state="new" tags="">
+    <workitem type="feature" title="Areas" state="new" tags="">
+      <workitem type="user story" title="Modify an area path" state="resolved" tags="For your information" />
+      <workitem type="user story" title="Add an area path" state="resolved" tags="" />
+    </workitem>
+    <workitem type="feature" title="Iterations" state="new" tags="">
+      <workitem type="user story" title="Add an iteration" state="resolved" tags="" />
+      <workitem type="user story" title="Modify an iteration" state="resolved" tags="For your information" />
+    </workitem>
+  </workitem>
+</workitems>

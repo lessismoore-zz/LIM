@@ -1,0 +1,211 @@
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor _context;
+@inject LIM.TextTranslator.Interfaces.ISelectedLanguage inst_SelectedLanguage;
+@inject Microsoft.Extensions.Options.IOptions<LIM.Exam.Web.Models.AppSettings> inst_settings;
+
+@{
+    string strSelectedLangauge = _tl.CurrentTextCulture;
+    bool _IsAuthenticated = false;
+    string strWelcome = "";
+
+    string strTitle = ViewData["title"] == null ? "" : "> " + _tl.TranslateText(ViewData["title"].ToString());
+
+    inst_SelectedLanguage.Locale = strSelectedLangauge;
+
+    if ((_context.HttpContext.User != null) && (_context.HttpContext.User.Identity.IsAuthenticated))
+    {
+        _IsAuthenticated = true;
+
+        strWelcome = string.Format(
+            "{0}, {1} {2}!",
+             _tl.TranslateText("Welcome"),
+            _context.HttpContext.User.FindFirst(System.Security.Claims.ClaimTypes.GivenName).Value,
+            _context.HttpContext.User.FindFirst(System.Security.Claims.ClaimTypes.Surname).Value
+            );
+    }
+}
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Less Is Moore @strTitle</title>
+    <base href=" / " />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <script src="~/Scripts/jquery-2.2.0.min.js"></script>
+    <script src="~/Scripts/angular.min.js"></script>
+    <script>
+        var _app = angular.module("app", []);
+    </script>
+    <script src="~/Scripts/angular.texttranslator.js"></script>
+
+    <script>
+        sessionStorage.setItem("_savedTranslations_", '@Html.Raw(_tl.FetchJSonStoredTranslations())');
+        var _tl = fetchDefaultTranslator().translateText;
+    </script>
+
+    <style>
+    </style>
+
+    @Html.Raw(snippet.FullScript)
+
+    @RenderSection("Header")
+</head>
+<body ng-app="app">
+    <style>
+        #ulNav {
+            padding: 0px;
+            margin: 0px;
+            overflow: hidden;
+            font-size: 12pt;
+            width: 100%;
+            text-align: right;
+            padding-right: 10px;
+        }
+
+            #ulNav li {
+                padding: 0px;
+                margin: 0px 10px 0px 0px;
+                display: inline;
+                text-decoration: none;
+            }
+        }
+    </style>
+
+    <script>
+        $(function () {
+            $('#ddlLangauge').bind('change', function () {
+                //if (this.selectedIndex > -1 && confirm(_tl('Continue and update langauge?'))) {
+                this.form.submit();
+                //}
+
+                //appInsights.trackEvent('User changed default langauge - client');
+
+                return false;
+            });
+
+            $('#txtNotifyUsers').bind('keydown', function (e) {
+                if (!e) { var e = window.event; }
+
+                if (e.keyCode == 13) {
+                    if (($.trim(this.value) != '') && confirm(_tl('Continue and Message Subscribers?'))) {
+                        this.form.submit();
+                    }
+
+                    return false;
+                }
+
+            });
+        })
+
+    </script>
+
+    <!-- Header -->
+    <ul id="ulNav">
+
+        <li style="float:left; margin-left:20px; font-weight:bold;">@strWelcome</li>
+        <li><a href="/blog" translate-text>blog</a></li>
+        <li style="margin-right:15px;"><a href="#" translate-text>partners</a></li>
+
+        @using (Html.BeginForm("SaveLangauge", "Home", FormMethod.Post, new { id = "frmLangauge" }))
+        {
+            <li>
+                <img style="height:25px; position:relative; top:7px; " src="@inst_SelectedLanguage.Flag" />
+
+                <select name="ddlLangauge" id="ddlLangauge" style="width:120px; display:inline-block;
+                            margin:5px 0px 0px 0px; padding:0px 0px 0px 10px; height:1.60em; font-size:12pt;">
+
+                    @foreach (string strKey in inst_SelectedLanguage.Langs.Keys)
+                    {
+                        if (strSelectedLangauge.ToLower() == strKey.ToLower())
+                        {
+                            <option translate-text value="@strKey" selected>
+                                @inst_SelectedLanguage.Langs[strKey]
+                            </option>
+                        }
+                        else
+                        {
+                            <option translate-text value="@strKey">
+                                @inst_SelectedLanguage.Langs[strKey]
+                            </option>
+                        }
+
+                        if (inst_settings.Value.FeatureFlag_ShowLanguageKlingon)
+                        {
+                            <option translate-text value="kl-KL">
+                                Klingon
+                            </option>
+                        }
+                    }
+                </select>
+            </li>
+
+        }
+
+        @{
+            if (_IsAuthenticated)
+            {
+                @using (Html.BeginForm("SendNotification", "Home", FormMethod.Post, new { id = "frmMessage" }))
+                {
+                    <li>
+
+                        <input type="text" placeholder='@_tl.TranslateText("Admin: Message Subscribers")' name="txtNotifyUsers" id="txtNotifyUsers"
+                               style="width:500px; height:1.30em; display:inline; margin:5px 0px 0px 0px; padding:0px 0px 0px 10px;" />
+                    </li>
+
+                }
+            }
+        }
+
+    </ul>
+
+    <section id="header">
+        <div class="inner">
+            <span class="icon major fa-cloud"></span>
+            <h1 translate-text>Developer. Runner. Husband. Father.</h1>
+            <p translate-text>"Motivation is what gets you started... Habit is what keeps you going." - Jim Ryun</p>
+            <ul class="actions">
+                <li><a href="#one" class="button scrolly" translate-text>About this Guy</a></li>
+            </ul>
+        </div>
+    </section>
+
+    @RenderBody()
+
+    <!-- Footer -->
+    <section id="footer">
+        <ul class="icons">
+            <li><a href="https://www.twitter.com/timdmo" target="_blank" class="icon alt fa-twitter"><span class="label" translate-text>Twitter</span></a></li>
+            @*<li><a href="#" class="icon alt fa-facebook"><span class="label" translate-text>Facebook</span></a></li>
+                <li><a href="#" class="icon alt fa-instagram"><span class="label" translate-text>Instagram</span></a></li>
+                <li><a href="#" class="icon alt fa-github"><span class="label" translate-text>GitHub</span></a></li>*@
+            <li><a href="#" class="icon alt fa-envelope"><span class="label" translate-text>Email</span></a></li>
+        </ul>
+        <ul class="copyright">
+            <li>&copy; LessIsMoore.Net</li>
+            <li><a href="mailto:info@LessIsMoore.Web" translate-text>Contact</a></li>
+
+            @{
+                if (_IsAuthenticated)
+                {
+                    <li><a href="Account/LogOff" translate-text>Logout</a></li>
+                }
+                else
+                {
+                    <li><a href="Account/Login" translate-text>Login</a></li>
+                }
+            }
+
+            <li><a href="exam/index?id=1" target="_blank" translate-text>Azure Exam</a></li>
+
+        </ul>
+    </section>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/skel.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

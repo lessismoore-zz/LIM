@@ -1,0 +1,33 @@
+﻿
+<form method="post" id="form2" action="Report/Certificate">
+    <h4>Generate Reports</h4>
+
+    <select id="txtRptID" name="ddlRptID">
+        <option value="1">--Select Report--</option>
+        <option value="1">Azure</option>
+        <option value="2" selected="selected">SDL</option>
+        <option value="3">MVC</option>
+        <option value="4">DevOps</option>
+    </select>
+
+    <textarea id="txtDelimitedStringNames" name="txtDelimitedStringNames" placeholder="Enter names seperated by (;)"></textarea>
+    <input type="submit" value="Create Report Zip" name="btnZipCerts" id="btnZipCerts"/>
+</form>
+
+<script>
+
+    document.getElementById("btnZipCerts").onclick = function (el) {
+
+        var txtDelimitedStringNames = document.getElementById("txtDelimitedStringNames");
+
+        if (txtDelimitedStringNames.value.trim().length < 1) {
+            alert('Enter names');
+            return false;
+        }
+
+        if (!confirm("Generate Reports?")) {
+            return false;
+        }
+    }
+
+</script>

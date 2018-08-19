@@ -21,40 +21,36 @@
 	</question>
 	<question>
 		<text>
-		You are designing an application to carry out facial recognition on photographs uploaded by users. The photographs are placed in a queue and picked up for processing by a custom service.{##}The application 
-		may take several hours to complete its processing. The application then notifies users by email that the job is complete.{##}Which Azure Service or feature should you use for processing of the photographs.
+		Is security part of DevOps?
 		</text>
     <answers>
-		  <answer>
-		  Azure web role
-		  </answer>
-		  <answer>
-		  Azure Service Bus queue
-		  </answer>
-		  <answer>
-		  Azure queue
-		  </answer>
 		  <answer correct="1">
-		  Azure worker role
+		  Yes
+		  </answer>
+		  <answer>
+		  No
+		  </answer>
+		  <answer>
+		  Sometimes
 		  </answer>
     </answers>
 	</question>
 	<question>
 		<text>
-		Provides simple, powerful SQL like language for querying telemetry data collected from server-side and client-side information.
+		What is lead time?
 		</text>
     <answers>
 		  <answer correct="1">
-		  Application Insights
+		  When a request is made and added to the backlog to when all work for the request is completed and the request is delivered to the client.
 		  </answer>
 		  <answer>
-		  System Center Operations Manager
+		  The time the team waits for a deployment.
 		  </answer>
 		  <answer>
-		  Azure Log Analytics
+		  The time it takes to dicover an issue in production.
 		  </answer>
 		  <answer>
-		  Swagger API
+		  The same as cycle time.
 		  </answer>      
     </answers>
 	</question>
@@ -136,20 +132,20 @@
   </question>
   <question>
     <text>
-      Which is a factor that may prevent you from adopting a PaaS model and choosing IaaS?
+      What is not a goal of DebOps?
     </text>
     <answers>
       <answer correct="1">
-        Need to install third-party software
+        Cheaper deployments
       </answer>
       <answer>
-        PowerShell
+        A continous delivery of value to end users
       </answer>
       <answer>
-        Geo-Restore
+        Higher quality deployments
       </answer>
       <answer>
-        Elastic Pool
+        Continous feedback from new releases
       </answer>
     </answers>
   </question>

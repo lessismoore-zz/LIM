@@ -13980,9 +13980,6 @@
   },
   "project": {
     "version": "1.0.0",
-    "restoreSettings": {
-      "hideWarningsAndErrors": true
-    },
     "restore": {
       "projectUniqueName": "J:\\wwwroot\\LessIsMoore\\LessIsMoore.Web\\src\\LessIsMoore.Web\\LessIsMoore.Web.csproj",
       "projectName": "LessIsMoore.Web",
@@ -14007,8 +14004,8 @@
       "frameworks": {
         "net461": {
           "projectReferences": {
-            "J:\\wwwroot\\LessIsMoore\\LessIsMoore.Web\\LIM.Certificates\\LIM.Certificates.csproj": {
-              "projectPath": "J:\\wwwroot\\LessIsMoore\\LessIsMoore.Web\\LIM.Certificates\\LIM.Certificates.csproj"
+            "J:\\wwwroot\\LessIsMoore\\LessIsMoore.Web\\ClassLibs\\LIM.Exam\\LIM.Exam.csproj": {
+              "projectPath": "J:\\wwwroot\\LessIsMoore\\LessIsMoore.Web\\ClassLibs\\LIM.Exam\\LIM.Exam.csproj"
             },
             "J:\\wwwroot\\LessIsMoore\\LessIsMoore.Web\\ClassLibs\\LIM.SendGrid\\LIM.SendGrid.csproj": {
               "projectPath": "J:\\wwwroot\\LessIsMoore\\LessIsMoore.Web\\ClassLibs\\LIM.SendGrid\\LIM.SendGrid.csproj"
@@ -14016,8 +14013,8 @@
             "J:\\wwwroot\\LessIsMoore\\LessIsMoore.Web\\ClassLibs\\LIM.TextTranslator\\LIM.TextTranslator.csproj": {
               "projectPath": "J:\\wwwroot\\LessIsMoore\\LessIsMoore.Web\\ClassLibs\\LIM.TextTranslator\\LIM.TextTranslator.csproj"
             },
-            "J:\\wwwroot\\LessIsMoore\\LessIsMoore.Web\\ClassLibs\\LIM.Exam\\LIM.Exam.csproj": {
-              "projectPath": "J:\\wwwroot\\LessIsMoore\\LessIsMoore.Web\\ClassLibs\\LIM.Exam\\LIM.Exam.csproj"
+            "J:\\wwwroot\\LessIsMoore\\LessIsMoore.Web\\LIM.Certificates\\LIM.Certificates.csproj": {
+              "projectPath": "J:\\wwwroot\\LessIsMoore\\LessIsMoore.Web\\LIM.Certificates\\LIM.Certificates.csproj"
             }
           }
         }
@@ -14184,12 +14181,6 @@
     }
   },
   "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "The folder 'C:\\Users\\Tim Moore\\.nuget\\packages\\system.threading.tasks.parallel\\PPT' contains an invalid version."
-    },
     {
       "code": "NU1603",
       "level": "Warning",

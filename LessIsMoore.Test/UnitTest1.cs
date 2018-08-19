@@ -99,14 +99,40 @@ namespace LessIsMoore.Test
         }
 
         //[Theory]
-        //[InlineData("**Test Bug in LessIsMoore.Web**", "UnitTest: VSTS_UpdateWorkItem", null, 339)]
+        //[InlineData("Unit Testing", "UnitTest: VSTS_UpdateWorkItem", "user story")]
         //[Trait("Category", "UnitTest")]
-
-        ////[InlineData("New Bug", "UnitTest: VSTS_UpdateWorkItem", "Bug", -1)]
-        //public void VSTS_UpdateWorkItem(string strTitle, string strError, string strWorkItemType, int intItemID)
+        //public void VSTS_UpdateWorkItem(string strTitle, string strError, string strWorkItemType)
         //{
-        //    int intID = new BLL().VSTS_SaveWorkItem(strTitle, strError, strWorkItemType, intItemID, "Verified on "+ System.DateTime.Now.ToString());
-        //    Xunit.Assert.Equal(intItemID, intID);
+        //    string url = @"https://lessismoore.visualstudio.com";
+        //    string pat = "rpudrl2l7pmpwr6zyqyjiwa4xn6ryexqy3f2sis4powtnxhmkoya";
+
+        //    IEnumerable<VSTSWorkItem> wi = 
+        //        new Web.BLL.VSTS(pat, url).SaveWorkItems(
+        //            new VSTSWorkItem[] {
+        //                new Web.Models.VSTSWorkItem()
+        //                {
+        //                    Comments = strError+"...1",
+        //                    Title = strTitle,
+        //                    Steps = "",
+        //                    Type = strWorkItemType,
+        //                    id = -1,
+        //                    ProjectName = "JackFrost",
+        //                    Priority = 1
+        //                },
+        //                new Web.Models.VSTSWorkItem()
+        //                {
+        //                    Comments = strError+"...2",
+        //                    Title = strTitle,
+        //                    Steps = "",
+        //                    Type = strWorkItemType,
+        //                    id = -1,
+        //                    ProjectName = "JackFrost",
+        //                    Priority = 1
+        //                }
+        //            }
+        //        );
+
+        //    Xunit.Assert.True(wi.Count() > 0);
         //}
 
 

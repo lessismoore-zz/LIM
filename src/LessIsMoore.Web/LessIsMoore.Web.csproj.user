@@ -5,7 +5,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <ActiveDebugProfile>LessIsMoore.Web</ActiveDebugProfile>
-    <NameOfLastUsedPublishProfile>LessIsMoore-MondayMadness - Web Deploy</NameOfLastUsedPublishProfile>
+    <NameOfLastUsedPublishProfile>LessIsMoore-dev - Web Deploy</NameOfLastUsedPublishProfile>
     <ShowAllFiles>true</ShowAllFiles>
     <WebStackScaffolding_ViewDialogWidth>600</WebStackScaffolding_ViewDialogWidth>
     <WebStackScaffolding_IsLayoutPageSelected>True</WebStackScaffolding_IsLayoutPageSelected>

@@ -1,0 +1,288 @@
+﻿@model LIM.Exam.Models.Exam 
+
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - AzureExam</title>
+
+    <environment names="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+    </environment>
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    </environment>
+
+    <style>
+    </style>
+</head>
+<body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a asp-area="" asp-controller="FastStart" asp-action="Index" class="navbar-brand">AzureExam</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a asp-area="" asp-controller="FastStart" asp-action="Index">Home</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+
+        <style>
+            #divtest {
+                height: 200px;
+                overflow: hidden;
+            }
+
+                #divtest img {
+                    margin-top: -40px;
+                    width: 100%;
+                    border: solid green 2px;
+                }
+
+                #divtest .carousel-caption {
+                    bottom: -30px;
+                }
+        </style>
+
+        <!-- ============================================================================================================== -->
+        <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
+            <div class="carousel-inner" role="listbox">
+            </div>
+            <div class="item" id="divtest">
+                <img src="~/images/banner4.svg" alt="Microsoft Azure" class="img-responsive" />
+                <div class="carousel-caption" role="option">
+                    <p>
+                        Learn how Microsoft's Azure cloud platform allows you to build, deploy, and scale web apps.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*Language drop down list
+        <span>Select your language:</span>
+        <select>
+            <script>
+                //fetch language from querystring
+                //Example: www.some.site/page.html?default=French
+
+                var startOfDefaultParamater = document.location.href.indexOf("default=") + 8;
+                var defaultValue = document.location.href.substring(startOfDefaultParamater);
+
+                //create option elements
+                document.write("<OPTION value=1>" + defaultValue + "</OPTION>");
+                document.write("<OPTION value=2>English</OPTION>");
+            </script>
+        </select>*@
+
+    <script src="~/assets/js/jquery.min.js"></script>
+
+    @using (Html.BeginForm("Submit", "Exam", FormMethod.Post))
+    {
+        int intTotalCorrectQuestions = 0;
+        if (TempData["TotalCorrectQuestions"] != null)
+        {
+            int.TryParse(TempData["TotalCorrectQuestions"].ToString(), out intTotalCorrectQuestions);
+        }
+
+        <input type="hidden" id="hdnScore" name="hdnScore" value="@intTotalCorrectQuestions" />
+
+
+        if (@Model.HasStarted && (intTotalCorrectQuestions < @Model.TotalQuestions))
+        {
+
+            <script>
+                setTimeout(function () { alert('Sorry, but you have not answered all required questions correctly. @intTotalCorrectQuestions of the required @Model.TotalQuestions were answered correctly.')}, 1000)
+            </script>
+        }
+        else if (TempData["HasPassed"] != null)
+        {
+            <script>
+                setTimeout(function () {
+                    var msg = 'Congratulations @Html.Raw(TempData["Name"])!! You have passed this exam. ';
+                    msg = msg + 'Your certificate will arrived to your email (@TempData["Email"]) shortly.';
+                    confirm(msg);
+                }, 1000)
+            </script>
+        }
+
+        //else
+        {
+            <div style="position:relative; margin-left:30px;">
+                <div>Your Name</div>
+                <input name="txtName" id="txtName" type="text" style="width:300px;" placeholder="Name Displayed on Certificate" value="@Model.TakerName" />
+                <div style="margin-top:5px;">Your Email</div>
+                <input name="txtEmail" id="txtEmail" type="text" style="width:300px;" value="@Model.TakerEmail" />
+
+                <div style="margin-top:20px; font-style:italic;">*All questions must be answered correctly in order to pass this exam.</div>
+
+                @if (TempData["HasPassed"] != null)
+                {
+                    <style>
+                        #aPassMessage {
+                            position: absolute;
+                            z-index: 50;
+                            left: 30%;
+                            top: 20px;
+                            font-size: 5.3em;
+                            color: green;
+                            text-decoration: none;
+                        }
+
+                            #aPassMessage:hover {
+                                color: darkblue;
+                            }
+                    </style>
+                    <a id="aPassMessage" name="aPassMessage" href="../../report/Exam">Download Certificate</a>
+                }
+            </div>
+
+            <div class="row" style="padding:10px; margin-top:20px; border-top:solid dimgray 1px;">
+
+                <h3 style="margin:10px;">@Model.Name</h3>
+
+                <script>
+                    $(function () {
+                        $('.rdoAnswer').bind('change', function () {
+                            $(this).parent().parent().find('.rdoAnswer').not(this).each(function () {
+                                this.checked = false;
+                            })
+                        })
+
+                        $('#txtSubmit').bind('click', function () {
+                            var name = document.getElementById("txtName").value;
+                            var email = document.getElementById("txtEmail").value;
+
+                            if (($.trim(name) == '') || ($.trim(email) == '')) {
+                                alert('Name and Email are required')
+                                return false;
+                            }
+
+                            if ($('.rdoAnswer:checked').length < 1) {
+                                alert('Please select an answer before submitting')
+                                return false;
+                            }
+
+                            if (!confirm('Continue and grade this exam?')) {
+                                return false;
+                            }
+
+                        })
+                    })
+                </script>
+
+                @{
+                    int intIndex = 1;
+
+                    foreach (LIM.Exam.Models.ExamQuestion examQuestion in @Model.ExamQuestions)
+                    {
+                        <div style="width:90%; padding:10px 20px;">
+                            <h4 style="font-weight:normal;" name="choice_@examQuestion.ID">
+                                <b>@intIndex.ToString())</b>  @Html.Raw(examQuestion.Text.Replace("{##}", "</br></br>"))
+                            </h4>
+
+                            @foreach (LIM.Exam.Models.ExamChoice examChoice in examQuestion.ExamChoices)
+                            {
+                                <div style="margin:5px 10px;">
+                                    <input type="radio"
+                                           class="rdoAnswer"
+                                           name="answer_@examChoice.ID.ToString()"
+                                           id="answer_@examChoice.ID.ToString()"
+                                           style="margin-right:5px;"
+                                           @(examChoice.IsSelected ? "checked='checked'" : "") />
+
+                                    @if (examChoice.IsSelected)
+                                    {
+                                        <label class="lblAnswer" for="answer_@examChoice.ID.ToString()" style="color:@(examChoice.IsCorrect && examChoice.IsSelected ? "green" : "red")">@examChoice.Text</label>
+                                    }
+                                    else
+                                    {
+                                        <label class="lblAnswer" for="answer_@examChoice.ID.ToString()">@examChoice.Text</label>
+                                    }
+
+                                </div>
+                            }
+
+                        </div>
+
+                        intIndex++;
+                    }
+                }
+
+                <input id="txtSubmit" type="submit" value="Submit Answers" style="margin:30px; width:200px;" />
+
+            </div>
+
+        }
+
+    }
+
+    <!-- ============================================================================================================== -->
+
+    <hr />
+    <footer>
+        <p>&copy; @DateTime.Now.Year.ToString() - AzureExam</p>
+    </footer>
+    </div>
+
+    <environment names="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/Scripts/site.js" asp-append-version="true"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
+        </script>
+        <script src="~/Scripts/site.min.js" asp-append-version="true"></script>
+    </environment>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

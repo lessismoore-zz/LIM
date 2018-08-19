@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using LessIsMoore.Web.Models;
+using LIM.Exam.Web.Models;
 using System.Xml.Linq;
 //using StackExchange.Profiling;
 using Microsoft.AspNetCore.Mvc;
@@ -14,7 +14,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Microsoft.ApplicationInsights;
 
-namespace LessIsMoore.Web.Controllers
+namespace LIM.Exam.Web.Controllers
 {
     public class ExamController : BaseController
     {
@@ -51,6 +51,12 @@ namespace LessIsMoore.Web.Controllers
                 strXMLPath = "\\app_data\\DevopsQuiz.xml";
                 azureExam.Name = "Exam: Fast Start – Azure for Dev Ops";
             }
+            else if (azureExam.ID == 3)
+            {
+                //..\\..\\..
+                strXMLPath = "\\app_data\\SDLQuiz.xml";
+                azureExam.Name = "Exam: Security Development Lifecycle";
+            }
             else
             {
                 return azureExam;
@@ -65,13 +71,13 @@ namespace LessIsMoore.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index(int ID)
+        public IActionResult Index(int id)
         {
             _context.HttpContext.Session.Remove("AzureExam");
 
             bool NoShuffleQuestions = !(_context.HttpContext.Request.Query["sf"] == "8d679ae7-e939-474c-a3ff-8501ee636b12");
 
-            LIM.Exam.Models.Exam azureExam = PopulateExamQuestions(ID, (x=> {
+            LIM.Exam.Models.Exam azureExam = PopulateExamQuestions(id, (x=> {
                 x.ShuffleQuestions = NoShuffleQuestions;
                 x.ShuffleQuestionChoices = NoShuffleQuestions;
             }));

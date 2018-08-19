@@ -1,0 +1,70 @@
+<questions>
+	<question>
+		<text>
+		According to the Agile manifesto, how should teams handle changing requirements?
+		</text>
+    <answers>
+		  <answer correct="1">
+		  Welcome changeing requirements
+		  </answer>
+		  <answer>
+		  Reject any changes in requirements
+		  </answer>
+		  <answer>
+		  Request change requests
+		  </answer>
+		  <answer>
+		  Postpone incoming changes until the end of the SDLC
+		  </answer>
+    </answers>
+	</question>
+	<question>
+		<text>
+		According to the Agile manifesto, what is the primary measure of progress?
+		</text>
+    <answers>
+		  <answer correct="1">
+		  Working software
+		  </answer>
+		  <answer>
+		  0 bugs in software
+		  </answer>
+		  <answer>
+		  On time and within scope deliveries
+		  </answer>
+    </answers>
+	</question>
+	<question>
+		<text>
+		Who should handle production incidents?
+		</text>
+    <answers>
+		  <answer correct="1">
+		  The feature team that built the feature.
+		  </answer>
+		  <answer>
+		  Operations teams.
+		  </answer>
+		  <answer>
+		  A dedicated production support team.
+		  </answer>
+    </answers>
+	</question>
+  <question>
+    <text>
+      Who should be responsible for testing in a DevOps organization?
+    </text>
+    <answers>
+      <answer correct="1">
+        Everyone
+      </answer>
+      <answer>
+        The development team
+      </answer>
+      <answer>
+        The quality assurance team
+      </answer>
+    </answers>
+  </question>
+
+</questions>
