@@ -144,7 +144,7 @@ namespace LIM.Exam.Web.Controllers
         private async Task SendCertificationEmail(LIM.Exam.Models.Exam azureExam)
         {
             await new LIM.SendGrid.SendGrid(_AppSettings.SendGridSettings).SendEmailAsync(
-                            "moore.tim@microsoft.com",
+                            "",
                             "Certification Request",
                             azureExam.Name,
                             string.Format("New Request from {0} at Email: {1}", azureExam.TakerName, azureExam.TakerEmail)
