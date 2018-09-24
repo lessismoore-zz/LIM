@@ -77,7 +77,7 @@ namespace LIM.Exam.Web.Controllers
             if (UID == "123456")
             {
                 await new LIM.SendGrid.SendGrid(_Settings.SendGridSettings).SendEmailAsync(
-                    "moore.tim@microsoft.com",
+                    "",
                     "Certification Request",
                     "noreply@lessismoore.net",
                     string.Format("New Request from {0} at Email: {1}", "Tim", "Moore")
