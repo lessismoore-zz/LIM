@@ -12,7 +12,7 @@ namespace LessIsMoore.Test
 {
     public class UnitTest1
     {
-        private string _strKey = "ec71a6ada12849689b25f26e8f2b9d81";
+        private string _strKey = "";
         private string _strAPI = "https://api.microsofttranslator.com/v2/Http.svc/Translate?text={0}&to={1}";
 
         private LIM.Exam.Models.Exam PopulateQuestionsFromXML()
@@ -103,8 +103,8 @@ namespace LessIsMoore.Test
         //[Trait("Category", "UnitTest")]
         //public void VSTS_UpdateWorkItem(string strTitle, string strError, string strWorkItemType)
         //{
-        //    string url = @"https://lessismoore.visualstudio.com";
-        //    string pat = "rpudrl2l7pmpwr6zyqyjiwa4xn6ryexqy3f2sis4powtnxhmkoya";
+        //    string url = @"";
+        //    string pat = "";
 
         //    IEnumerable<VSTSWorkItem> wi = 
         //        new Web.BLL.VSTS(pat, url).SaveWorkItems(
@@ -137,7 +137,7 @@ namespace LessIsMoore.Test
 
 
         //==========================================================
-        //private string _strBaseURL = "http://www.lessismoore.net";
+        //private string _strBaseURL = "";
 
         [Theory]
         [InlineData("Joe Dirt", "Dirt.Joe@Microsoft.com")]
