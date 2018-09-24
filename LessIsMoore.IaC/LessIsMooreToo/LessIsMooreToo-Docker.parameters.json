@@ -6,19 +6,19 @@
       "value": "LessIsMooreToo"
     },
     "dockerRegistryImageName": {
-      "value": "lessismooretooacs.azurecr.io/webapplication1:20171015080024"
+      "value": ""
     },
     "dockerRegistryUrl": {
-      "value": "https://lessismooretooacs.azurecr.io"
+      "value": ""
     },
     "dockerRegistryUsername": {
-      "value": "LessIsMooreTooACS"
+      "value": ""
     },
     "dockerRegistryPassword": {
-      "value": "M4VW2apD76qN11d200d2DeIN=4PfR21x"
+      "value": ""
     },
     "hostingPlanName": {
-      "value": "LessIsMooreTooAppPlan"
+      "value": ""
     },
     "hostingEnvironment": {
       "value": ""
@@ -39,7 +39,7 @@
       "value": "S1"
     },
     "subscriptionId": {
-      "value": "bf70eaa6-ea28-41db-8ab5-110dccd33ed6"
+      "value": ""
     }
   }
 }
